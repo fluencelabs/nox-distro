@@ -37,14 +37,13 @@ services:
         console.log("test", NODES);
         console.log("test", NODES);
         EOF
-      
 
   dashboard:
     depends_on: 
       - nodes.js
     image: fluencelabs/dashboard:latest
     volumes:
-      - nodes.js:/bundle/nodes
+      - nodes.js:/dist/nodes
     networks: 
       - fluence
     ports:

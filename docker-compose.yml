@@ -35,16 +35,8 @@ services:
         {
             "nodes": [
                 {
-                    "multiaddr": "/dns4/fluence/tcp/9990/ws/p2p/12D3KooWHBG9oaVx4i3vi6c1rSBUm7MLBmyGmmbHoZ23pmjDCnvK",
+                    "multiaddr": "/dns4/localhost/tcp/9990/ws/p2p/12D3KooWHBG9oaVx4i3vi6c1rSBUm7MLBmyGmmbHoZ23pmjDCnvK",
                     "peerId": "12D3KooWHBG9oaVx4i3vi6c1rSBUm7MLBmyGmmbHoZ23pmjDCnvK"
-                },
-                {
-                    "multiaddr": "/dns4/kras-00.fluence.dev/tcp/19001/wss/p2p/12D3KooWR4cv1a8tv7pps4HH6wePNaK6gf1Hww5wcCMzeWxyNw51",
-                    "peerId": "12D3KooWR4cv1a8tv7pps4HH6wePNaK6gf1Hww5wcCMzeWxyNw51"
-                },
-                {
-                    "multiaddr": "/dns4/kras-01.fluence.dev/tcp/19001/wss/p2p/12D3KooWKnEqMfYo9zvfHmqTLpLdiHXPe4SVqUWcWHDJdFGrSmcA",
-                    "peerId": "12D3KooWKnEqMfYo9zvfHmqTLpLdiHXPe4SVqUWcWHDJdFGrSmcA"
                 }
             ]
         }
@@ -60,8 +52,7 @@ services:
       - fluence
     ports:
       - 8080:8080
-    
-
+      
 volumes:
   fluence: null
   nodes.js: null

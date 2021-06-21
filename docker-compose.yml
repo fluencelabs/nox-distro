@@ -3,7 +3,7 @@ version: "3.8"
 # management secret key is NAB5rGwT4qOEB+6nLQawkTfCOV2eiFSjgQK8bfEdZXY=
 services:
   fluence: # /ip4/127.0.0.1/tcp/9990/ws/p2p/12D3KooWHBG9oaVx4i3vi6c1rSBUm7MLBmyGmmbHoZ23pmjDCnvK
-    command: -f ed25519 -k 29Apzfedhw2Jxh94Jj4rNSmavQ1TkNe8ALYRA7bMegobwp423aLrURxLk32WtXgXHDqoSz7GAT9fQfoMhVd1e5Ww -m 12D3KooWFRgVmb1uWcmCbmJqLr8tBQghL6ysSpK2VyE2VZbaQ6wy -t 7770 -w 9990
+    command: -f ed25519 -k 29Apzfedhw2Jxh94Jj4rNSmavQ1TkNe8ALYRA7bMegobwp423aLrURxLk32WtXgXHDqoSz7GAT9fQfoMhVd1e5Ww -m 12D3KooWFRgVmb1uWcmCbmJqLr8tBQghL6ysSpK2VyE2VZbaQ6wy -t 7770 -w 9990 --local
     container_name: fluence
     environment:
       RUST_BACKTRACE: full
@@ -26,24 +26,36 @@ services:
     #   - fluence
     image: busybox:stable
     volumes: 
-      - nodes.js:/nodes
+      - nodes.js:/env
     command: 
       - sh
       - -c
       - |
-        cat <<EOF >> /nodes/nodes.js
-        const NODES = ["/dns4/fluence/tcp/9990/ws/p2p/12D3KooWHBG9oaVx4i3vi6c1rSBUm7MLBmyGmmbHoZ23pmjDCnvK"];
-        console.log("test", NODES);
-        console.log("test", NODES);
-        console.log("test", NODES);
+        cat <<EOF > /env/env.json
+        {
+            "nodes": [
+                {
+                    "multiaddr": "/dns4/fluence/tcp/9990/ws/p2p/12D3KooWHBG9oaVx4i3vi6c1rSBUm7MLBmyGmmbHoZ23pmjDCnvK",
+                    "peerId": "12D3KooWHBG9oaVx4i3vi6c1rSBUm7MLBmyGmmbHoZ23pmjDCnvK"
+                },
+                {
+                    "multiaddr": "/dns4/kras-00.fluence.dev/tcp/19001/wss/p2p/12D3KooWR4cv1a8tv7pps4HH6wePNaK6gf1Hww5wcCMzeWxyNw51",
+                    "peerId": "12D3KooWR4cv1a8tv7pps4HH6wePNaK6gf1Hww5wcCMzeWxyNw51"
+                },
+                {
+                    "multiaddr": "/dns4/kras-01.fluence.dev/tcp/19001/wss/p2p/12D3KooWKnEqMfYo9zvfHmqTLpLdiHXPe4SVqUWcWHDJdFGrSmcA",
+                    "peerId": "12D3KooWKnEqMfYo9zvfHmqTLpLdiHXPe4SVqUWcWHDJdFGrSmcA"
+                }
+            ]
+        }
         EOF
 
   dashboard:
     depends_on: 
       - nodes.js
-    image: fluencelabs/dashboard:latest
+    image: fluencelabs/dashboard:0.1.16pass-environment
     volumes:
-      - nodes.js:/dist/nodes
+      - nodes.js:/dist/env
     networks: 
       - fluence
     ports:

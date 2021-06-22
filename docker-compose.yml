@@ -20,13 +20,13 @@ services:
     networks:
       - fluence
   
-  nodes.js:
+  env.json:
     restart: "no"
     # depends_on: 
     #   - fluence
     image: busybox:stable
     volumes: 
-      - nodes.js:/env
+      - env.json:/env
     command: 
       - sh
       - -c
@@ -44,10 +44,10 @@ services:
 
   dashboard:
     depends_on: 
-      - nodes.js
-    image: fluencelabs/dashboard:0.1.16pass-environment
+      - env.json
+    image: fluencelabs/dashboard:latest
     volumes:
-      - nodes.js:/dist/env
+      - env.json:/dist/env
     networks: 
       - fluence
     ports:
@@ -55,7 +55,7 @@ services:
       
 volumes:
   fluence: null
-  nodes.js: null
+  env.json: null
 
 networks:
   fluence: null

@@ -1,0 +1,20 @@
+{
+    "[dockerfile]": {
+        "editor.quickSuggestions": {
+            "strings": true
+        },
+        "editor.formatOnSave": false
+    },
+    "shellformat.effectLanguages": [
+        "shellscript",
+        // "dockerfile",
+        "dotenv",
+        "hosts",
+        "jvmoptions",
+        "ignore",
+        "gitignore",
+        "properties",
+        "spring-boot-properties",
+        "azcli"
+    ]
+}

@@ -5,7 +5,7 @@ FROM ipfs/go-ipfs:v0.9.0 as ipfs
 
 FROM fluencelabs/fluence:latest as fluence
 
-FROM ghcr.io/linuxserver/baseimage-ubuntu:bionic
+FROM bitnami/minideb:latest
 
 # TODO:
 # - set version
@@ -18,7 +18,12 @@ ENV RUST_BACKTRACE="1"
 ## set /fluence as the CMD binary
 ENV S6_CMD_ARG0="/fluence"
 
+# download S6
+ADD https://github.com/just-containers/s6-overlay/releases/download/v2.2.0.3/s6-overlay-x86.tar.gz /tmp/
+
 RUN \
+ echo "**** install S6 ****" && \
+ gunzip -c /tmp/s6-overlay-x86.tar.gz | tar -xf - -C / \
  echo "**** install packages ****" && \
  apt-get update && \
  apt-get install -y \
@@ -44,3 +49,5 @@ COPY --from=fluence /builtins /builtins
 EXPOSE 5001
 VOLUME ["/config"]
 VOLUME ["/.fluence"]
+
+ENTRYPOINT ["/init"]

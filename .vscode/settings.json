@@ -3,7 +3,8 @@
         "editor.quickSuggestions": {
             "strings": true
         },
-        "editor.formatOnSave": false
+        "editor.formatOnSave": false,
+        "editor.formatOnPaste": false
     },
     "shellformat.effectLanguages": [
         "shellscript",

@@ -4,4 +4,4 @@
 # map stderr to stdout so s6-log can catch it
 exec \
 	fdmove -c 2 1 \
-	s6-setuidgid nobody ipfs daemon
+	s6-setuidgid abc ipfs daemon

@@ -1,19 +1,15 @@
-# SIGTERM handling bug example
+# node-distro
+The distributive and packaging of the Fluence node.
 
-```shell
-docker build -f bug.Dockerfile -t sidecar .
+Currently provides Network Dashboard as a side-car.
 
-docker run --name sidecar sidecar
+## How to run
+Copy `docker-compose.yml` locally and run
+```bash
+docker-compose up -d
 ```
 
-^C doesn't work, `docker stop` also doesn't work.
+That will run 2 containers: local Fluence node and Network Dashboard connected to it.
 
-## Remove log/run and it works
-```shell
-rm -rf s6/root/etc/services.d/myprog/log
-docker build -f bug.Dockerfile -t sidecar .
-
-docker run --name sidecar sidecar
-```
-
-^C works, `docker stop` works
+## How to open dashboard
+Open [http://localhost:8080](http://localhost:8080) in your browser

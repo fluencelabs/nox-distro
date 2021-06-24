@@ -27,6 +27,5 @@ mkdir -p \
 	/run
 
 # permissions
-chown -R nobody /config
+chown -R abc:abc /config
 chmod -R 644 /etc/logrotate.d
-# chown -R nobody /config/log/ipfs

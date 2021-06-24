@@ -1,5 +1,7 @@
 #!/usr/bin/with-contenv bash
 
 exec \
+	# seems like IPFS logs most logs to stderr, so
+	# map stderr to stdout so s6-log can catch it
 	fdmove -c 2 1 \
 	s6-setuidgid abc ipfs daemon

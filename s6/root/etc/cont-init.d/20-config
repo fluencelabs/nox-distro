@@ -28,4 +28,3 @@ mkdir -p \
 
 # permissions
 chown -R abc:abc /config
-chmod -R 644 /etc/logrotate.d

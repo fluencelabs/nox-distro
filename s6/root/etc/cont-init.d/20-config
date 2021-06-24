@@ -1,18 +1,8 @@
 #!/usr/bin/with-contenv bash
 
 # IPFS_PATH is set to /config/ipfs in Dockerfile
-
-# make our folders
-mkdir -p \
-	/config/{log/ipfs,ipfs} \
-	/run
-
 # ipfs config
 if [ ! -d "/config/ipfs" ]; then
-	# enable Private Network feature by copying swarm.key to $IPFS_HOME
-	# https://github.com/ipfs/go-ipfs/blob/master/docs/experimental-features.md#private-networks
-	cp /defaults/ipfs_preshared_swarm.key /config/ipfs/swarm.key
-
 	ipfs init
 	ipfs config --json API.HTTPHeaders.Access-Control-Allow-Origin '["*"]'
 	ipfs config --json API.HTTPHeaders.Access-Control-Allow-Methods '["PUT", "POST"]'
@@ -21,7 +11,16 @@ if [ ! -d "/config/ipfs" ]; then
 
 	# remove default bootstraps
 	ipfs bootstrap rm --all
+
+	# enable Private Network feature by copying swarm.key to $IPFS_HOME
+	# https://github.com/ipfs/go-ipfs/blob/master/docs/experimental-features.md#private-networks
+	cp /defaults/ipfs_preshared_swarm.key /config/ipfs/swarm.key
 fi
+
+# make our folders
+mkdir -p \
+	/config/{log/ipfs,ipfs} \
+	/run
 
 # permissions
 chown -R abc:abc /config

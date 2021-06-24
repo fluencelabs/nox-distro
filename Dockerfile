@@ -19,6 +19,15 @@ ENV RUST_BACKTRACE="1"
 ## set /fluence as the CMD binary
 ENV S6_CMD_ARG0="/fluence"
 
+# copy fluence
+# TODO: copy binary to /usr/bin & state to /config/fluence
+COPY --from=fluence /fluence /fluence
+COPY --from=fluence /.fluence /.fluence
+COPY --from=fluence /builtins /builtins
+
+# copy sidecars
+COPY --from=ipfs /usr/local/bin/ipfs /usr/bin/ipfs
+
 RUN \
  echo "**** install packages ****" && \
  apt-get update && \
@@ -33,13 +42,10 @@ RUN \
 	/var/lib/apt/lists/* \
 	/var/tmp/*
 
-# copy files
+# copy configs 
+# NOTE: copy configs should be after installing packages because 
+# 		configs may replace default configs of installed packages
 COPY s6/root/ /
-COPY --from=ipfs /usr/local/bin/ipfs /usr/bin/ipfs
-# TODO: copy binary to /usr/bin & state to /config/fluence
-COPY --from=fluence /fluence /fluence
-COPY --from=fluence /.fluence /.fluence
-COPY --from=fluence /builtins /builtins
 
 # ports and volumes
 EXPOSE 5001

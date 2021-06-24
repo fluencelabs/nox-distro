@@ -24,13 +24,12 @@ RUN \
  apt-get install -y \
 	logrotate \
 	curl && \
- echo "**** fix logrotate ****" && \
- sed -i "s#/var/log/messages {}.*# #g" /etc/logrotate.conf && \
- sed -i 's#/usr/sbin/logrotate /etc/logrotate.conf#/usr/sbin/logrotate /etc/logrotate.conf -s /config/log/logrotate.status#g' \
-	/etc/periodic/daily/logrotate && \
  echo "**** cleanup ****" && \
+ apt-get clean && \
  rm -rf \
-	/tmp/*
+	/tmp/* \
+	/var/lib/apt/lists/* \
+	/var/tmp/*
 
 # copy files
 COPY s6/root/ /
@@ -43,4 +42,4 @@ COPY --from=fluence /builtins /builtins
 # ports and volumes
 EXPOSE 5001
 VOLUME ["/config"]
-VOLUME ["/fluence"]
+VOLUME ["/.fluence"]

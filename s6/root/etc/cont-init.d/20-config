@@ -17,5 +17,6 @@ if [ ! -d "/config/ipfs" ]; then
 	ipfs bootstrap rm --all
 fi
 
-# permissions
+# permissions
+chown -R abc:abc /config
 chmod -R 644 /etc/logrotate.d

@@ -19,7 +19,7 @@ fi
 
 # make our folders
 mkdir -p \
-	/config/{log/ipfs,ipfs} \
+	/config/log/ipfs \
 	/run
 
 # permissions

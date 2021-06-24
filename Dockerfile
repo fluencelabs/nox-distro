@@ -22,6 +22,7 @@ RUN \
  echo "**** install packages ****" && \
  apt-get update && \
  apt-get install -y \
+	less \
 	logrotate \
 	curl && \
  echo "**** cleanup ****" && \

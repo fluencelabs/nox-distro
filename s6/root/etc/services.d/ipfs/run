@@ -1,5 +1,8 @@
 #!/bin/execlineb -P
 
+# import ENV from container
+with-contenv
+
 # seems like IPFS logs most logs to stderr, so
 # map stderr to stdout so s6-log can catch it
 fdmove -c 2 1

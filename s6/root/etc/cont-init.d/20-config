@@ -15,6 +15,10 @@ if [ ! -d "/config/ipfs" ]; then
 	# enable Private Network feature by copying swarm.key to $IPFS_HOME
 	# https://github.com/ipfs/go-ipfs/blob/master/docs/experimental-features.md#private-networks
 	cp /defaults/ipfs_preshared_swarm.key /config/ipfs/swarm.key
+
+	# to check that Private Network is enabled, look for a line
+	# 'Swarm is limited to private network of peers with the swarm key'
+	# in IPFS logs @ /config/log/ipfs
 fi
 
 # make our folders

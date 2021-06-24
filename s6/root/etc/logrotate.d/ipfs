@@ -1,0 +1,15 @@
+/config/log/ipfs/*.log {
+        size 10
+#        weekly
+        rotate 14
+        compress
+        delaycompress
+        nodateext
+        notifempty
+        missingok
+        sharedscripts
+#        postrotate
+#                s6-svc -h /var/run/s6/services/ipfs
+        endscript
+        su abc abc
+}

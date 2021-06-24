@@ -17,6 +17,11 @@ if [ ! -d "/config/ipfs" ]; then
 	ipfs bootstrap rm --all
 fi
 
+# make our folders
+mkdir -p \
+	/config/{log/ipfs,ipfs} \
+	/run
+
 # permissions
 chown -R abc:abc /config
 chmod -R 644 /etc/logrotate.d

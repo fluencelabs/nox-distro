@@ -1,5 +1,4 @@
-#!/bin/sh
-###!/bin/execlineb -P
+#!/bin/execlineb -P
 
 # s6-setuidgid abc - run as a user abc (unprivileged)
 
@@ -11,5 +10,5 @@
 # exec -c \
 #     s6-setuidgid abc s6-log -bp n30 s10000000 S30000000 T !"gzip -nq9" /config/log/ipfs
 
-# define S6_LOGGING_SCRIPT "n30 s10000000 S30000000 T !gzip -nq9"
-exec logutil-service /config/log/ipfs
+define S6_LOGGING_SCRIPT "n30 s10000000 S30000000 T !gzip -nq9"
+logutil-service /config/log/ipfs

@@ -2,24 +2,24 @@
 
 # IPFS_PATH is set to /config/ipfs in Dockerfile
 # ipfs config
-if [ ! -d "/config/ipfs" ]; then
-	ipfs init
-	ipfs config --json API.HTTPHeaders.Access-Control-Allow-Origin '["*"]'
-	ipfs config --json API.HTTPHeaders.Access-Control-Allow-Methods '["PUT", "POST"]'
-	ipfs config --json Addresses.API '"/ip4/0.0.0.0/tcp/5001"'
-	ipfs config --json Addresses.Gateway '"/ip4/0.0.0.0/tcp/8080"'
+# if [ ! -d "/config/ipfs" ]; then
+# 	ipfs init
+# 	ipfs config --json API.HTTPHeaders.Access-Control-Allow-Origin '["*"]'
+# 	ipfs config --json API.HTTPHeaders.Access-Control-Allow-Methods '["PUT", "POST"]'
+# 	ipfs config --json Addresses.API '"/ip4/0.0.0.0/tcp/5001"'
+# 	ipfs config --json Addresses.Gateway '"/ip4/0.0.0.0/tcp/8080"'
 
-	# remove default bootstraps
-	ipfs bootstrap rm --all
+# 	# remove default bootstraps
+# 	ipfs bootstrap rm --all
 
-	# enable Private Network feature by copying swarm.key to $IPFS_HOME
-	# https://github.com/ipfs/go-ipfs/blob/master/docs/experimental-features.md#private-networks
-	cp /defaults/ipfs_preshared_swarm.key /config/ipfs/swarm.key
+# 	# enable Private Network feature by copying swarm.key to $IPFS_HOME
+# 	# https://github.com/ipfs/go-ipfs/blob/master/docs/experimental-features.md#private-networks
+# 	cp /defaults/ipfs_preshared_swarm.key /config/ipfs/swarm.key
 
-	# to check that Private Network is enabled, look for a line
-	# 'Swarm is limited to private network of peers with the swarm key'
-	# in IPFS logs @ /config/log/ipfs
-fi
+# 	# to check that Private Network is enabled, look for a line
+# 	# 'Swarm is limited to private network of peers with the swarm key'
+# 	# in IPFS logs @ /config/log/ipfs
+# fi
 
 # make our folders
 mkdir -p \
@@ -27,6 +27,6 @@ mkdir -p \
 	/run
 
 # permissions
-chown -R abc:abc /config
+chown -R nobody /config
 chmod -R 644 /etc/logrotate.d
-chown -R nobody /config/log/ipfs
+# chown -R nobody /config/log/ipfs

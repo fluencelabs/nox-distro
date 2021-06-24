@@ -1,6 +1,12 @@
 #!/usr/bin/with-contenv bash
 
 # IPFS_PATH is set to /config/ipfs in Dockerfile
+
+# make our folders
+mkdir -p \
+	/config/{log/ipfs,ipfs} \
+	/run
+
 # ipfs config
 if [ ! -d "/config/ipfs" ]; then
 	# enable Private Network feature by copying swarm.key to $IPFS_HOME
@@ -16,11 +22,6 @@ if [ ! -d "/config/ipfs" ]; then
 	# remove default bootstraps
 	ipfs bootstrap rm --all
 fi
-
-# make our folders
-mkdir -p \
-	/config/{log/ipfs,ipfs} \
-	/run
 
 # permissions
 chown -R abc:abc /config

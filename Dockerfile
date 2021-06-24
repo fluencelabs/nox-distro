@@ -1,7 +1,7 @@
 ### NOTE: original linuxserver.org docker-ipfs image also builds & runs migrations.
 ###		  If needed, go to https://github.com/linuxserver/docker-ipfs to see how it's done.
  
-# FROM ipfs/go-ipfs:v0.9.0 as ipfs
+FROM ipfs/go-ipfs:v0.9.0 as ipfs
 
 FROM fluencelabs/fluence:latest as fluence
 
@@ -13,6 +13,7 @@ FROM bitnami/minideb:latest
 
 # environment
 ENV IPFS_PATH=/config/ipfs
+ENV S6_CMD_ARG0="/fluence"
 
 # download S6
 ADD https://github.com/just-containers/s6-overlay/releases/download/v2.2.0.3/s6-overlay-x86.tar.gz /tmp/
@@ -37,10 +38,14 @@ RUN \
 
 # copy files
 COPY s6/root/ /
-# COPY --from=ipfs /usr/local/bin/ipfs /usr/bin/ipfs
+COPY --from=ipfs /usr/local/bin/ipfs /usr/bin/ipfs
+COPY --from=fluence /fluence /fluence
+COPY --from=fluence /.fluence /.fluence
+COPY --from=fluence /builtins /builtins
 
 # ports and volumes
 EXPOSE 5001
 VOLUME ["/config"]
+VOLUME ["/.fluence"]
 
 ENTRYPOINT ["/init"]

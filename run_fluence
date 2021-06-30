@@ -1,0 +1,4 @@
+#!/usr/bin/execlineb -s0
+# '-s0' defines '$@' to hold all positional parameters
+# 'setuidgid abc' runs '/fluence' as user 'abc'
+s6-setuidgid abc /fluence $@

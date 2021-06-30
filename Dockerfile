@@ -3,7 +3,7 @@
  
 FROM ipfs/go-ipfs:v0.9.0 as ipfs
 
-FROM fluencelabs/fluence:latest as fluence
+FROM fluencelabs/fluence:vault as fluence
 
 FROM ghcr.io/linuxserver/baseimage-ubuntu:bionic
 
@@ -17,7 +17,7 @@ ENV IPFS_LOGGING_FMT=nocolor
 ENV RUST_LOG="info,aquamarine=warn,tokio_threadpool=info,tokio_reactor=info,mio=info,tokio_io=info,soketto=info,yamux=info,multistream_select=info,libp2p_secio=info,libp2p_websocket::framed=info,libp2p_ping=info,libp2p_core::upgrade::apply=info,libp2p_kad::kbucket=info,cranelift_codegen=info,wasmer_wasi=info,cranelift_codegen=info,wasmer_wasi=info"
 ENV RUST_BACKTRACE="1"
 ## set /fluence as the CMD binary
-ENV S6_CMD_ARG0="/fluence"
+ENV S6_CMD_ARG0="/run_fluence"
 
 # copy fluence
 # TODO: copy binary to /usr/bin & state to /config/fluence
@@ -46,6 +46,8 @@ RUN \
 # NOTE: copy configs should be after installing packages because 
 # 		configs may replace default configs of installed packages
 COPY s6/root/ /
+
+COPY run_fluence /run_fluence
 
 # ports and volumes
 EXPOSE 5001

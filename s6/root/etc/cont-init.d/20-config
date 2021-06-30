@@ -28,3 +28,4 @@ mkdir -p \
 
 # permissions
 chown -R abc:abc /config
+chown -R abc:abc /.fluence

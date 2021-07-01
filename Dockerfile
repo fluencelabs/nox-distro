@@ -3,7 +3,7 @@
 
 FROM ipfs/go-ipfs:v0.9.0 as ipfs
 
-FROM fluencelabs/fluence:master as fluence
+FROM fluencelabs/fluence:latest as fluence
 
 FROM ghcr.io/linuxserver/baseimage-ubuntu:bionic
 
@@ -42,7 +42,6 @@ RUN \
 	/var/lib/apt/lists/* \
 	/var/tmp/* && \
 echo "**** download ipfs-adapter ****" && \
-mkdir -p /builtins/ipfs-adapter && \
 curl https://github.com/fluencelabs/ipfs-adapter/releases/latest/download/ipfs-adapter.tar.gz -L | tar -zxv -C /builtins/
 
 # copy configs

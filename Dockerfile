@@ -1,9 +1,9 @@
 ### NOTE: original linuxserver.org docker-ipfs image also builds & runs migrations.
 ###		  If needed, go to https://github.com/linuxserver/docker-ipfs to see how it's done.
- 
+
 FROM ipfs/go-ipfs:v0.9.0 as ipfs
 
-FROM fluencelabs/fluence:vault as fluence
+FROM fluencelabs/fluence:master as fluence
 
 FROM ghcr.io/linuxserver/baseimage-ubuntu:bionic
 

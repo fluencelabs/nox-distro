@@ -42,7 +42,7 @@ RUN \
 	/var/lib/apt/lists/* \
 	/var/tmp/* && \
 echo "**** download ipfs-adapter ****" && \
-mkdir -p /builtins/ipfs-adapter
+mkdir -p /builtins/ipfs-adapter && \
 curl https://github.com/fluencelabs/ipfs-adapter/releases/latest/download/ipfs-adapter.tar.gz -L | tar -zxv -C /builtins/
 
 # copy configs

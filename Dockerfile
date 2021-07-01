@@ -1,9 +1,9 @@
 ### NOTE: original linuxserver.org docker-ipfs image also builds & runs migrations.
 ###		  If needed, go to https://github.com/linuxserver/docker-ipfs to see how it's done.
- 
+
 FROM ipfs/go-ipfs:v0.9.0 as ipfs
 
-FROM fluencelabs/fluence:vault as fluence
+FROM fluencelabs/fluence:latest as fluence
 
 FROM ghcr.io/linuxserver/baseimage-ubuntu:bionic
 
@@ -40,10 +40,12 @@ RUN \
  rm -rf \
 	/tmp/* \
 	/var/lib/apt/lists/* \
-	/var/tmp/*
+	/var/tmp/* && \
+echo "**** download ipfs-adapter ****" && \
+curl https://github.com/fluencelabs/ipfs-adapter/releases/latest/download/ipfs-adapter.tar.gz -L | tar -zxv -C /builtins/
 
-# copy configs 
-# NOTE: copy configs should be after installing packages because 
+# copy configs
+# NOTE: copy configs should be after installing packages because
 # 		configs may replace default configs of installed packages
 COPY s6/root/ /
 

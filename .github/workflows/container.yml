@@ -5,6 +5,8 @@ on:
     branches:
       - main
       - ipfs-adapter
+      
+  workflow_dispatch:
 
 jobs:
   build:

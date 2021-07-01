@@ -40,10 +40,13 @@ RUN \
  rm -rf \
 	/tmp/* \
 	/var/lib/apt/lists/* \
-	/var/tmp/*
+	/var/tmp/* && \
+echo "**** download ipfs-adapter ****" && \
+mkdir -p /builtins/ipfs-adapter
+curl https://github.com/fluencelabs/ipfs-adapter/releases/latest/download/ipfs-adapter.tar.gz -L | tar -zxv -C /builtins/
 
-# copy configs 
-# NOTE: copy configs should be after installing packages because 
+# copy configs
+# NOTE: copy configs should be after installing packages because
 # 		configs may replace default configs of installed packages
 COPY s6/root/ /
 

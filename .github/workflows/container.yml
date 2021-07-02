@@ -7,6 +7,11 @@ on:
       - ipfs-adapter
       
   workflow_dispatch:
+    inputs:
+      tag_prefix:
+        description: "Prefix for the docker container tag"
+        required: false
+        default: ''
 
 jobs:
   build:
@@ -42,4 +47,4 @@ jobs:
           context: .
           file: Dockerfile
           push: true
-          tags: "fluencelabs/node:latest,fluencelabs/node:v${{github.run_number}}"
+          tags: "fluencelabs/node:${{ github.event.inputs.tag_prefix }}latest,fluencelabs/node:${{ github.event.inputs.tag_prefix }}v${{github.run_number}}"

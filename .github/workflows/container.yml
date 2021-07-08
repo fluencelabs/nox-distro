@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - main
-      - flunece_tag
+      - fluence_tag
       
   workflow_dispatch:
     inputs:

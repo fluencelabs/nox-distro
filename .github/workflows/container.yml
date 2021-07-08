@@ -8,6 +8,7 @@ on:
       
   workflow_dispatch:
     inputs:
+      # TODO: rename 'tag_prefix' to 'fluence_tag'
       tag_prefix:
         description: "Fluence node docker container tag"
         required: false

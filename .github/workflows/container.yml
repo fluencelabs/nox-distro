@@ -44,9 +44,9 @@ jobs:
         run: |
           FLUENCE_TAG="${{ github.event.inputs.tag_prefix }}"
           if [ "$FLUENCE_TAG" = "latest" ] || [ "$FLUENCE_TAG" = "" ]; then
-            echo "TAGS=fluencelabs/node:latest,fluencelabs/node:v${{github.run_number}}"" | tee -a $GITHUB_ENV
+            echo "TAGS=fluencelabs/node:latest,fluencelabs/node:v${{github.run_number}}" | tee -a $GITHUB_ENV
           else
-            echo "TAGS=fluencelabs/node:${FLUENCE_TAG}_latest,fluencelabs/node:${FLUENCE_TAG}_v${{github.run_number}}"" | tee -a $GITHUB_ENV
+            echo "TAGS=fluencelabs/node:${FLUENCE_TAG}_latest,fluencelabs/node:${FLUENCE_TAG}_v${{github.run_number}}" | tee -a $GITHUB_ENV
           fi
 
       ### Build and push docker image

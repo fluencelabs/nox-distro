@@ -4,14 +4,14 @@ on:
   push:
     branches:
       - main
-      - ipfs-adapter
+      - fluunece_tag
       
   workflow_dispatch:
     inputs:
       tag_prefix:
-        description: "Prefix for the docker container tag"
+        description: "Fluence node docker container tag"
         required: false
-        default: ''
+        default: 'latest'
 
 jobs:
   build-publish:
@@ -40,6 +40,15 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
+      - name: Determine container tags
+        run: |
+          FLUENCE_TAG="${{ github.event.inputs.tag_prefix }}"
+          if [ "$FLUENCE_TAG" = "latest" ] || [ "$FLUENCE_TAG" = "" ]; then
+            echo "TAGS=fluencelabs/node:latest,fluencelabs/node:v${{github.run_number}}"" | tee -a $GITHUB_ENV
+          else
+            echo "TAGS=fluencelabs/node:${FLUENCE_TAG}_latest,fluencelabs/node:${FLUENCE_TAG}_v${{github.run_number}}"" | tee -a $GITHUB_ENV
+          fi
+
       ### Build and push docker image
       - name: Build and push
         id: docker_build
@@ -48,4 +57,7 @@ jobs:
           context: .
           file: Dockerfile
           push: true
-          tags: "fluencelabs/node:${{ github.event.inputs.tag_prefix }}latest,fluencelabs/node:${{ github.event.inputs.tag_prefix }}v${{github.run_number}}"
+          tags: "${{env.TAGS}}"
+          build-args:
+            - FLUENCE_TAG=${{ github.event.inputs.tag_prefix }}
+

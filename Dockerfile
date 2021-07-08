@@ -19,14 +19,10 @@ ENV RUST_BACKTRACE="1"
 ## set /fluence as the CMD binary
 ENV S6_CMD_ARG0="/run_fluence"
 
-# copy fluence
-# TODO: copy binary to /usr/bin & state to /config/fluence
-COPY --from=fluence /fluence /fluence
-COPY --from=fluence /.fluence /.fluence
-COPY --from=fluence /builtins /builtins
-
-# copy sidecars
-COPY --from=ipfs /usr/local/bin/ipfs /usr/bin/ipfs
+# fluence builtins default envs
+ENV FLUENCE_ENV_IPFS_ADAPTER_EXTERNAL_API_MULTIADDR=/ip4/127.0.0.1/tcp/5001
+ENV FLUENCE_ENV_IPFS_ADAPTER_LOCAL_API_MULTIADDR=/ip4/127.0.0.1/tcp/5001
+ENV FLUENCE_ENV_IPFS_ADAPTER_EXTERNAL_SWARM_MULTIADDR=/ip4/127.0.0.1/tcp/4001
 
 RUN \
  echo "**** install packages ****" && \
@@ -43,6 +39,15 @@ RUN \
 	/var/tmp/* && \
 echo "**** download ipfs-adapter ****" && \
 curl https://github.com/fluencelabs/ipfs-adapter/releases/latest/download/ipfs-adapter.tar.gz -L | tar -zxv -C /builtins/
+
+# copy fluence
+# TODO: copy binary to /usr/bin & state to /config/fluence
+COPY --from=fluence /fluence /fluence
+COPY --from=fluence /.fluence /.fluence
+COPY --from=fluence /builtins /builtins
+
+# copy sidecars
+COPY --from=ipfs /usr/local/bin/ipfs /usr/bin/ipfs
 
 # copy configs
 # NOTE: copy configs should be after installing packages because

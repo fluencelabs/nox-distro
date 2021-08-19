@@ -8,15 +8,22 @@ on:
       
   workflow_dispatch:
     inputs:
-      # TODO: rename 'tag_prefix' to 'fluence_tag'
-      tag_prefix:
-        description: "Fluence node docker container tag"
+      fluence_branch:
+        description: "Fluence node branch"
         required: false
         default: 'latest'
+      tag:
+        description: "Container tag"
+        required: false
+        default: "latest"
+      services_json:
+        description: "services.json URL"
+        required: false
+        default: "https://github.com/fluencelabs/builtin-services/releases/latest/download/services.json"
 
 jobs:
   build-publish:
-    name: Build and publish ${{ github.event.inputs.tag_prefix }}
+    name: Build and publish ${{ github.event.inputs.tag }} from ${{ github.event.inputs.fluence_branch }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -43,14 +50,12 @@ jobs:
 
       - name: Determine container tags
         run: |
-          FLUENCE_TAG="${{ github.event.inputs.tag_prefix }}"
-          if [ "$FLUENCE_TAG" = "latest" ] || [ "$FLUENCE_TAG" = "" ]; then
-            echo "TAGS=fluencelabs/node:latest,fluencelabs/node:v${{github.run_number}}" | tee -a $GITHUB_ENV
-            echo "FLUENCE_TAG=latest" | tee -a $GITHUB_ENV
-          else
-            echo "TAGS=fluencelabs/node:${FLUENCE_TAG}_latest,fluencelabs/node:${FLUENCE_TAG}_v${{github.run_number}}" | tee -a $GITHUB_ENV
-            echo "FLUENCE_TAG=$FLUENCE_TAG" | tee -a $GITHUB_ENV
+          TAG="${{ github.event.inputs.tag }}"
+          if [ "$TAG" = "latest" ] || [ "$TAG" = "" ]; then
+            TAG="latest"
           fi
+          echo "TAGS=fluencelabs/node:${TAG}_latest,fluencelabs/node:${TAG}_v${{github.run_number}}" | tee -a $GITHUB_ENV
+          echo "FLUENCE_TAG=${{ github.event.inputs.fluence_branch }}" | tee -a $GITHUB_ENV
 
       ### Build and push docker image
       - name: Build and push
@@ -61,5 +66,6 @@ jobs:
           file: Dockerfile
           push: true
           tags: "${{ env.TAGS }}"
-          build-args: FLUENCE_TAG=${{ env.FLUENCE_TAG }}
+          build-args: FLUENCE_TAG=${{ env.FLUENCE_TAG }}, SERVICES_JSON=${{ github.event.inputs.services_json }}
+
 

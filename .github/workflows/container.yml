@@ -66,6 +66,8 @@ jobs:
           file: Dockerfile
           push: true
           tags: "${{ env.TAGS }}"
-          build-args: FLUENCE_TAG=${{ env.FLUENCE_TAG }}, SERVICES_JSON=${{ github.event.inputs.services_json }}
+          build-args: |
+            FLUENCE_TAG=${{ env.FLUENCE_TAG }}
+            SERVICES_JSON=${{ github.event.inputs.services_json }}
 
 

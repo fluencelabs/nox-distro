@@ -2,15 +2,21 @@
 ###		  If needed, go to https://github.com/linuxserver/docker-ipfs to see how it's done.
 
 ARG FLUENCE_TAG=latest
+ARG IPFS=v0.9.0
 FROM fluencelabs/fluence:${FLUENCE_TAG} as fluence
 
-FROM ipfs/go-ipfs:v0.9.0 as ipfs
+FROM ipfs/go-ipfs:${IPFS} as ipfs
 
 FROM ghcr.io/linuxserver/baseimage-ubuntu:bionic
 
-# TODO:
-# - set version
-# - set build date
+ARG COMMIT
+ARG SERVICES_VERSION
+ARG RUN_NUMBER
+ARG TAG
+ARG BUILD_DATE
+LABEL commit="${commit}"
+LABEL build_version="Fluence Node version=${TAG} date=${BUILD_DATE} ci_run=${RUN_NUMBER} builtins=${SERVICES_VERSION} IPFS=${IPFS}"
+LABEL maintainer="fluencelabs"
 
 # environment
 ENV IPFS_PATH=/config/ipfs
@@ -19,9 +25,6 @@ ENV RUST_LOG="info,aquamarine=warn,tokio_threadpool=info,tokio_reactor=info,mio=
 ENV RUST_BACKTRACE="1"
 ## set /fluence as the CMD binary
 ENV S6_CMD_ARG0="/run_fluence"
-
-# fluence builtins services.json
-ENV SERVICES_JSON=https://github.com/fluencelabs/builtin-services/releases/latest/download/services.json
 
 # fluence builtins default envs
 ENV FLUENCE_ENV_IPFS_ADAPTER_EXTERNAL_API_MULTIADDR=/ip4/127.0.0.1/tcp/5001
@@ -44,8 +47,9 @@ RUN \
 	/var/tmp/*
 
 # download fluence builtin services
+ARG SERVICES_JSON=https://github.com/fluencelabs/builtin-services/releases/latest/download/services.json
 COPY download_builtins.sh /download_builtins.sh
-RUN /download_builtins.sh $SERVICES_JSON
+RUN /download_builtins.sh ${SERVICES_JSON}
 
 # copy fluence
 # TODO: copy binary to /usr/bin & state to /config/fluence

@@ -11,7 +11,7 @@ on:
       fluence_branch:
         description: "Fluence node branch"
         required: false
-        default: 'latest'
+        default: "latest"
       tag:
         description: "Container tag"
         required: false
@@ -20,6 +20,10 @@ on:
         description: "services.json URL"
         required: false
         default: "https://github.com/fluencelabs/builtin-services/releases/latest/download/services.json"
+      services_version:
+        describption: "version of the services.json"
+        required: false
+        default: ""
 
 jobs:
   build-publish:
@@ -51,11 +55,20 @@ jobs:
       - name: Determine container tags
         run: |
           TAG="${{ github.event.inputs.tag }}"
+          RUN="${{ github.run_number }}"
           if [ "$TAG" = "latest" ] || [ "$TAG" = "" ]; then
             TAG="latest"
           fi
-          echo "TAGS=fluencelabs/node:${TAG}_latest,fluencelabs/node:${TAG}_v${{github.run_number}}" | tee -a $GITHUB_ENV
+          TAGS=fluencelabs/node:${TAG},fluencelabs/node:${TAG}_latest,fluencelabs/node:${TAG}_v${RUN}
+          
+          SERVICES_VERSION="${{ github.event.inputs.services_version }}"
+          if [ "$SERVICES_VERSION" != "" ]; then
+            TAGS="$TAGS,fluencelabs/node:${TAG}_${SERVICES_VERSION},fluencelabs/node:${TAG}_${SERVICES_VERSION}_v${RUN}"
+          fi
+          
+          echo "TAGS=$TAGS" | tee -a $GITHUB_ENV
           echo "FLUENCE_TAG=${{ github.event.inputs.fluence_branch }}" | tee -a $GITHUB_ENV
+          echo "BUILD_DATE=$(date '+%Y-%m-%dT%H:%M:%S%:z')"
 
       ### Build and push docker image
       - name: Build and push
@@ -69,5 +82,11 @@ jobs:
           build-args: |
             FLUENCE_TAG=${{ env.FLUENCE_TAG }}
             SERVICES_JSON=${{ github.event.inputs.services_json }}
+            SERVICES_VERSION=${{ github.event.inputs.services_version }}
+            COMMIT=${{ github.sha }}
+            BUILD_DATE=${{ env.BUILD_DATE }}
+            RUN_NUMBER=${{ github.run_number }}
+            TAG=${{ github.event.inputs.tag }}
+
 
 

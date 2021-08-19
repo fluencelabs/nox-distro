@@ -20,6 +20,9 @@ ENV RUST_BACKTRACE="1"
 ## set /fluence as the CMD binary
 ENV S6_CMD_ARG0="/run_fluence"
 
+# fluence builtins services.json
+ENV SERVICES_JSON=https://github.com/fluencelabs/builtin-services/releases/latest/download/services.json
+
 # fluence builtins default envs
 ENV FLUENCE_ENV_IPFS_ADAPTER_EXTERNAL_API_MULTIADDR=/ip4/127.0.0.1/tcp/5001
 ENV FLUENCE_ENV_IPFS_ADAPTER_LOCAL_API_MULTIADDR=/ip4/127.0.0.1/tcp/5001
@@ -37,16 +40,15 @@ RUN \
  rm -rf \
 	/tmp/* \
 	/var/lib/apt/lists/* \
-	/var/tmp/* && \
-echo "**** download ipfs-adapter ****" && \
-mkdir -p /builtins/ && \
-curl https://github.com/fluencelabs/ipfs-adapter/releases/latest/download/ipfs-adapter.tar.gz -L | tar -zxv -C /builtins/
+	/var/tmp/*
+
+# download fluence builtin services
+RUN ./download_builtins.sh $SERVICES_JSON
 
 # copy fluence
 # TODO: copy binary to /usr/bin & state to /config/fluence
 COPY --from=fluence /fluence /fluence
 COPY --from=fluence /.fluence /.fluence
-COPY --from=fluence /builtins /builtins
 
 # copy sidecars
 COPY --from=ipfs /usr/local/bin/ipfs /usr/bin/ipfs

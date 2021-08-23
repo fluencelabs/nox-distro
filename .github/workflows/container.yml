@@ -2,9 +2,8 @@ name: Publish Container
 
 on:
   push:
-    branches:
-      - main
-      - fluence_tag
+    tags:
+      - "v*"
       
   workflow_dispatch:
     inputs:
@@ -31,6 +30,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+
+      - name: Set RELEASE_VERSION from ${{ env.GITHUB_REF }}
+        run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
 
       ### Prepare docker & login to Dockerhub
       - name: Set up QEMU
@@ -72,7 +74,7 @@ jobs:
 
       ### Build and push docker image
       - name: Build and push
-        id: docker_build
+        id: docker_publish
         uses: docker/build-push-action@v2
         with:
           context: .
@@ -87,3 +89,51 @@ jobs:
             BUILD_DATE=${{ env.BUILD_DATE }}
             RUN_NUMBER=${{ github.run_number }}
             TAG=${{ github.event.inputs.container_tag }}
+
+      ### Create GitHub release
+      - name: Build Changelog
+        id: github_release
+        uses: mikepenz/release-changelog-builder-action@v1
+        with:
+          configuration: ".github/workflows/changelog_config.json"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Parse metadata from docker publish
+        id: metadata
+        uses: actions/github-script@v4
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          result-encoding: string
+          script: |
+            try {
+                let metadata = JSON.parse("${{ steps.docker_publish.outputs.metadata }}");
+                let imageTags = metadata['image.name'].split(",");
+                let tagString = tags.reduce((acc, tag) => { 
+                  return `${acc}
+                  - ${tag}` },
+                  ""
+                )
+                return tagString;
+            } catch (e) {
+              console.log("Err: " + e);
+              throw e;
+            }
+
+      - name: Release
+        id: release
+        uses: softprops/action-gh-release@v1
+        with:
+          name: aqua-dht ${{ env.RELEASE_VERSION }}
+          tag_name: ${{ env.RELEASE_VERSION }}
+          files: |
+            aqua-dht.tar.gz
+          body: |
+            ${{steps.github_release.outputs.changelog}}
+
+            ## Docker tags
+            ${{steps.github_release.metadata.result}}
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

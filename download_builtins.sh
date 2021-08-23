@@ -26,9 +26,12 @@ jq -r '
     do
         echo "*** download $name@$version ***"
         TAR="$TMP_BUILTINS/${name}.tar.gz"
-        curl -sfL $url -o $TAR
+        curl -sfL $url -o $TAR || (
+            echo "failed to download $url" >&2
+            exit 1
+        )
         echo "$sha256 $TAR" | sha256sum --check --status || (
-            echo "incorrect SHA256 for $name" >&1
+            echo "incorrect SHA256 for $name" >&2
             exit 1
         )
         tar -C $BUILTINS_DIR -xf $TAR

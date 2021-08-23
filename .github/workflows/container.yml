@@ -87,6 +87,3 @@ jobs:
             BUILD_DATE=${{ env.BUILD_DATE }}
             RUN_NUMBER=${{ github.run_number }}
             TAG=${{ github.event.inputs.tag }}
-
-
-

@@ -69,7 +69,7 @@ jobs:
           fi
           TAGS=fluencelabs/node:${TAG},fluencelabs/node:${TAG}_latest,fluencelabs/node:${TAG}_v${RUN}
           
-          SERVICES_VERSION="${{ env.SERVICES_JSON }}"
+          SERVICES_VERSION="${{ env.SERVICES_VERSION }}"
           if [ "$SERVICES_VERSION" != "" ]; then
             TAGS="$TAGS,fluencelabs/node:${TAG}_${SERVICES_VERSION},fluencelabs/node:${TAG}_${SERVICES_VERSION}_v${RUN}"
           fi
@@ -90,7 +90,7 @@ jobs:
           build-args: |
             FLUENCE_TAG=${{ env.FLUENCE_TAG }}
             SERVICES_JSON=${{ env.SERVICES_JSON }}
-            SERVICES_VERSION=${{ env.SERVICES_JSON }}
+            SERVICES_VERSION=${{ env.SERVICES_VERSION }}
             COMMIT=${{ github.sha }}
             BUILD_DATE=${{ env.BUILD_DATE }}
             RUN_NUMBER=${{ github.run_number }}

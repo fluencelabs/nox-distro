@@ -21,7 +21,7 @@ on:
         required: false
         default: "https://github.com/fluencelabs/builtin-services/releases/latest/download/services.json"
       services_version:
-        describption: "version of the services.json"
+        description: "version of the services.json"
         required: false
         default: ""
 

@@ -2,6 +2,7 @@ name: "tag"
 
 on:
   workflow_dispatch:
+  push:
 
 jobs:
   tag:

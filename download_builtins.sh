@@ -26,7 +26,11 @@ jq -r '
     do
         echo "*** download $name@$version ***"
         TAR="$TMP_BUILTINS/${name}.tar.gz"
-        curl -sL --fail-with-body $url -o $TAR
+        # TODO: use --fail-with-body
+        curl -sL --fail $url -o $TAR || (
+            echo "failed to download $url" >&2
+            exit 1
+        )
         echo "$sha256 $TAR" | sha256sum --check --status || (
             echo "incorrect SHA256 for $name" >&2
             exit 1

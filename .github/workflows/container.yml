@@ -26,8 +26,14 @@ on:
 
 jobs:
   build-publish:
-    name: Build and publish ${{ github.event.inputs.container_tag }} from ${{ github.event.inputs.fluence_branch }}
     runs-on: ubuntu-latest
+    env:
+      FLUENCE_BRANCH: ${{ github.event.inputs.fluence_branch || "latest" }}
+      CONTAINER_TAG: ${{ github.event.inputs.container_tag || "latest" }}
+      SERVICES_JSON: ${{ github.event.inputs.services_json || "https://github.com/fluencelabs/builtin-services/releases/latest/download/services.json" }}
+      SERVICES_VERSION: ${{ github.event.inputs.services_version || "" }}
+    name: Build and publish ${{ env.CONTAINER_TAG }} from ${{ env.FLUENCE_BRANCH }}
+    
     steps:
       - uses: actions/checkout@v2
 
@@ -56,20 +62,20 @@ jobs:
 
       - name: Determine container tags
         run: |
-          TAG="${{ github.event.inputs.container_tag }}"
+          TAG="${{ env.CONTAINER_TAG }}"
           RUN="${{ github.run_number }}"
           if [ "$TAG" = "latest" ] || [ "$TAG" = "" ]; then
             TAG="latest"
           fi
           TAGS=fluencelabs/node:${TAG},fluencelabs/node:${TAG}_latest,fluencelabs/node:${TAG}_v${RUN}
           
-          SERVICES_VERSION="${{ github.event.inputs.services_version }}"
+          SERVICES_VERSION="${{ env.SERVICES_JSON }}"
           if [ "$SERVICES_VERSION" != "" ]; then
             TAGS="$TAGS,fluencelabs/node:${TAG}_${SERVICES_VERSION},fluencelabs/node:${TAG}_${SERVICES_VERSION}_v${RUN}"
           fi
           
           echo "TAGS=$TAGS" | tee -a $GITHUB_ENV
-          echo "FLUENCE_TAG=${{ github.event.inputs.fluence_branch }}" | tee -a $GITHUB_ENV
+          echo "FLUENCE_TAG=${{ env.FLUENCE_BRANCH }}" | tee -a $GITHUB_ENV
           echo "BUILD_DATE=$(date '+%Y-%m-%dT%H:%M:%S%:z')"
 
       ### Build and push docker image
@@ -83,12 +89,12 @@ jobs:
           tags: "${{ env.TAGS }}"
           build-args: |
             FLUENCE_TAG=${{ env.FLUENCE_TAG }}
-            SERVICES_JSON=${{ github.event.inputs.services_json }}
-            SERVICES_VERSION=${{ github.event.inputs.services_version }}
+            SERVICES_JSON=${{ env.SERVICES_JSON }}
+            SERVICES_VERSION=${{ env.SERVICES_JSON }}
             COMMIT=${{ github.sha }}
             BUILD_DATE=${{ env.BUILD_DATE }}
             RUN_NUMBER=${{ github.run_number }}
-            TAG=${{ github.event.inputs.container_tag }}
+            TAG=${{ env.CONTAINER_TAG }}
 
       ### Create GitHub release
       - name: Build Changelog

@@ -12,7 +12,7 @@ on:
         description: "Fluence node branch"
         required: false
         default: "latest"
-      tag:
+      container_tag:
         description: "Container tag"
         required: false
         default: "latest"
@@ -27,7 +27,7 @@ on:
 
 jobs:
   build-publish:
-    name: Build and publish ${{ github.event.inputs.tag }} from ${{ github.event.inputs.fluence_branch }}
+    name: Build and publish ${{ github.event.inputs.container_tag }} from ${{ github.event.inputs.fluence_branch }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -54,7 +54,7 @@ jobs:
 
       - name: Determine container tags
         run: |
-          TAG="${{ github.event.inputs.tag }}"
+          TAG="${{ github.event.inputs.container_tag }}"
           RUN="${{ github.run_number }}"
           if [ "$TAG" = "latest" ] || [ "$TAG" = "" ]; then
             TAG="latest"
@@ -86,4 +86,4 @@ jobs:
             COMMIT=${{ github.sha }}
             BUILD_DATE=${{ env.BUILD_DATE }}
             RUN_NUMBER=${{ github.run_number }}
-            TAG=${{ github.event.inputs.tag }}
+            TAG=${{ github.event.inputs.container_tag }}

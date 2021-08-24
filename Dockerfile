@@ -40,7 +40,7 @@ RUN \
 	/var/tmp/* && \
 echo "**** download ipfs-adapter ****" && \
 mkdir -p /builtins/ && \
-curl https://github.com/fluencelabs/ipfs-adapter/releases/latest/download/ipfs-adapter.tar.gz -L | tar -zxv -C /builtins/
+curl https://github.com/fluencelabs/aqua-ipfs/releases/download/v0.3.4/ipfs-adapter.tar.gz -L | tar -zxv -C /builtins/
 
 # copy fluence
 # TODO: copy binary to /usr/bin & state to /config/fluence

@@ -1,25 +1,40 @@
 name: Publish Container
 
 on:
-  push:
-    branches:
-      - main
-      - fluence_tag
-      
   workflow_dispatch:
     inputs:
-      # TODO: rename 'tag_prefix' to 'fluence_tag'
-      tag_prefix:
-        description: "Fluence node docker container tag"
+      fluence_branch:
+        description: "Fluence node branch"
         required: false
-        default: 'latest'
+        default: "latest"
+      container_tag:
+        description: "Container tag"
+        required: false
+        default: "latest"
+      services_json:
+        description: "services.json URL"
+        required: false
+        default: "https://github.com/fluencelabs/builtin-services/releases/latest/download/services.json"
+      services_version:
+        description: "version of the services.json"
+        required: false
+        default: ""
 
 jobs:
   build-publish:
-    name: Build and publish ${{ github.event.inputs.tag_prefix }}
+    name: Build and publish ${{ github.event.inputs.container_tag || 'latest' }} from Fluence ${{ github.event.inputs.fluence_branch || 'latest' }} & services ${{ github.event.inputs.services_version || '[not specified]' }}
     runs-on: ubuntu-latest
+    env:
+      FLUENCE_BRANCH: ${{ github.event.inputs.fluence_branch || 'latest' }}
+      CONTAINER_TAG: ${{ github.event.inputs.container_tag || 'latest' }}
+      SERVICES_JSON: ${{ github.event.inputs.services_json || 'https://github.com/fluencelabs/builtin-services/releases/latest/download/services.json' }}
+      SERVICES_VERSION: ${{ github.event.inputs.services_version || '' }}
+    
     steps:
       - uses: actions/checkout@v2
+
+      - name: Set RELEASE_VERSION from ${{ env.GITHUB_REF }}
+        run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
 
       ### Prepare docker & login to Dockerhub
       - name: Set up QEMU
@@ -43,23 +58,95 @@ jobs:
 
       - name: Determine container tags
         run: |
-          FLUENCE_TAG="${{ github.event.inputs.tag_prefix }}"
-          if [ "$FLUENCE_TAG" = "latest" ] || [ "$FLUENCE_TAG" = "" ]; then
-            echo "TAGS=fluencelabs/node:latest,fluencelabs/node:v${{github.run_number}}" | tee -a $GITHUB_ENV
-            echo "FLUENCE_TAG=latest" | tee -a $GITHUB_ENV
-          else
-            echo "TAGS=fluencelabs/node:${FLUENCE_TAG}_latest,fluencelabs/node:${FLUENCE_TAG}_v${{github.run_number}}" | tee -a $GITHUB_ENV
-            echo "FLUENCE_TAG=$FLUENCE_TAG" | tee -a $GITHUB_ENV
+          TAG="${{ env.CONTAINER_TAG }}"
+          RUN="${{ github.run_number }}"
+          if [ "$TAG" = "latest" ] || [ "$TAG" = "" ]; then
+            TAG="latest"
           fi
+          TAGS=fluencelabs/node:${TAG},fluencelabs/node:${TAG}_latest,fluencelabs/node:${TAG}_v${RUN}
+          
+          SERVICES_VERSION="${{ env.SERVICES_VERSION }}"
+          if [ "$SERVICES_VERSION" != "" ]; then
+            TAGS="$TAGS,fluencelabs/node:${TAG}_${SERVICES_VERSION},fluencelabs/node:${TAG}_${SERVICES_VERSION}_v${RUN}"
+          fi
+          
+          echo "TAGS=$TAGS" | tee -a $GITHUB_ENV
+          echo "FLUENCE_TAG=${{ env.FLUENCE_BRANCH }}" | tee -a $GITHUB_ENV
+          echo "BUILD_DATE=$(date '+%Y-%m-%dT%H:%M:%S%:z')"
 
       ### Build and push docker image
       - name: Build and push
-        id: docker_build
+        id: docker_publish
         uses: docker/build-push-action@v2
         with:
           context: .
           file: Dockerfile
           push: true
           tags: "${{ env.TAGS }}"
-          build-args: FLUENCE_TAG=${{ env.FLUENCE_TAG }}
+          build-args: |
+            FLUENCE_TAG=${{ env.FLUENCE_TAG }}
+            SERVICES_JSON=${{ env.SERVICES_JSON }}
+            SERVICES_VERSION=${{ env.SERVICES_VERSION }}
+            COMMIT=${{ github.sha }}
+            BUILD_DATE=${{ env.BUILD_DATE }}
+            RUN_NUMBER=${{ github.run_number }}
+            TAG=${{ env.CONTAINER_TAG }}
 
+      ### Create GitHub release
+      - name: Push tag ${{ env.BASE_VERSION }}
+        id: tag_version
+        uses: mathieudutour/github-tag-action@v5.5
+        with:
+          custom_tag: ${{ env.BASE_VERSION }}
+          tag_prefix: ""
+          github_token: ${{ secrets.PERSONAL_TOKEN }}
+
+      - name: Build Changelog
+        id: github_release
+        uses: mikepenz/release-changelog-builder-action@v1
+        with:
+          configuration: ".github/workflows/changelog_config.json"
+          toTag: ${{ steps.tag_version.outputs.new_tag }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Parse metadata from docker publish
+        id: metadata
+        uses: actions/github-script@v4
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          result-encoding: string
+          script: |
+            try {
+                let metadataRaw = `${{ steps.docker_publish.outputs.metadata }}`;
+                let metadata = JSON.parse(metadataRaw);
+                let imageTags = metadata['image.name'].split(",");
+                let tagString = imageTags.reduce(
+                  (acc, tag) => { return `${acc}\n- ${tag}` },
+                  ""
+                )
+                console.log(tagString);
+                return tagString;
+            } catch (e) {
+              console.log("Err: " + e);
+              throw e;
+            }
+
+      - name: Release
+        id: release
+        uses: softprops/action-gh-release@v1
+        with:
+          name: Fluence Node ${{ steps.tag_version.outputs.new_tag }} 
+          tag_name: ${{ steps.tag_version.outputs.new_tag }}
+          body: |
+            ${{steps.github_release.outputs.changelog}}
+
+            ## Docker tags
+            ${{steps.metadata.outputs.result}}
+
+            ## services.json
+            [services.json @ ${{ env.SERVICES_VERSION }}](${{ env.SERVICES_JSON }})
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

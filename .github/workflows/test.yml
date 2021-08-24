@@ -28,7 +28,7 @@ jobs:
                 `;
                 let metadata = JSON.parse(metadataRaw);
                 let imageTags = metadata['image.name'].split(",");
-                let tagString = tags.reduce(
+                let tagString = imageTags.reduce(
                   (acc, tag) => { return `${acc}\n- ${tag}` },
                   ""
                 )

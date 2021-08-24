@@ -33,7 +33,8 @@ jobs:
           result-encoding: string
           script: |
             try {
-                let metadata = JSON.parse("${{ steps.docker_publish.outputs.result }}");
+                let metadataRaw = "${{ steps.docker_publish.outputs.result }}"
+                let metadata = JSON.parse(metadataRaw);
                 let imageTags = metadata['image.name'].split(",");
                 let tagString = imageTags.reduce(
                   (acc, tag) => { return `${acc}\n- ${tag}` },

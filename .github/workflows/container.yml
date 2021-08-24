@@ -142,7 +142,7 @@ jobs:
             ${{steps.github_release.outputs.changelog}}
 
             ## Docker tags
-            ${{steps.github_release.metadata.result}}
+            ${{steps.metadata.outputs.result}}
 
             ## services.json
             [services.json @ ${{ env.SERVICES_VERSION }}](${{ env.SERVICES_JSON }})

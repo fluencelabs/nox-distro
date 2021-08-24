@@ -46,4 +46,4 @@ jobs:
               throw e;
             }
 
-      - run: echo ${{ steps.metadata.outputs.result }}
+      - run: echo '${{ steps.metadata.outputs.result }}'

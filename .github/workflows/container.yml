@@ -125,6 +125,7 @@ jobs:
                   (acc, tag) => { return `${acc}\n- ${tag}` },
                   ""
                 )
+                console.log(tagString);
                 return tagString;
             } catch (e) {
               console.log("Err: " + e);

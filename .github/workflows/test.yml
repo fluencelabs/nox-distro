@@ -45,3 +45,5 @@ jobs:
               console.log("Err: " + e);
               throw e;
             }
+
+      - run: echo ${{ steps.metadata.outputs.result }}

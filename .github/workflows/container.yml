@@ -118,7 +118,7 @@ jobs:
           result-encoding: string
           script: |
             try {
-                let metadataRaw = `${{ steps.docker_publish.outputs.result }}`;
+                let metadataRaw = `${{ steps.docker_publish.outputs.metadata }}`;
                 let metadata = JSON.parse(metadataRaw);
                 let imageTags = metadata['image.name'].split(",");
                 let tagString = imageTags.reduce(

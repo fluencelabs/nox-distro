@@ -120,9 +120,8 @@ jobs:
             try {
                 let metadata = JSON.parse("${{ steps.docker_publish.outputs.metadata }}");
                 let imageTags = metadata['image.name'].split(",");
-                let tagString = tags.reduce((acc, tag) => { 
-                  return `${acc}
-                  - ${tag}` },
+                let tagString = tags.reduce(
+                  (acc, tag) => { return `${acc}\n- ${tag}` },
                   ""
                 )
                 return tagString;

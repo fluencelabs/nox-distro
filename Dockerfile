@@ -51,6 +51,7 @@ ARG SERVICES_JSON=https://github.com/fluencelabs/builtin-services/releases/lates
 COPY download_builtins.sh /download_builtins.sh
 RUN /download_builtins.sh ${SERVICES_JSON}
 
+
 # copy fluence
 # TODO: copy binary to /usr/bin & state to /config/fluence
 COPY --from=fluence /fluence /fluence

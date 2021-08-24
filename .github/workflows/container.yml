@@ -22,7 +22,7 @@ on:
 
 jobs:
   build-publish:
-    name: Build and publish
+    name: Build and publish ${{ github.event.inputs.container_tag || 'latest' }} from Fluence ${{ github.event.inputs.fluence_branch || 'latest' }} & services ${{ github.event.inputs.services_version || '[not specified]' }}
     runs-on: ubuntu-latest
     env:
       FLUENCE_BRANCH: ${{ github.event.inputs.fluence_branch || 'latest' }}

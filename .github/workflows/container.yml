@@ -65,8 +65,13 @@ jobs:
         run: |
           TAG="${{ env.CONTAINER_TAG }}"
           RUN="${{ github.run_number }}"
+          FLUENCE_BRANCH="${{ env.FLUENCE_BRANCH }}"
           if [ "$TAG" = "latest" ] || [ "$TAG" = "" ]; then
-            TAG="latest"
+            if [ "$FLUENCE_BRANCH" = "latest" ]; then
+              TAG="latest"
+            else
+              TAG="$FLUENCE_BRANCH"
+            fi
           fi
           TAGS=fluencelabs/node:${TAG},fluencelabs/node:${TAG}_latest,fluencelabs/node:${TAG}_v${RUN}
           

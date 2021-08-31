@@ -40,6 +40,7 @@ jobs:
           tag_name: ${{ env.RELEASE_VERSION }}
           files: |
             ./services.json
+            ./fluence.json
           body: ${{ steps.github_release.outputs.changelog }}
           draft: false
           prerelease: false
@@ -61,6 +62,7 @@ jobs:
                 });
                 console.dir(assets);
                 let servicesJSON = assets.data.find((a) => a.name === 'services.json');
+                // TODO: fluenceJSON
                 let url = servicesJSON.browser_download_url;
                 console.log("URL: " + url);
                 return url;
@@ -69,5 +71,15 @@ jobs:
               throw e;
             }
 
-      ## TODO: publish container
-      TODO: publish container
+      ## Publish container
+      - name: Publish container
+        uses: benc-uk/workflow-dispatch@v1
+        with:
+          workflow: Publish Container
+          repo: fluencelabs/node-distro
+          ref: 'main'
+          token: ${{ secrets.PERSONAL_TOKEN }}
+          inputs: '{ 
+            "services_version": "${{ env.RELEASE_VERSION }}", 
+            "services_json": "${{ steps.services-json.outputs.result }}"
+          }'

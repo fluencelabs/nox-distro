@@ -25,4 +25,25 @@ jobs:
         run: |
           curl -L https://github.com/stedolan/jq/releases/download/jq-1.5/jq-linux64 -o /usr/local/bin/jq
           chmod +x /usr/local/bin/jq
-      
+
+      - name: git pull
+        run: |
+          git pull --rebase
+
+      - name: Update Fluence in fluence.json to ${{ github.event.inputs.version }}
+        run: |
+          echo '
+          {
+            "version": "${{ github.event.inputs.version }}",
+            "url": "${{ github.event.inputs.url }}",
+            "sha256": "${{ github.event.inputs.sha256 }}"
+          }
+          ' > fluence.json
+
+      - name: Commit updated fluence.json
+        uses: EndBug/add-and-commit@v7
+        with:
+          add: 'fluence.json'
+          message: 'Update Fluence to ${{ github.event.inputs.version }}'
+          push: true
+          pull_strategy: 'NO-PULL'

@@ -69,15 +69,5 @@ jobs:
               throw e;
             }
 
-      ## Rebuild node-distro
-      - name: Trigger new node-distro container
-        uses: benc-uk/workflow-dispatch@v1
-        with:
-          workflow: Publish Container
-          repo: fluencelabs/node-distro
-          ref: 'main'
-          token: ${{ secrets.PERSONAL_TOKEN }}
-          inputs: '{ 
-            "services_version": "${{ env.RELEASE_VERSION }}", 
-            "services_json": "${{ steps.services-json.outputs.result }}"
-          }'
+      ## TODO: publish container
+      TODO: publish container

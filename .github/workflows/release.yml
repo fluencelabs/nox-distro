@@ -1,0 +1,83 @@
+name: "release"
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  release:
+    name: "release"
+    runs-on: ubuntu-latest
+    container: rust
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+### Setup
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set env
+        run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
+
+      - name: Build Changelog
+        id: github_release
+        uses: mikepenz/release-changelog-builder-action@v1
+        with:
+          configuration: ".github/workflows/changelog_config.json"
+          commitMode: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+## Publish
+      - name: Release
+        id: release
+        uses: softprops/action-gh-release@v1
+        with:
+          name: Builtin Services ${{ env.RELEASE_VERSION }}
+          tag_name: ${{ env.RELEASE_VERSION }}
+          files: |
+            ./services.json
+          body: ${{ steps.github_release.outputs.changelog }}
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Get released services.json URL
+        uses: actions/github-script@v4
+        id: services-json
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          result-encoding: string
+          script: |
+            try {
+                let assets = await github.repos.listReleaseAssets({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  release_id: "${{ steps.release.outputs.id }}",
+                });
+                console.dir(assets);
+                let servicesJSON = assets.data.find((a) => a.name === 'services.json');
+                let url = servicesJSON.browser_download_url;
+                console.log("URL: " + url);
+                return url;
+            } catch (e) {
+              console.log("Err: " + e);
+              throw e;
+            }
+
+      ## Rebuild node-distro
+      - name: Trigger new node-distro container
+        uses: benc-uk/workflow-dispatch@v1
+        with:
+          workflow: Publish Container
+          repo: fluencelabs/node-distro
+          ref: 'main'
+          token: ${{ secrets.PERSONAL_TOKEN }}
+          inputs: '{ 
+            "services_version": "${{ env.RELEASE_VERSION }}", 
+            "services_json": "${{ steps.services-json.outputs.result }}"
+          }'

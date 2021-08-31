@@ -1,0 +1,57 @@
+name: "update_service"
+
+on:
+  workflow_dispatch:
+    inputs:
+      name:
+        description: 'Name of the service'
+        required: true
+      version:
+        description: 'Version of the service'
+        required: true
+      url:
+        description: 'Url of the service package'
+        required: true
+      sha256:
+        description: 'SHA256 hash of the service package'
+        required: true
+
+jobs:
+  update:
+    name: "Update service"
+    runs-on: "ubuntu-latest"
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Download jq
+        run: |
+          curl -L https://github.com/stedolan/jq/releases/download/jq-1.5/jq-linux64 -o /usr/local/bin/jq
+          chmod +x /usr/local/bin/jq
+
+      - name: git pull
+        run: |
+          git pull --rebase
+
+      - name: Update ${{ github.event.inputs.name }} services.json to ${{ github.event.inputs.version }}
+        run: |
+          # check the service already exists
+          jq -e 'has("${{ github.event.inputs.name }}")' services.json
+
+          # update service's record
+          UPDATED=$(jq '."${{ github.event.inputs.name }}" = {
+            "version": "${{ github.event.inputs.version }}",
+            "url": "${{ github.event.inputs.url }}",
+            "sha256": "${{ github.event.inputs.sha256 }}"
+          }' services.json)
+
+          # write updated content to disk
+          echo "$UPDATED" > services.json
+
+      - name: Commit updated services.json
+        uses: EndBug/add-and-commit@v7
+        with:
+          add: 'services.json'
+          message: 'Update ${{ github.event.inputs.name }} to ${{ github.event.inputs.version }}'
+          push: true
+          pull_strategy: 'NO-PULL'

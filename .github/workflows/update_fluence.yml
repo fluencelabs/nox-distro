@@ -1,0 +1,28 @@
+name: "update_fluence"
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Fluence version'
+        required: true
+      url:
+        description: 'Fluence binary URL'
+        required: true
+      sha256:
+        description: 'Fluence binary SHA256 hash'
+        required: true
+
+jobs:
+  update:
+    name: "Update service"
+    runs-on: "ubuntu-latest"
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Download jq
+        run: |
+          curl -L https://github.com/stedolan/jq/releases/download/jq-1.5/jq-linux64 -o /usr/local/bin/jq
+          chmod +x /usr/local/bin/jq
+      

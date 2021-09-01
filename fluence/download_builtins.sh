@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -o pipefail -o errexit -o nounset
 
-BUILTINS_DIR=./builtins/
+BUILTINS_DIR=/.fluence/v1/builtins/
 TMP_BUILTINS=./tmp/builtins
 
 mkdir -p $BUILTINS_DIR

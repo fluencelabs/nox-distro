@@ -9,7 +9,7 @@ mkdir -p $TMP_BUILTINS
 
 jq -r '
     to_entries | .[] | .key, .value.url, .value.sha256, .value.version
-' fluence/services.json |
+' services.json |
     while
         read -r name
         read -r url

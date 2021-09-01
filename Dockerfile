@@ -46,11 +46,13 @@ RUN \
 
 # download fluence & builtin services
 COPY fluence/download_builtins.sh /download_builtins.sh
-RUN /download_builtins.sh fluence/services.json
+COPY fluence/services.json /services.json
+RUN /download_builtins.sh
 
 # TODO: copy binary to /usr/bin & state to /config/fluence
-RUN /download_fluence.sh
 COPY fluence/Config.default.toml /.fluence/v1/Config.toml
+COPY fluence/fluence.json /fluence.json
+RUN /download_fluence.sh
 
 # copy sidecars
 COPY --from=ipfs /usr/local/bin/ipfs /usr/bin/ipfs

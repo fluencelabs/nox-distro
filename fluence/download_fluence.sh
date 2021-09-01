@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -o pipefail -o errexit -o nounset
 
-jq -r '.url, .sha256, .version' fluence/fluence.json |
+jq -r '.url, .sha256, .version' fluence.json |
     while
         IFS=''
         read -r url

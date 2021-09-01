@@ -1,7 +1,6 @@
 name: "update_service"
 
 on:
-  push:
   workflow_dispatch:
     inputs:
       name:

@@ -60,7 +60,7 @@ COPY --from=ipfs /usr/local/bin/ipfs /usr/bin/ipfs
 # 		configs may replace default configs of installed packages
 COPY s6/root/ /
 
-COPY run_fluence /run_fluence
+COPY fluence/run_fluence /run_fluence
 
 # ports and volumes
 EXPOSE 5001

@@ -1,9 +1,7 @@
 ### NOTE: original linuxserver.org docker-ipfs image also builds & runs migrations.
 ###		  If needed, go to https://github.com/linuxserver/docker-ipfs to see how it's done.
 
-ARG FLUENCE_TAG=latest
 ARG IPFS=v0.9.0
-FROM fluencelabs/fluence:${FLUENCE_TAG} as fluence
 
 FROM ipfs/go-ipfs:${IPFS} as ipfs
 
@@ -46,16 +44,13 @@ RUN \
 	/var/lib/apt/lists/* \
 	/var/tmp/*
 
-# download fluence builtin services
-ARG SERVICES_JSON=https://github.com/fluencelabs/builtin-services/releases/latest/download/services.json
-COPY download_builtins.sh /download_builtins.sh
-RUN /download_builtins.sh ${SERVICES_JSON}
+# download fluence & builtin services
+COPY fluence/download_builtins.sh /download_builtins.sh
+RUN /download_builtins.sh fluence/services.json
 
-
-# copy fluence
 # TODO: copy binary to /usr/bin & state to /config/fluence
-COPY --from=fluence /fluence /fluence
-COPY --from=fluence /.fluence /.fluence
+RUN /download_fluence.sh
+COPY fluence/Config.default.toml /.fluence/v1/Config.toml
 
 # copy sidecars
 COPY --from=ipfs /usr/local/bin/ipfs /usr/bin/ipfs

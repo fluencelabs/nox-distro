@@ -1,15 +1,7 @@
 #!/usr/bin/env bash
 set -o pipefail -o errexit -o nounset
 
-if [ "$#" -ne 1 ]; then
-    echo "$0 expects a single argument: URL of fluence.json" >&1
-    exit 1
-fi
-
-echo "*** download fluence.json ***"
-curl -sL "$1" -o fluence.json
-
-jq -r '.url, .sha256, .version' fluence.json |
+jq -r '.url, .sha256, .version' fluence/fluence.json |
     while
         IFS=''
         read -r url

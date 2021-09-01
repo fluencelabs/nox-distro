@@ -1,23 +1,15 @@
 #!/usr/bin/env bash
 set -o pipefail -o errexit -o nounset
 
-if [ "$#" -ne 1 ]; then
-    echo "$0 expects a single argument: URL of services.json" >&1
-    exit 1
-fi
-
 BUILTINS_DIR=./builtins/
 TMP_BUILTINS=./tmp/builtins
 
 mkdir -p $BUILTINS_DIR
 mkdir -p $TMP_BUILTINS
 
-echo "*** download services.json ***"
-curl -sL "$1" -o services.json
-
 jq -r '
     to_entries | .[] | .key, .value.url, .value.sha256, .value.version
-' services.json |
+' fluence/services.json |
     while
         read -r name
         read -r url

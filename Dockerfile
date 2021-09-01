@@ -45,13 +45,14 @@ RUN \
 	/var/tmp/*
 
 # download fluence & builtin services
-COPY fluence/download_builtins.sh /download_builtins.sh
 COPY fluence/services.json /services.json
+COPY fluence/download_builtins.sh /download_builtins.sh
 RUN /download_builtins.sh
 
 # TODO: copy binary to /usr/bin & state to /config/fluence
 COPY fluence/Config.default.toml /.fluence/v1/Config.toml
 COPY fluence/fluence.json /fluence.json
+COPY fluence/download_fluence.sh /download_fluence.sh
 RUN /download_fluence.sh
 
 # copy sidecars

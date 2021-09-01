@@ -29,9 +29,7 @@ jobs:
           curl -L https://github.com/stedolan/jq/releases/download/jq-1.5/jq-linux64 -o /usr/local/bin/jq
           chmod +x /usr/local/bin/jq
 
-      - name: git pull
-        run: |
-          git pull --rebase
+      - run: git pull --rebase
 
       - name: Update ${{ github.event.inputs.name }} services.json to ${{ github.event.inputs.version }}
         run: |
@@ -43,15 +41,15 @@ jobs:
             "version": "${{ github.event.inputs.version }}",
             "url": "${{ github.event.inputs.url }}",
             "sha256": "${{ github.event.inputs.sha256 }}"
-          }' services.json)
+          }' fluence/services.json)
 
           # write updated content to disk
-          echo "$UPDATED" > services.json
+          echo "$UPDATED" > fluence/services.json
 
       - name: Commit updated services.json
         uses: EndBug/add-and-commit@v7
         with:
-          add: 'services.json'
+          add: 'fluence/services.json'
           message: 'Update ${{ github.event.inputs.name }} to ${{ github.event.inputs.version }}'
           push: true
           pull_strategy: 'NO-PULL'

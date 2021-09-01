@@ -38,12 +38,12 @@ jobs:
             "url": "${{ github.event.inputs.url }}",
             "sha256": "${{ github.event.inputs.sha256 }}"
           }
-          ' > fluence.json
+          ' > fluence/fluence.json
 
       - name: Commit updated fluence.json
         uses: EndBug/add-and-commit@v7
         with:
-          add: 'fluence.json'
+          add: 'fluence/fluence.json'
           message: 'Update Fluence to ${{ github.event.inputs.version }}'
           push: true
           pull_strategy: 'NO-PULL'

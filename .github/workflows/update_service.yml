@@ -34,7 +34,7 @@ jobs:
       - name: Update ${{ github.event.inputs.name }} services.json to ${{ github.event.inputs.version }}
         run: |
           # check the service already exists
-          jq -e 'has("${{ github.event.inputs.name }}")' services.json
+          jq -e 'has("${{ github.event.inputs.name }}")' fluence/services.json
 
           # update service's record
           UPDATED=$(jq '."${{ github.event.inputs.name }}" = {

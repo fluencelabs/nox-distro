@@ -9,7 +9,6 @@ jobs:
   release:
     name: "release"
     runs-on: ubuntu-latest
-    container: rust
     defaults:
       run:
         shell: bash
@@ -19,17 +18,8 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Set env
+      - name: Set RELEASE_VERSION
         run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
-
-      - name: Build Changelog
-        id: github_release
-        uses: mikepenz/release-changelog-builder-action@v1
-        with:
-          configuration: ".github/workflows/changelog_config.json"
-          commitMode: true
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       ### Prepare docker & login to Dockerhub
       - name: Set up QEMU
@@ -79,9 +69,18 @@ jobs:
             COMMIT=${{ github.sha }}
             BUILD_DATE=${{ env.BUILD_DATE }}
             RUN_NUMBER=${{ github.run_number }}
-            TAG=${{ env.CONTAINER_TAG }}
+            TAG=${{ env.RELEASE_VERSION }}
 
       ### Create GitHub release
+      - name: Build Changelog
+        id: github_release
+        uses: mikepenz/release-changelog-builder-action@v1
+        with:
+          configuration: ".github/workflows/changelog_config.json"
+          commitMode: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Parse metadata from docker publish
         id: metadata
         uses: actions/github-script@v4

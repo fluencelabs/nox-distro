@@ -46,12 +46,7 @@ jobs:
         run: |
           RUN="${{ github.run_number }}"
           VERSION="${{ env.RELEASE_VERSION }}"
-          BRANCH="${{ github.head_ref }}"
-          if [ "$BRANCH" = "main" ]; then
-            TAGS=fluencelabs/node:${VERSION},fluencelabs/node:${VERSION}_${RUN},fluencelabs/node:latest
-          else
-            TAGS=fluencelabs/node:${BRANCH}_${VERSION},fluencelabs/node:${BRANCH}_${VERSION}_${RUN}
-          fi
+          TAGS=fluencelabs/node:${VERSION},fluencelabs/node:${VERSION}_${RUN},fluencelabs/node:latest
           
           echo "TAGS=$TAGS" | tee -a $GITHUB_ENV
           echo "BUILD_DATE=$(date '+%Y-%m-%dT%H:%M:%S%:z')"

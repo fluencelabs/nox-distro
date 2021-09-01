@@ -1,6 +1,7 @@
 name: "update_fluence"
 
 on:
+  push:
   workflow_dispatch:
     inputs:
       version:
@@ -14,8 +15,8 @@ on:
         required: true
 
 jobs:
-  update:
-    name: "Update service"
+  update_fluence:
+    name: "Update Fluence"
     runs-on: "ubuntu-latest"
 
     steps:

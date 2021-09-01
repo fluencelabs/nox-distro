@@ -47,6 +47,7 @@ jobs:
           RUN="${{ github.run_number }}"
           VERSION="${{ env.RELEASE_VERSION }}"
           BRANCH="$(git branch --show-current)"
+          echo "Branch is " $BRANCH
           if [ "$BRANCH" = "main" ]; then
             TAGS=fluencelabs/node:${VERSION},fluencelabs/node:${VERSION}_${RUN},fluencelabs/node:latest
           else

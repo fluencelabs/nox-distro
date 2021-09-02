@@ -1,0 +1,49 @@
+name: "update_fluence"
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Fluence version'
+        required: true
+      url:
+        description: 'Fluence binary URL'
+        required: true
+      sha256:
+        description: 'Fluence binary SHA256 hash'
+        required: true
+
+jobs:
+  update_fluence:
+    name: "Update Fluence"
+    runs-on: "ubuntu-latest"
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Download jq
+        run: |
+          curl -L https://github.com/stedolan/jq/releases/download/jq-1.5/jq-linux64 -o /usr/local/bin/jq
+          chmod +x /usr/local/bin/jq
+
+      - name: git pull
+        run: |
+          git pull --rebase
+
+      - name: Update Fluence in fluence.json to ${{ github.event.inputs.version }}
+        run: |
+          echo '
+          {
+            "version": "${{ github.event.inputs.version }}",
+            "url": "${{ github.event.inputs.url }}",
+            "sha256": "${{ github.event.inputs.sha256 }}"
+          }
+          ' > fluence/fluence.json
+
+      - name: Commit updated fluence.json
+        uses: EndBug/add-and-commit@v7
+        with:
+          add: 'fluence/fluence.json'
+          message: 'Update Fluence to ${{ github.event.inputs.version }}'
+          push: true
+          pull_strategy: 'NO-PULL'

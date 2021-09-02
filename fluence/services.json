@@ -5,8 +5,8 @@
     "sha256": "efc07354511d450819a2210debb0cc7996c1482e15213674bed025bec4d2bc94"
   },
   "aqua-dht": {
-    "version": "v0.1.37",
-    "url": "https://github.com/fluencelabs/aqua-dht/releases/download/v0.1.37/aqua-dht.tar.gz",
-    "sha256": "2d3e57c34e6140e51dc41de08806573cbc109d190643b0966f5d5b552078c7ee"
+    "version": "v0.1.38",
+    "url": "https://github.com/fluencelabs/aqua-dht/releases/download/v0.1.38/aqua-dht.tar.gz",
+    "sha256": "aeff292fc87eb65f99a77a1ed03b87c89ab0e899345b2af8fd220b8bd5bd3ec8"
   }
 }

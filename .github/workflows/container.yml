@@ -68,7 +68,7 @@ jobs:
           echo "BUILD_DATE=$(date '+%Y-%m-%dT%H:%M:%S%:z')"
 
       ### Build and push docker image
-      - name: Build and push
+      - name: Build and push ${{ env.TAGS }}
         id: docker_publish
         uses: docker/build-push-action@v2
         with:

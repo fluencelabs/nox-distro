@@ -7,6 +7,15 @@ on:
         description: "Container tag"
         required: false
         default: "latest"
+      version:
+        description: 'Fluence version'
+        required: true
+      url:
+        description: 'Fluence binary URL'
+        required: true
+      sha256:
+        description: 'Fluence binary SHA256 hash'
+        required: true
 
 jobs:
   build-publish:
@@ -17,6 +26,16 @@ jobs:
       
     steps:
       - uses: actions/checkout@v2
+
+      - name: Update Fluence in fluence.json to ${{ github.event.inputs.version }}
+        run: |
+          echo '
+          {
+            "version": "${{ github.event.inputs.version }}",
+            "url": "${{ github.event.inputs.url }}",
+            "sha256": "${{ github.event.inputs.sha256 }}"
+          }
+          ' > fluence/fluence.json
 
       ### Prepare docker & login to Dockerhub
       - name: Set up QEMU
@@ -49,7 +68,7 @@ jobs:
           echo "BUILD_DATE=$(date '+%Y-%m-%dT%H:%M:%S%:z')"
 
       ### Build and push docker image
-      - name: Build and push
+      - name: Build and push ${{ env.TAGS }}
         id: docker_publish
         uses: docker/build-push-action@v2
         with:

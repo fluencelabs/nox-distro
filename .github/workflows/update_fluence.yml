@@ -21,11 +21,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Download jq
-        run: |
-          curl -L https://github.com/stedolan/jq/releases/download/jq-1.5/jq-linux64 -o /usr/local/bin/jq
-          chmod +x /usr/local/bin/jq
-
       - name: git pull
         run: |
           git pull --rebase

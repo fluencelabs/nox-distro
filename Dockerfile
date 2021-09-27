@@ -5,7 +5,7 @@ ARG IPFS=v0.9.0
 
 FROM ipfs/go-ipfs:${IPFS} as ipfs
 
-FROM ghcr.io/linuxserver/baseimage-ubuntu:bionic-34df13ea-ls31
+FROM ghcr.io/linuxserver/baseimage-ubuntu:focal
 
 ARG COMMIT
 ARG SERVICES_VERSION

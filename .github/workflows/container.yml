@@ -7,15 +7,19 @@ on:
         description: "Container tag"
         required: false
         default: "latest"
+      update_fluence:
+        description: Whether to update fluence.json
+        required: false
+        default: "false"
       version:
         description: 'Fluence version'
-        required: true
+        required: false
       url:
         description: 'Fluence binary URL'
-        required: true
+        required: false
       sha256:
         description: 'Fluence binary SHA256 hash'
-        required: true
+        required: false
 
 jobs:
   build-publish:
@@ -23,11 +27,13 @@ jobs:
     runs-on: ubuntu-latest
     env:
       CONTAINER_TAG: ${{ github.event.inputs.container_tag || 'latest' }}
+      UPDATE_FLUENCE: ${{ github.event.inputs.update_fluence == 'true' || github.event.inputs.container_tag == ''  }}
       
     steps:
       - uses: actions/checkout@v2
 
       - name: Update Fluence in fluence.json to ${{ github.event.inputs.version }}
+        if: ${{ env.UPDATE_FLUENCE != 'false' }}
         run: |
           echo '
           {
@@ -63,6 +69,7 @@ jobs:
           TAG="${{ env.CONTAINER_TAG }}"
           RUN="${{ github.run_number }}"
           TAGS=fluencelabs/node:${TAG},fluencelabs/node:${TAG}_v${RUN}
+          TAGS=$TAGS,fluencelabs/fluence:${TAG},fluencelabs/fluence:${TAG}_v${RUN}
           
           echo "TAGS=$TAGS" | tee -a $GITHUB_ENV
           echo "BUILD_DATE=$(date '+%Y-%m-%dT%H:%M:%S%:z')"

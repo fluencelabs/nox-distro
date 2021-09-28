@@ -22,7 +22,7 @@ autodeploy_particle_ttl = "60s"
 # default is /.fluence/v1/certificates
 # certificate_dir = "./certificates"
 ## directory for builtins
-# default is /builtins
+# default is /.fluence/v1/builtins
 # builtins_base_dir = "./builtins"
 
 ## Path to AIR interpreter .wasm is set to specific version by default

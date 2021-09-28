@@ -69,6 +69,7 @@ jobs:
           TAG="${{ env.CONTAINER_TAG }}"
           RUN="${{ github.run_number }}"
           TAGS=fluencelabs/node:${TAG},fluencelabs/node:${TAG}_v${RUN}
+          TAGS=$TAGS,fluencelabs/fluence:${TAG},fluencelabs/fluence:${TAG}_v${RUN}
           
           echo "TAGS=$TAGS" | tee -a $GITHUB_ENV
           echo "BUILD_DATE=$(date '+%Y-%m-%dT%H:%M:%S%:z')"

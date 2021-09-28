@@ -33,7 +33,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Update Fluence in fluence.json to ${{ github.event.inputs.version }}
-        if: ${{ env.UPDATE_FLUENCE !== 'false' }}
+        if: ${{ env.UPDATE_FLUENCE != 'false' }}
         run: |
           echo '
           {

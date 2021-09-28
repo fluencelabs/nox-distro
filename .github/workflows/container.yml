@@ -6,7 +6,7 @@ on:
       container_tag:
         description: "Container tag"
         required: false
-        default: "latest"
+        default: "${{ github.ref }}"
       update_fluence:
         description: Whether to update fluence.json
         required: false

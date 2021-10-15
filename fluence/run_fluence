@@ -1,4 +1,8 @@
 #!/usr/bin/execlineb -s0
 # '-s0' defines '$@' to hold all positional parameters
+
+# remove old HOME variable from the environment, so the daemon isn't confused by it
+# see https://github.com/fluencelabs/node-distro/issues/14 for more details
+unexport HOME
 # 'setuidgid abc' runs '/fluence' as user 'abc'
 s6-setuidgid abc /fluence $@

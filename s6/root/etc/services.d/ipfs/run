@@ -3,6 +3,10 @@
 # import ENV from container
 with-contenv
 
+# remove old HOME variable from the environment, so the daemon isn't confused by it
+# see https://github.com/fluencelabs/node-distro/issues/14 for more details
+unexport HOME
+
 # seems like IPFS logs most logs to stderr, so
 # map stderr to stdout so s6-log can catch it
 fdmove -c 2 1

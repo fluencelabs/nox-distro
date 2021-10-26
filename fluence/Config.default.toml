@@ -1,4 +1,3 @@
-builtins_base_dir = "/builtins"
 ## ed25519, rsa, secp256k1 private keys available for this node. Generation is available only for ed25519 and secp256k1.
 ## Either value or path should be defined. Value is base58 bytes.
 ## ed25519 format is set by default
@@ -24,6 +23,7 @@ autodeploy_particle_ttl = "60s"
 # certificate_dir = "./certificates"
 ## directory for builtins
 # default is /.fluence/v1/builtins
+builtins_base_dir = "/builtins"
 
 ## Path to AIR interpreter .wasm is set to specific version by default
 ## air_interpreter_path = "./aquamarine_${air_interpreter_wasm::VERSION}.wasm"

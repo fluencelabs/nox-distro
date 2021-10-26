@@ -5,4 +5,4 @@
 # see https://github.com/fluencelabs/node-distro/issues/14 for more details
 unexport HOME
 # 'setuidgid abc' runs '/fluence' as user 'abc'
-s6-setuidgid abc /fluence $@
+s6-setuidgid abc /fluence -c /.fluence/v1/Config.toml $@

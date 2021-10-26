@@ -1,5 +1,5 @@
 {
-  "target": "stage",
+  "target": "testnet",
 
   "environments": [
     {
@@ -69,7 +69,7 @@
     },
     {
       "name": "testnet",
-      "container_tag": "air-mem-hotfix_v263",
+      "container_tag": "update_interpreter_v276",
       "containers_per_host": 1,
       "external_bootstraps": [],
       "hosts": [

@@ -1,4 +1,5 @@
 autodeploy_particle_ttl = "60s"
+builtins_base_dir = "/builtins"
 
 [root_key_pair]
 format = "ed25519"

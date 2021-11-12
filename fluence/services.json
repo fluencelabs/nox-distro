@@ -8,5 +8,10 @@
     "version": "v0.2.4",
     "url": "https://github.com/fluencelabs/aqua-dht/releases/download/v0.2.4/aqua-dht.tar.gz",
     "sha256": "62d77bd53439d454e2297e3a88d5fd2a1256cebb95e807d5111d8142d4a406e0"
+  },
+  "trust-graph": {
+    "version": "v0.1.0",
+    "url": "https://github.com/fluencelabs/trust-graph/releases/download/v0.1.0/trust-graph.tar.gz",
+    "sha256": "e40f47523e07cbe9d3e1b5bd61f0010a491b91070c3327ae7f96d9676e6501c2"
   }
 }

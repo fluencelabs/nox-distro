@@ -7,5 +7,6 @@ from python:2-alpine
 copy --from=BUILD /root/.local /root/.local
 copy . /deploy
 env PATH=/root/.local/bin:$PATH
+RUN mkdir -p /root/.ssh
 workdir /deploy
 ENTRYPOINT ["fab"]

@@ -16,3 +16,7 @@
 # Prometheus
 `/prometheus` contains basic configuration file, HTML consoles are TBD
 
+# How to deploy Fluence with docker
+1. Edit `fluence.yml` and `fluence_bootstrap.yml` to your needs
+2. Build image: `docker build -t deploy -t`
+3. Run `docker run -v $HOME/.ssh:/root/.ssh:ro deploy deploy_fluence` (you can use `deploy_caddy` or `deploy_watchdog` instead of `deploy_fluence` as well)

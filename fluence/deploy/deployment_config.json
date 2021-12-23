@@ -1,5 +1,5 @@
 {
-  "target": "testnet",
+  "target": "stage",
 
   "environments": [
     {
@@ -130,7 +130,7 @@
     },
     {
       "name": "stage",
-      "container_tag": "air-mem-hotfix_v263",
+      "container_tag": "v0.0.24_22",
       "containers_per_host": 5,
       "hosts": [
         "134.209.186.43"

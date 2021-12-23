@@ -1,10 +1,10 @@
 {
-  "target": "stage",
+  "target": "krasnodar",
 
   "environments": [
     {
       "name": "krasnodar",
-      "container_tag": "air-mem-hotfix_v263",
+      "container_tag": "v0.0.24_22",
       "containers_per_host": 1,
       "external_bootstraps": [
         "/ip4/165.227.164.206/tcp/7001",

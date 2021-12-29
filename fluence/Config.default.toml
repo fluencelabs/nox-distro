@@ -48,17 +48,17 @@ bootstrap_nodes = [
 websocket_port = 9999
 #external_address = "85.85.35.35"
 prometheus_port = 18080
-aquavm_pool_size = 16
+aquavm_pool_size = 8
 
 ## Maximum heap size in bytes available for an interpreter instance.
 # default is not specified and defined by runtime (1600 pages: 65536*1600 ~ 100 Mb, Wasm page size is 64 Kb)
-# aquavm_max_heap_size = 100 Mb
+aquavm_max_heap_size = "500 Mb"
 ## Maximum heap size in bytes available for a WASM module.
 # Checks heap size required by module if specified, default is not specified.
-# module_max_heap_size = 10 Mb
+# module_max_heap_size = "10 Mb"
 ## Default heap size in bytes available for a WASM module unless otherwise specified.
 # default is not specified and defined by runtime
-# module_default_heap_size = 5 Mb
+# module_default_heap_size = "5 Mb"
 
 ## environment variables that will be passed to each service
 ## TODO: separate by service or move to service config

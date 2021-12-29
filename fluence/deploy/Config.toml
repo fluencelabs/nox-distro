@@ -1,5 +1,7 @@
 autodeploy_particle_ttl = "60s"
 builtins_base_dir = "/builtins"
+aquavm_pool_size = 6
+aquavm_max_heap_size = "500 Mb"
 
 [root_key_pair]
 format = "ed25519"

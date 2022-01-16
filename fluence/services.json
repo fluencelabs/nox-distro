@@ -10,8 +10,8 @@
     "sha256": "62d77bd53439d454e2297e3a88d5fd2a1256cebb95e807d5111d8142d4a406e0"
   },
   "trust-graph": {
-    "version": "v0.1.2-hl-api.0",
-    "url": "https://github.com/fluencelabs/trust-graph/releases/download/v0.1.2-hl-api.0/trust-graph.tar.gz",
-    "sha256": "3fe01b1f2017b9203de2cb8e80add820951cc90bf35ab58be0434250fa343e4e"
+    "version": "v0.1.3-hl-api.0",
+    "url": "https://github.com/fluencelabs/trust-graph/releases/download/v0.1.3-hl-api.0/trust-graph.tar.gz",
+    "sha256": "e9c650a93c24a59b2101c20e3fcb07a08f2327755020a99e54241b7fac1a0b8b"
   }
 }

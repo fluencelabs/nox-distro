@@ -1,18 +1,24 @@
-global:
-  scrape_interval:     15s
-  evaluation_interval: 15s
-
-rule_files:
-  # - "first.rules"
-  # - "second.rules"
-
 scrape_configs:
-  - job_name: node
+  - job_name: "docker"
     static_configs:
-      - targets: ['localhost:19999']
-      - targets: ['localhost:29999']
-      - targets: ['localhost:39999']
+    - { targets: [ "165.227.164.206:16000" ], labels: { hostname: "net-01", env: "testnet" } }
+    - { targets: [ "138.197.189.50:16000"  ], labels: { hostname: "net-02", env: "testnet" } }
+    - { targets: [ "157.230.23.49:16000"   ], labels: { hostname: "net-03", env: "testnet" } }
+    - { targets: [ "159.65.126.102:16000"  ], labels: { hostname: "net-04", env: "testnet" } }
+    - { targets: [ "142.93.169.49:16000"   ], labels: { hostname: "net-05", env: "testnet" } }
+    - { targets: [ "139.59.148.53:16000"   ], labels: { hostname: "net-06", env: "testnet" } }
+    - { targets: [ "206.81.30.129:16000"   ], labels: { hostname: "net-07", env: "testnet" } }
+    - { targets: [ "157.230.98.51:16000"   ], labels: { hostname: "net-08", env: "testnet" } }
+    - { targets: [ "159.89.2.70:16000"     ], labels: { hostname: "net-09", env: "testnet" } }
+    - { targets: [ "157.230.98.75:16000"   ], labels: { hostname: "net-10", env: "testnet" } }
 
-# histogram_quantile(0.95, sum(irate(kademlia_exporter_random_node_lookup_duration_bucket[10s])) by (le))
-# histogram_quantile(0.95, sum(rate(kademlia_exporter_ping_duration_bucket[5m])) by (le))
-
+    - { targets: [ "164.90.171.139:16000"  ], labels: { hostname: "krasnodar-00", env: "krasnodar" } }
+    - { targets: [ "178.128.194.190:16000" ], labels: { hostname: "krasnodar-01", env: "krasnodar" } }
+    - { targets: [ "46.101.159.139:16000"  ], labels: { hostname: "krasnodar-02", env: "krasnodar" } }
+    - { targets: [ "161.35.222.178:16000"  ], labels: { hostname: "krasnodar-03", env: "krasnodar" } }
+    - { targets: [ "164.90.164.229:16000"  ], labels: { hostname: "krasnodar-04", env: "krasnodar" } }
+    - { targets: [ "164.90.168.55:16000"   ], labels: { hostname: "krasnodar-05", env: "krasnodar" } }
+    - { targets: [ "161.35.212.85:16000"   ], labels: { hostname: "krasnodar-06", env: "krasnodar" } }
+    - { targets: [ "164.90.165.150:16000"  ], labels: { hostname: "krasnodar-07", env: "krasnodar" } }
+    - { targets: [ "164.90.172.126:16000"  ], labels: { hostname: "krasnodar-08", env: "krasnodar" } }
+    - { targets: [ "164.90.171.156:16000"  ], labels: { hostname: "krasnodar-09", env: "krasnodar" } }

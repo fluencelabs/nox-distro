@@ -17,7 +17,7 @@ services:
     image: grafana/grafana:latest
     container_name: grafana
     environment:
-      - CURRENT_HOST=localhost
+      - PROMETHEUS_HOST=${PROMETHEUS_HOST:?You must set PROMETHEUS_HOST env variable to the public URL of the Prometheus host}
     ports:
       - 3000:3000
     volumes:

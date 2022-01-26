@@ -74,7 +74,7 @@ def gen_compose_file(out, container_tag, scale, is_bootstrap, bootstraps, host, 
         ipfs_port = 5001
         ipfs_swarm_port = 4001
         ipfs_gateway_port = 8001
-        metrics_port = 28080
+        metrics_port = 28081
 
 
     config = copy.deepcopy(CONFIG)

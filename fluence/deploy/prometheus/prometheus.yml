@@ -26,16 +26,16 @@ scrape_configs:
   - job_name: "fluence"
     static_configs:
     - { targets: [ "165.227.164.206:28880" ], labels: { hostname: "net-01-bootstrap", env: "testnet" } }
-    - { targets: [ "165.227.164.206:28080" ], labels: { hostname: "net-01", env: "testnet" } }
-    - { targets: [ "138.197.189.50:28080"  ], labels: { hostname: "net-02", env: "testnet" } }
-    - { targets: [ "157.230.23.49:28080"   ], labels: { hostname: "net-03", env: "testnet" } }
-    - { targets: [ "159.65.126.102:28080"  ], labels: { hostname: "net-04", env: "testnet" } }
-    - { targets: [ "142.93.169.49:28080"   ], labels: { hostname: "net-05", env: "testnet" } }
-    - { targets: [ "139.59.148.53:28080"   ], labels: { hostname: "net-06", env: "testnet" } }
-    - { targets: [ "206.81.30.129:28080"   ], labels: { hostname: "net-07", env: "testnet" } }
-    - { targets: [ "157.230.98.51:28080"   ], labels: { hostname: "net-08", env: "testnet" } }
-    - { targets: [ "159.89.2.70:28080"     ], labels: { hostname: "net-09", env: "testnet" } }
-    - { targets: [ "157.230.98.75:28080"   ], labels: { hostname: "net-10", env: "testnet" } }
+    - { targets: [ "165.227.164.206:28081" ], labels: { hostname: "net-01", env: "testnet" } }
+    - { targets: [ "138.197.189.50:28081"  ], labels: { hostname: "net-02", env: "testnet" } }
+    - { targets: [ "157.230.23.49:28081"   ], labels: { hostname: "net-03", env: "testnet" } }
+    - { targets: [ "159.65.126.102:28081"  ], labels: { hostname: "net-04", env: "testnet" } }
+    - { targets: [ "142.93.169.49:28081"   ], labels: { hostname: "net-05", env: "testnet" } }
+    - { targets: [ "139.59.148.53:28081"   ], labels: { hostname: "net-06", env: "testnet" } }
+    - { targets: [ "206.81.30.129:28081"   ], labels: { hostname: "net-07", env: "testnet" } }
+    - { targets: [ "157.230.98.51:28081"   ], labels: { hostname: "net-08", env: "testnet" } }
+    - { targets: [ "159.89.2.70:28081"     ], labels: { hostname: "net-09", env: "testnet" } }
+    - { targets: [ "157.230.98.75:28081"   ], labels: { hostname: "net-10", env: "testnet" } }
 
 
     - { targets: [ "134.209.186.43:28880"   ], labels: { hostname: "stage-01-bootstrap", env: "stage" } }

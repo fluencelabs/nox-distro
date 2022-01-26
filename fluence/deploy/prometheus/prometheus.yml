@@ -24,6 +24,7 @@ scrape_configs:
     - { targets: [ "164.90.171.156:16000"  ], labels: { hostname: "krasnodar-09", env: "krasnodar" } }
 
   - job_name: "fluence"
+    static_configs:
     - { targets: [ "165.227.164.206:28880" ], labels: { hostname: "net-01-bootstrap", env: "testnet" } }
     - { targets: [ "165.227.164.206:28080" ], labels: { hostname: "net-01", env: "testnet" } }
     - { targets: [ "138.197.189.50:28080"  ], labels: { hostname: "net-02", env: "testnet" } }

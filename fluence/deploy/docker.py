@@ -120,3 +120,21 @@ wss://{}:{}{} {{
     run('docker rm -f {} || true'.format(container))
     run('docker pull caddy:latest')
     run('docker run --name {} -d -p 80:80 {} -v $PWD/Caddyfile:/etc/caddy/Caddyfile -v caddy_data:/data caddy:latest'.format(container, open_ports))
+
+@task
+@runs_once
+def deploy_cadvisor():
+    load_config()
+    execute(do_deploy_cadvisor)
+
+@task
+@parallel
+def do_deploy_cadvisor():
+    volumes = "--volume=/:/rootfs:ro --volume=/var/run:/var/run:ro --volume=/sys:/sys:ro --volume=/var/lib/docker/:/var/lib/docker:ro --volume=/dev/disk/:/dev/disk:ro"
+    devices = "--device=/dev/kmsg"
+    name = "--name=cadvisor"
+    ports = "-p 16000:8080"
+    container = "gcr.io/cadvisor/cadvisor:v0.39.3"
+
+    command = "docker run -d {} {} {} {} {}".format(volumes, devices, name, ports, container)
+    run(command)

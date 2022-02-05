@@ -7,7 +7,7 @@ services:
       RUST_BACKTRACE: full
       RUST_LOG: info,network=trace,aquamarine=info,aquamarine::actor=info,tokio_threadpool=info,tokio_reactor=info,mio=info,tokio_io=info,soketto=info,yamux=info,multistream_select=info,libp2p_secio=info,libp2p_websocket::framed=info,libp2p_ping=info,libp2p_core::upgrade::apply=info,libp2p_kad::kbucket=info,cranelift_codegen=info,wasmer_wasi=info,async_io=info,polling=info,wasmer_interface_types_fl=info,cranelift_codegen=info,wasmer_wasi=info,async_io=info,polling=info,wasmer_interface_types_fl=info,particle_server::behaviour::identify=info,libp2p_mplex=info,libp2p_identify=info,walrus=info,particle_protocol::libp2p_protocol::upgrade=info,kademlia::behaviour=info
       WASM_LOG: info
-    image: fluencelabs/node:latest
+    image: fluencelabs/node:metrics_v351
     ports:
       - 7770:7770 # tcp
       - 9990:9990 # ws
@@ -28,7 +28,7 @@ services:
       RUST_BACKTRACE: full
       RUST_LOG: info,network=trace,aquamarine=info,aquamarine::actor=info,tokio_threadpool=info,tokio_reactor=info,mio=info,tokio_io=info,soketto=info,yamux=info,multistream_select=info,libp2p_secio=info,libp2p_websocket::framed=info,libp2p_ping=info,libp2p_core::upgrade::apply=info,libp2p_kad::kbucket=info,cranelift_codegen=info,wasmer_wasi=info,async_io=info,polling=info,wasmer_interface_types_fl=info,cranelift_codegen=info,wasmer_wasi=info,async_io=info,polling=info,wasmer_interface_types_fl=info,particle_server::behaviour::identify=info,libp2p_mplex=info,libp2p_identify=info,walrus=info,particle_protocol::libp2p_protocol::upgrade=info,kademlia::behaviour=info
       WASM_LOG: info
-    image: fluencelabs/node:latest
+    image: fluencelabs/node:metrics_v351
     ports:
       - 7771:7771 # tcp
       - 9991:9991 # ws
@@ -49,7 +49,7 @@ services:
       RUST_BACKTRACE: full
       RUST_LOG: info,network=trace,aquamarine=info,aquamarine::actor=info,tokio_threadpool=info,tokio_reactor=info,mio=info,tokio_io=info,soketto=info,yamux=info,multistream_select=info,libp2p_secio=info,libp2p_websocket::framed=info,libp2p_ping=info,libp2p_core::upgrade::apply=info,libp2p_kad::kbucket=info,cranelift_codegen=info,wasmer_wasi=info,async_io=info,polling=info,wasmer_interface_types_fl=info,cranelift_codegen=info,wasmer_wasi=info,async_io=info,polling=info,wasmer_interface_types_fl=info,particle_server::behaviour::identify=info,libp2p_mplex=info,libp2p_identify=info,walrus=info,particle_protocol::libp2p_protocol::upgrade=info,kademlia::behaviour=info
       WASM_LOG: info
-    image: fluencelabs/node:latest
+    image: fluencelabs/node:metrics_v351
     ports:
       - 7772:7772 # tcp
       - 9992:9992 # ws
@@ -63,8 +63,52 @@ services:
     networks:
       - fluence
 
+
+  env.json:
+    restart: "no"
+    # depends_on:
+    #   - fluence
+    image: busybox:stable
+    volumes:
+      - env.json:/env
+    command:
+      - sh
+      - -c
+      - |
+        cat <<EOF > /env/env.json
+        {
+            "nodes": [
+                {
+                  "multiaddr": "/ip4/127.0.0.1/tcp/9990/ws/p2p/12D3KooWHBG9oaVx4i3vi6c1rSBUm7MLBmyGmmbHoZ23pmjDCnvK",
+                  "peerId": "12D3KooWHBG9oaVx4i3vi6c1rSBUm7MLBmyGmmbHoZ23pmjDCnvK"
+                },
+                {
+                  "multiaddr": "/ip4/127.0.0.1/tcp/9991/ws/p2p/12D3KooWRABanQHUn28dxavN9ZS1zZghqoZVAYtFpoN7FdtoGTFv",
+                  "peerId": "12D3KooWRABanQHUn28dxavN9ZS1zZghqoZVAYtFpoN7FdtoGTFv"
+                },
+                {
+                  "multiaddr": "/ip4/127.0.0.1/tcp/9992/ws/p2p/12D3KooWFpQ7LHxcC9FEBUh3k4nSCC12jBhijJv3gJbi7wsNYzJ5",
+                  "peerId": "12D3KooWFpQ7LHxcC9FEBUh3k4nSCC12jBhijJv3gJbi7wsNYzJ5"
+                }
+            ]
+        }
+        EOF
+
+  dashboard:
+    depends_on:
+      - env.json
+    image: fluencelabs/dashboard:latest
+    volumes:
+      - env.json:/dist/env
+    networks:
+      - fluence
+    ports:
+      - 8080:8080
+
 version: "3.5"
 volumes:
+  fluence: null
+  env.json: null
   fluence-0:
   fluence-1:
   fluence-2:

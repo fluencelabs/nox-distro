@@ -44,6 +44,7 @@ CONFIG = {
                 '{ipfs_port}:5001',
                 '{ipfs_swarm_port}:4001',
                 '{ipfs_gateway_port}:8080',
+                '{metrics_port}:18080'
             ],
             'restart': 'always'
         }
@@ -65,6 +66,7 @@ def gen_compose_file(out, container_tag, scale, is_bootstrap, bootstraps, host, 
         ipfs_port = 5550
         ipfs_swarm_port = 4440
         ipfs_gateway_port = 8880
+        metrics_port = 28880
     else:
         container = 'fluence'
         tcp_port = 7001
@@ -72,6 +74,8 @@ def gen_compose_file(out, container_tag, scale, is_bootstrap, bootstraps, host, 
         ipfs_port = 5001
         ipfs_swarm_port = 4001
         ipfs_gateway_port = 8001
+        metrics_port = 28081
+
 
     config = copy.deepcopy(CONFIG)
     service = config['services']['fluence']
@@ -109,6 +113,7 @@ def gen_compose_file(out, container_tag, scale, is_bootstrap, bootstraps, host, 
             ipfs_port=ipfs_port,
             ipfs_swarm_port=ipfs_swarm_port,
             ipfs_gateway_port=ipfs_gateway_port,
+            metrics_port=metrics_port
         ), container_config['ports'])
 
         for key in container_config['environment']:
@@ -128,6 +133,7 @@ def gen_compose_file(out, container_tag, scale, is_bootstrap, bootstraps, host, 
         ipfs_port += 1
         ipfs_swarm_port += 1
         ipfs_gateway_port += 1
+        metrics_port += 1
 
     puts("Writing config to {}".format(out))
     with hide('running'):

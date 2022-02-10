@@ -23,9 +23,11 @@ scrape_configs:
     - { targets: [ "164.90.172.126:16000"  ], labels: { hostname: "krasnodar-08", env: "krasnodar" } }
     - { targets: [ "164.90.171.156:16000"  ], labels: { hostname: "krasnodar-09", env: "krasnodar" } }
 
+    - { targets: [ "134.209.186.43:16000"  ], labels: { hostname: "stage-01", env: "stage" } }
+
   - job_name: "fluence"
     static_configs:
-    - { targets: [ "165.227.164.206:28880" ], labels: { hostname: "net-01-bootstrap", env: "testnet" } }
+    - { targets: [ "165.227.164.206:28880" ], labels: { hostname: "net-bb", env: "testnet" } }
     - { targets: [ "165.227.164.206:28081" ], labels: { hostname: "net-01", env: "testnet" } }
     - { targets: [ "138.197.189.50:28081"  ], labels: { hostname: "net-02", env: "testnet" } }
     - { targets: [ "157.230.23.49:28081"   ], labels: { hostname: "net-03", env: "testnet" } }
@@ -37,14 +39,14 @@ scrape_configs:
     - { targets: [ "159.89.2.70:28081"     ], labels: { hostname: "net-09", env: "testnet" } }
     - { targets: [ "157.230.98.75:28081"   ], labels: { hostname: "net-10", env: "testnet" } }
 
-    - { targets: [ "134.209.186.43:28880"   ], labels: { hostname: "stage-01-bootstrap", env: "stage" } }
+    - { targets: [ "134.209.186.43:28880"   ], labels: { hostname: "stage-bb", env: "stage" } }
     - { targets: [ "134.209.186.43:28081"   ], labels: { hostname: "stage-01", env: "stage" } }
     - { targets: [ "134.209.186.43:28082"   ], labels: { hostname: "stage-02", env: "stage" } }
     - { targets: [ "134.209.186.43:28083"   ], labels: { hostname: "stage-03", env: "stage" } }
     - { targets: [ "134.209.186.43:28084"   ], labels: { hostname: "stage-04", env: "stage" } }
     - { targets: [ "134.209.186.43:28085"   ], labels: { hostname: "stage-05", env: "stage" } }
 
-    - { targets: [ "164.90.171.139:28880"  ], labels: { hostname: "krasnodar-00", env: "krasnodar" } }
+    - { targets: [ "164.90.171.139:28880"  ], labels: { hostname: "krasnodar-bb", env: "krasnodar" } }
     - { targets: [ "164.90.171.139:28081"  ], labels: { hostname: "krasnodar-00", env: "krasnodar" } }
     - { targets: [ "178.128.194.190:28081" ], labels: { hostname: "krasnodar-01", env: "krasnodar" } }
     - { targets: [ "46.101.159.139:28081"  ], labels: { hostname: "krasnodar-02", env: "krasnodar" } }

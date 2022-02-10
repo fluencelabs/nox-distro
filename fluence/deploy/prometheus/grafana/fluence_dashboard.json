@@ -1,0 +1,2218 @@
+{
+    "annotations": {
+      "list": [
+        {
+          "builtIn": 1,
+          "datasource": "-- Grafana --",
+          "enable": true,
+          "hide": true,
+          "iconColor": "rgba(0, 211, 255, 1)",
+          "name": "Annotations & Alerts",
+          "target": {
+            "limit": 100,
+            "matchAny": false,
+            "tags": [],
+            "type": "dashboard"
+          },
+          "type": "dashboard"
+        }
+      ]
+    },
+    "editable": true,
+    "fiscalYearStartMonth": 0,
+    "graphTooltip": 0,
+    "id": 4,
+    "iteration": 1644427025815,
+    "links": [],
+    "liveNow": false,
+    "panels": [
+      {
+        "collapsed": true,
+        "gridPos": {
+          "h": 1,
+          "w": 24,
+          "x": 0,
+          "y": 0
+        },
+        "id": 26,
+        "panels": [
+          {
+            "description": "",
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "thresholds"
+                },
+                "custom": {
+                  "fillOpacity": 70,
+                  "lineWidth": 1
+                },
+                "mappings": [
+                  {
+                    "options": {
+                      "0": {
+                        "index": 1,
+                        "text": "D"
+                      },
+                      "1": {
+                        "index": 0,
+                        "text": "U"
+                      }
+                    },
+                    "type": "value"
+                  }
+                ],
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "red"
+                    },
+                    {
+                      "color": "green",
+                      "value": 1
+                    }
+                  ]
+                }
+              },
+              "overrides": []
+            },
+            "gridPos": {
+              "h": 9,
+              "w": 8,
+              "x": 0,
+              "y": 2
+            },
+            "id": 4,
+            "maxDataPoints": 15,
+            "maxPerRow": 3,
+            "options": {
+              "colWidth": 0.9,
+              "legend": {
+                "displayMode": "hidden",
+                "placement": "bottom"
+              },
+              "rowHeight": 0.9,
+              "showValue": "auto",
+              "tooltip": {
+                "mode": "single"
+              }
+            },
+            "pluginVersion": "8.3.4",
+            "repeat": "env",
+            "repeatDirection": "h",
+            "targets": [
+              {
+                "datasource": {
+                  "type": "prometheus",
+                  "uid": "prometheus_grafana_fluence"
+                },
+                "exemplar": true,
+                "expr": "min_over_time(up{job=\"fluence\", env=\"$env\"}[$__interval])",
+                "format": "time_series",
+                "instant": false,
+                "interval": "",
+                "intervalFactor": 1,
+                "legendFormat": "{{ hostname }}",
+                "refId": "A"
+              }
+            ],
+            "title": "$env",
+            "type": "status-history"
+          }
+        ],
+        "title": "Health",
+        "type": "row"
+      },
+      {
+        "collapsed": true,
+        "gridPos": {
+          "h": 1,
+          "w": 24,
+          "x": 0,
+          "y": 1
+        },
+        "id": 24,
+        "panels": [
+          {
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "thresholds"
+                },
+                "mappings": [],
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "red",
+                      "value": null
+                    },
+                    {
+                      "color": "#EAB839",
+                      "value": 5
+                    },
+                    {
+                      "color": "green",
+                      "value": 7
+                    },
+                    {
+                      "color": "blue",
+                      "value": 20
+                    }
+                  ]
+                }
+              },
+              "overrides": []
+            },
+            "gridPos": {
+              "h": 8,
+              "w": 12,
+              "x": 0,
+              "y": 3
+            },
+            "id": 45,
+            "options": {
+              "colorMode": "value",
+              "graphMode": "area",
+              "justifyMode": "auto",
+              "orientation": "auto",
+              "reduceOptions": {
+                "calcs": [
+                  "lastNotNull"
+                ],
+                "fields": "",
+                "values": false
+              },
+              "textMode": "auto"
+            },
+            "pluginVersion": "8.3.4",
+            "targets": [
+              {
+                "datasource": {
+                  "type": "prometheus",
+                  "uid": "prometheus_grafana_fluence"
+                },
+                "exemplar": true,
+                "expr": "connection_pool_connected_peers",
+                "interval": "",
+                "legendFormat": "{{ hostname }}",
+                "refId": "A"
+              }
+            ],
+            "title": "Active Connections",
+            "type": "stat"
+          },
+          {
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "palette-classic"
+                },
+                "custom": {
+                  "axisLabel": "",
+                  "axisPlacement": "auto",
+                  "barAlignment": -1,
+                  "drawStyle": "line",
+                  "fillOpacity": 0,
+                  "gradientMode": "none",
+                  "hideFrom": {
+                    "legend": false,
+                    "tooltip": false,
+                    "viz": false
+                  },
+                  "lineInterpolation": "linear",
+                  "lineStyle": {
+                    "fill": "solid"
+                  },
+                  "lineWidth": 1,
+                  "pointSize": 5,
+                  "scaleDistribution": {
+                    "type": "linear"
+                  },
+                  "showPoints": "auto",
+                  "spanNulls": false,
+                  "stacking": {
+                    "group": "A",
+                    "mode": "none"
+                  },
+                  "thresholdsStyle": {
+                    "mode": "off"
+                  }
+                },
+                "mappings": [],
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "red",
+                      "value": 80
+                    }
+                  ]
+                }
+              },
+              "overrides": []
+            },
+            "gridPos": {
+              "h": 8,
+              "w": 12,
+              "x": 12,
+              "y": 3
+            },
+            "id": 10,
+            "options": {
+              "legend": {
+                "calcs": [
+                  "lastNotNull"
+                ],
+                "displayMode": "table",
+                "placement": "right",
+                "sortBy": "Last *",
+                "sortDesc": true
+              },
+              "tooltip": {
+                "mode": "single"
+              }
+            },
+            "pluginVersion": "8.3.4",
+            "targets": [
+              {
+                "datasource": {
+                  "type": "prometheus",
+                  "uid": "prometheus_grafana_fluence"
+                },
+                "exemplar": true,
+                "expr": "sum(connection_pool_connected_peers) by (hostname)",
+                "hide": false,
+                "interval": "",
+                "legendFormat": "{{ hostname }}",
+                "refId": "A"
+              }
+            ],
+            "title": "Active Connections",
+            "type": "timeseries"
+          },
+          {
+            "description": "",
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "continuous-BlPu"
+                },
+                "decimals": 0,
+                "mappings": [],
+                "max": 100000,
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    }
+                  ]
+                }
+              },
+              "overrides": []
+            },
+            "gridPos": {
+              "h": 8,
+              "w": 8,
+              "x": 0,
+              "y": 11
+            },
+            "id": 14,
+            "options": {
+              "displayMode": "lcd",
+              "orientation": "auto",
+              "reduceOptions": {
+                "calcs": [
+                  "lastNotNull"
+                ],
+                "fields": "",
+                "values": false
+              },
+              "showUnfilled": true
+            },
+            "pluginVersion": "8.3.4",
+            "targets": [
+              {
+                "datasource": {
+                  "type": "prometheus",
+                  "uid": "prometheus_grafana_fluence"
+                },
+                "exemplar": true,
+                "expr": "sum by (env) (connectivity_particle_send_success_total)",
+                "interval": "",
+                "legendFormat": "{{ env }} sent",
+                "refId": "A"
+              },
+              {
+                "datasource": {
+                  "type": "prometheus",
+                  "uid": "prometheus_grafana_fluence"
+                },
+                "exemplar": true,
+                "expr": "sum by (env) (connection_pool_received_particles_total)",
+                "hide": false,
+                "interval": "",
+                "legendFormat": "{{ env }} received",
+                "refId": "C"
+              }
+            ],
+            "title": "Particles",
+            "type": "bargauge"
+          },
+          {
+            "description": "",
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "palette-classic"
+                },
+                "custom": {
+                  "axisLabel": "",
+                  "axisPlacement": "auto",
+                  "barAlignment": 0,
+                  "drawStyle": "line",
+                  "fillOpacity": 25,
+                  "gradientMode": "none",
+                  "hideFrom": {
+                    "legend": false,
+                    "tooltip": false,
+                    "viz": false
+                  },
+                  "lineInterpolation": "linear",
+                  "lineWidth": 1,
+                  "pointSize": 5,
+                  "scaleDistribution": {
+                    "type": "linear"
+                  },
+                  "showPoints": "auto",
+                  "spanNulls": false,
+                  "stacking": {
+                    "group": "A",
+                    "mode": "none"
+                  },
+                  "thresholdsStyle": {
+                    "mode": "off"
+                  }
+                },
+                "mappings": [],
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "red",
+                      "value": 80
+                    }
+                  ]
+                }
+              },
+              "overrides": []
+            },
+            "gridPos": {
+              "h": 8,
+              "w": 8,
+              "x": 8,
+              "y": 11
+            },
+            "id": 43,
+            "options": {
+              "legend": {
+                "calcs": [],
+                "displayMode": "list",
+                "placement": "bottom"
+              },
+              "tooltip": {
+                "mode": "single"
+              }
+            },
+            "pluginVersion": "8.3.4",
+            "targets": [
+              {
+                "datasource": {
+                  "type": "prometheus",
+                  "uid": "prometheus_grafana_fluence"
+                },
+                "exemplar": true,
+                "expr": "sum by (env) (rate(connectivity_particle_send_success_total[$__rate_interval]))",
+                "interval": "1m",
+                "legendFormat": "{{ env }} sent",
+                "refId": "A"
+              },
+              {
+                "datasource": {
+                  "type": "prometheus",
+                  "uid": "prometheus_grafana_fluence"
+                },
+                "exemplar": true,
+                "expr": "sum by (env) (rate(connection_pool_received_particles_total[$__rate_interval]))",
+                "hide": false,
+                "interval": "1m",
+                "legendFormat": "{{ env }} received",
+                "refId": "C"
+              }
+            ],
+            "title": "Particles per second",
+            "type": "timeseries"
+          },
+          {
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "continuous-GrYlRd"
+                },
+                "mappings": [],
+                "max": 500,
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "red",
+                      "value": 80
+                    }
+                  ]
+                }
+              },
+              "overrides": []
+            },
+            "gridPos": {
+              "h": 8,
+              "w": 4,
+              "x": 16,
+              "y": 11
+            },
+            "id": 2,
+            "options": {
+              "displayMode": "lcd",
+              "orientation": "vertical",
+              "reduceOptions": {
+                "calcs": [
+                  "lastNotNull"
+                ],
+                "fields": "",
+                "values": false
+              },
+              "showUnfilled": true
+            },
+            "pluginVersion": "8.3.4",
+            "targets": [
+              {
+                "datasource": {
+                  "type": "prometheus",
+                  "uid": "prometheus_grafana_fluence"
+                },
+                "exemplar": true,
+                "expr": "sum by (env) (connectivity_particle_send_failure_total) ",
+                "instant": false,
+                "interval": "",
+                "legendFormat": "{{env}}",
+                "refId": "A"
+              }
+            ],
+            "title": "Particle Send Failures",
+            "type": "bargauge"
+          },
+          {
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "palette-classic"
+                },
+                "custom": {
+                  "axisLabel": "",
+                  "axisPlacement": "auto",
+                  "barAlignment": 0,
+                  "drawStyle": "line",
+                  "fillOpacity": 25,
+                  "gradientMode": "none",
+                  "hideFrom": {
+                    "legend": false,
+                    "tooltip": false,
+                    "viz": false
+                  },
+                  "lineInterpolation": "linear",
+                  "lineWidth": 1,
+                  "pointSize": 5,
+                  "scaleDistribution": {
+                    "type": "linear"
+                  },
+                  "showPoints": "auto",
+                  "spanNulls": false,
+                  "stacking": {
+                    "group": "A",
+                    "mode": "normal"
+                  },
+                  "thresholdsStyle": {
+                    "mode": "off"
+                  }
+                },
+                "mappings": [],
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "red",
+                      "value": 80
+                    }
+                  ]
+                }
+              },
+              "overrides": []
+            },
+            "gridPos": {
+              "h": 8,
+              "w": 4,
+              "x": 20,
+              "y": 11
+            },
+            "id": 44,
+            "options": {
+              "legend": {
+                "calcs": [],
+                "displayMode": "list",
+                "placement": "bottom"
+              },
+              "tooltip": {
+                "mode": "single"
+              }
+            },
+            "pluginVersion": "8.3.4",
+            "targets": [
+              {
+                "datasource": {
+                  "type": "prometheus",
+                  "uid": "prometheus_grafana_fluence"
+                },
+                "exemplar": true,
+                "expr": "sum by (env) (connectivity_particle_send_failure_total) ",
+                "instant": false,
+                "interval": "",
+                "legendFormat": "{{env}}",
+                "refId": "A"
+              }
+            ],
+            "title": "Particle Send Failures",
+            "type": "timeseries"
+          },
+          {
+            "cards": {},
+            "color": {
+              "cardColor": "#b4ff00",
+              "colorScale": "sqrt",
+              "colorScheme": "interpolateTurbo",
+              "exponent": 0.5,
+              "mode": "spectrum"
+            },
+            "dataFormat": "tsbuckets",
+            "gridPos": {
+              "h": 10,
+              "w": 24,
+              "x": 0,
+              "y": 19
+            },
+            "heatmap": {},
+            "hideZeroBuckets": false,
+            "highlightCards": true,
+            "id": 61,
+            "legend": {
+              "show": true
+            },
+            "maxDataPoints": 100,
+            "reverseYBuckets": false,
+            "targets": [
+              {
+                "datasource": {
+                  "type": "prometheus",
+                  "uid": "prometheus_grafana_fluence"
+                },
+                "exemplar": false,
+                "expr": "sum(increase(connection_pool_particle_sizes_bucket{ env =~ \"$env\"}[$__interval])) by (le)",
+                "format": "heatmap",
+                "interval": "",
+                "legendFormat": "{{ le }}",
+                "refId": "A"
+              }
+            ],
+            "title": "Incoming Particle Sizes",
+            "tooltip": {
+              "show": true,
+              "showHistogram": false
+            },
+            "type": "heatmap",
+            "xAxis": {
+              "show": true
+            },
+            "yAxis": {
+              "format": "bytes",
+              "logBase": 1,
+              "show": true
+            },
+            "yBucketBound": "auto"
+          },
+          {
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "continuous-GrYlRd"
+                },
+                "mappings": [],
+                "max": 300,
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "#EAB839",
+                      "value": 50
+                    },
+                    {
+                      "color": "red",
+                      "value": 200
+                    }
+                  ]
+                }
+              },
+              "overrides": []
+            },
+            "gridPos": {
+              "h": 8,
+              "w": 6,
+              "x": 0,
+              "y": 29
+            },
+            "id": 20,
+            "maxDataPoints": 100,
+            "options": {
+              "displayMode": "lcd",
+              "orientation": "horizontal",
+              "reduceOptions": {
+                "calcs": [
+                  "lastNotNull"
+                ],
+                "fields": "",
+                "values": false
+              },
+              "showUnfilled": true
+            },
+            "pluginVersion": "8.3.4",
+            "targets": [
+              {
+                "datasource": {
+                  "type": "prometheus",
+                  "uid": "prometheus_grafana_fluence"
+                },
+                "exemplar": true,
+                "expr": "particle_executor_alive_actors { env =~ \"$env\" }",
+                "interval": "",
+                "legendFormat": "{{ hostname }}",
+                "refId": "A"
+              }
+            ],
+            "title": "Alive Actors",
+            "type": "bargauge"
+          },
+          {
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "continuous-GrYlRd"
+                },
+                "mappings": [],
+                "max": 200,
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "red",
+                      "value": 80
+                    }
+                  ]
+                }
+              },
+              "overrides": []
+            },
+            "gridPos": {
+              "h": 8,
+              "w": 6,
+              "x": 6,
+              "y": 29
+            },
+            "id": 8,
+            "options": {
+              "displayMode": "lcd",
+              "orientation": "horizontal",
+              "reduceOptions": {
+                "calcs": [
+                  "lastNotNull"
+                ],
+                "fields": "",
+                "values": false
+              },
+              "showUnfilled": true
+            },
+            "pluginVersion": "8.3.4",
+            "targets": [
+              {
+                "datasource": {
+                  "type": "prometheus",
+                  "uid": "prometheus_grafana_fluence"
+                },
+                "exemplar": true,
+                "expr": "connection_pool_particle_queue_size { env =~ \"$env\" } >= 0",
+                "interval": "",
+                "legendFormat": "{{ hostname }}",
+                "refId": "A"
+              }
+            ],
+            "title": "Connection Pool Queue Size",
+            "type": "bargauge"
+          },
+          {
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "continuous-GrYlRd"
+                },
+                "mappings": [],
+                "max": 300,
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "red",
+                      "value": 80
+                    }
+                  ]
+                }
+              },
+              "overrides": []
+            },
+            "gridPos": {
+              "h": 8,
+              "w": 6,
+              "x": 12,
+              "y": 29
+            },
+            "id": 16,
+            "options": {
+              "displayMode": "lcd",
+              "orientation": "horizontal",
+              "reduceOptions": {
+                "calcs": [
+                  "lastNotNull"
+                ],
+                "fields": "",
+                "values": false
+              },
+              "showUnfilled": true
+            },
+            "pluginVersion": "8.3.4",
+            "targets": [
+              {
+                "datasource": {
+                  "type": "prometheus",
+                  "uid": "prometheus_grafana_fluence"
+                },
+                "exemplar": true,
+                "expr": "particle_executor_total_actors_mailbox { env=~\"$env\" }",
+                "interval": "",
+                "legendFormat": "{{ hostname }}",
+                "refId": "A"
+              }
+            ],
+            "title": "Actor mailbox size",
+            "type": "bargauge"
+          }
+        ],
+        "title": "Stats",
+        "type": "row"
+      },
+      {
+        "collapsed": true,
+        "gridPos": {
+          "h": 1,
+          "w": 24,
+          "x": 0,
+          "y": 2
+        },
+        "id": 53,
+        "panels": [
+          {
+            "cards": {},
+            "color": {
+              "cardColor": "#b4ff00",
+              "colorScale": "sqrt",
+              "colorScheme": "interpolateTurbo",
+              "exponent": 0.5,
+              "mode": "spectrum"
+            },
+            "dataFormat": "tsbuckets",
+            "gridPos": {
+              "h": 10,
+              "w": 24,
+              "x": 0,
+              "y": 1
+            },
+            "heatmap": {},
+            "hideZeroBuckets": false,
+            "highlightCards": true,
+            "id": 59,
+            "legend": {
+              "show": true
+            },
+            "maxDataPoints": 100,
+            "reverseYBuckets": false,
+            "targets": [
+              {
+                "datasource": {
+                  "type": "prometheus",
+                  "uid": "prometheus_grafana_fluence"
+                },
+                "exemplar": false,
+                "expr": "sum(increase(particle_executor_interpretation_time_sec_bucket{ env =~ \"$env\"}[$__interval])) by (le)",
+                "format": "heatmap",
+                "interval": "",
+                "legendFormat": "{{ le }}",
+                "refId": "A"
+              }
+            ],
+            "title": "Interpretation time",
+            "tooltip": {
+              "show": true,
+              "showHistogram": false
+            },
+            "type": "heatmap",
+            "xAxis": {
+              "show": true
+            },
+            "yAxis": {
+              "format": "dtdurations",
+              "logBase": 1,
+              "show": true
+            },
+            "yBucketBound": "auto"
+          },
+          {
+            "cards": {},
+            "color": {
+              "cardColor": "#b4ff00",
+              "colorScale": "sqrt",
+              "colorScheme": "interpolateTurbo",
+              "exponent": 0.5,
+              "mode": "spectrum"
+            },
+            "dataFormat": "tsbuckets",
+            "gridPos": {
+              "h": 10,
+              "w": 24,
+              "x": 0,
+              "y": 11
+            },
+            "heatmap": {},
+            "hideZeroBuckets": false,
+            "highlightCards": true,
+            "id": 60,
+            "legend": {
+              "show": true
+            },
+            "maxDataPoints": 100,
+            "reverseYBuckets": false,
+            "targets": [
+              {
+                "datasource": {
+                  "type": "prometheus",
+                  "uid": "prometheus_grafana_fluence"
+                },
+                "exemplar": false,
+                "expr": "sum(increase(particle_executor_service_call_time_sec_bucket{ env =~ \"$env\"}[$__interval])) by (le)",
+                "format": "heatmap",
+                "interval": "",
+                "legendFormat": "{{ le }}",
+                "refId": "A"
+              }
+            ],
+            "title": "Service call time",
+            "tooltip": {
+              "show": true,
+              "showHistogram": false
+            },
+            "type": "heatmap",
+            "xAxis": {
+              "show": true
+            },
+            "yAxis": {
+              "format": "dtdurations",
+              "logBase": 1,
+              "show": true
+            },
+            "yBucketBound": "auto"
+          },
+          {
+            "description": "",
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "continuous-YlBl"
+                },
+                "decimals": 0,
+                "mappings": [],
+                "max": 100000,
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    }
+                  ]
+                }
+              },
+              "overrides": []
+            },
+            "gridPos": {
+              "h": 8,
+              "w": 8,
+              "x": 0,
+              "y": 21
+            },
+            "id": 65,
+            "options": {
+              "displayMode": "lcd",
+              "orientation": "auto",
+              "reduceOptions": {
+                "calcs": [
+                  "lastNotNull"
+                ],
+                "fields": "",
+                "values": false
+              },
+              "showUnfilled": true
+            },
+            "pluginVersion": "8.3.4",
+            "targets": [
+              {
+                "datasource": {
+                  "type": "prometheus",
+                  "uid": "prometheus_grafana_fluence"
+                },
+                "exemplar": true,
+                "expr": "sum by (env) (particle_executor_service_call_success_total)",
+                "interval": "",
+                "legendFormat": "{{ env }}",
+                "refId": "A"
+              }
+            ],
+            "title": "Service Calls",
+            "type": "bargauge"
+          },
+          {
+            "description": "",
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "palette-classic"
+                },
+                "custom": {
+                  "axisLabel": "",
+                  "axisPlacement": "auto",
+                  "barAlignment": 0,
+                  "drawStyle": "line",
+                  "fillOpacity": 25,
+                  "gradientMode": "none",
+                  "hideFrom": {
+                    "legend": false,
+                    "tooltip": false,
+                    "viz": false
+                  },
+                  "lineInterpolation": "linear",
+                  "lineWidth": 1,
+                  "pointSize": 5,
+                  "scaleDistribution": {
+                    "type": "linear"
+                  },
+                  "showPoints": "auto",
+                  "spanNulls": false,
+                  "stacking": {
+                    "group": "A",
+                    "mode": "normal"
+                  },
+                  "thresholdsStyle": {
+                    "mode": "off"
+                  }
+                },
+                "mappings": [],
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "red",
+                      "value": 80
+                    }
+                  ]
+                }
+              },
+              "overrides": []
+            },
+            "gridPos": {
+              "h": 8,
+              "w": 8,
+              "x": 8,
+              "y": 21
+            },
+            "id": 67,
+            "maxDataPoints": 200,
+            "options": {
+              "legend": {
+                "calcs": [],
+                "displayMode": "list",
+                "placement": "bottom"
+              },
+              "tooltip": {
+                "mode": "single"
+              }
+            },
+            "pluginVersion": "8.3.4",
+            "targets": [
+              {
+                "datasource": {
+                  "type": "prometheus",
+                  "uid": "prometheus_grafana_fluence"
+                },
+                "exemplar": true,
+                "expr": "sum by (env) (rate(particle_executor_service_call_time_sec_count[$__rate_interval]))",
+                "interval": "1m",
+                "legendFormat": "{{ hostname }}",
+                "refId": "A"
+              }
+            ],
+            "title": "Service Calls per second",
+            "type": "timeseries"
+          },
+          {
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "continuous-GrYlRd"
+                },
+                "mappings": [],
+                "max": 500,
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "red",
+                      "value": 80
+                    }
+                  ]
+                }
+              },
+              "overrides": []
+            },
+            "gridPos": {
+              "h": 8,
+              "w": 4,
+              "x": 16,
+              "y": 21
+            },
+            "id": 69,
+            "options": {
+              "displayMode": "lcd",
+              "orientation": "vertical",
+              "reduceOptions": {
+                "calcs": [
+                  "lastNotNull"
+                ],
+                "fields": "",
+                "values": false
+              },
+              "showUnfilled": true
+            },
+            "pluginVersion": "8.3.4",
+            "targets": [
+              {
+                "datasource": {
+                  "type": "prometheus",
+                  "uid": "prometheus_grafana_fluence"
+                },
+                "exemplar": true,
+                "expr": "sum by (env) (particle_executor_service_call_failure_total) ",
+                "instant": false,
+                "interval": "",
+                "legendFormat": "{{env}}",
+                "refId": "A"
+              }
+            ],
+            "title": "Service Calls Failures",
+            "type": "bargauge"
+          },
+          {
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "palette-classic"
+                },
+                "custom": {
+                  "axisLabel": "",
+                  "axisPlacement": "auto",
+                  "barAlignment": 0,
+                  "drawStyle": "line",
+                  "fillOpacity": 25,
+                  "gradientMode": "none",
+                  "hideFrom": {
+                    "legend": false,
+                    "tooltip": false,
+                    "viz": false
+                  },
+                  "lineInterpolation": "linear",
+                  "lineWidth": 1,
+                  "pointSize": 5,
+                  "scaleDistribution": {
+                    "type": "linear"
+                  },
+                  "showPoints": "auto",
+                  "spanNulls": false,
+                  "stacking": {
+                    "group": "A",
+                    "mode": "normal"
+                  },
+                  "thresholdsStyle": {
+                    "mode": "off"
+                  }
+                },
+                "mappings": [],
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "red",
+                      "value": 80
+                    }
+                  ]
+                }
+              },
+              "overrides": []
+            },
+            "gridPos": {
+              "h": 8,
+              "w": 4,
+              "x": 20,
+              "y": 21
+            },
+            "id": 71,
+            "options": {
+              "legend": {
+                "calcs": [],
+                "displayMode": "list",
+                "placement": "bottom"
+              },
+              "tooltip": {
+                "mode": "single"
+              }
+            },
+            "pluginVersion": "8.3.4",
+            "targets": [
+              {
+                "datasource": {
+                  "type": "prometheus",
+                  "uid": "prometheus_grafana_fluence"
+                },
+                "exemplar": true,
+                "expr": "sum by (env) (particle_executor_service_call_failure_total) ",
+                "instant": false,
+                "interval": "",
+                "legendFormat": "{{env}}",
+                "refId": "A"
+              }
+            ],
+            "title": "Service Call Failures",
+            "type": "timeseries"
+          },
+          {
+            "description": "",
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "continuous-YlBl"
+                },
+                "decimals": 0,
+                "mappings": [],
+                "max": 100000,
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    }
+                  ]
+                }
+              },
+              "overrides": []
+            },
+            "gridPos": {
+              "h": 8,
+              "w": 8,
+              "x": 0,
+              "y": 29
+            },
+            "id": 72,
+            "options": {
+              "displayMode": "lcd",
+              "orientation": "auto",
+              "reduceOptions": {
+                "calcs": [
+                  "lastNotNull"
+                ],
+                "fields": "",
+                "values": false
+              },
+              "showUnfilled": true
+            },
+            "pluginVersion": "8.3.4",
+            "targets": [
+              {
+                "datasource": {
+                  "type": "prometheus",
+                  "uid": "prometheus_grafana_fluence"
+                },
+                "exemplar": true,
+                "expr": "sum by (env) (particle_executor_interpretation_successes_total)",
+                "interval": "",
+                "legendFormat": "{{ env }}",
+                "refId": "A"
+              }
+            ],
+            "title": "Interpretations",
+            "type": "bargauge"
+          },
+          {
+            "description": "",
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "palette-classic"
+                },
+                "custom": {
+                  "axisLabel": "",
+                  "axisPlacement": "auto",
+                  "barAlignment": 0,
+                  "drawStyle": "line",
+                  "fillOpacity": 25,
+                  "gradientMode": "none",
+                  "hideFrom": {
+                    "legend": false,
+                    "tooltip": false,
+                    "viz": false
+                  },
+                  "lineInterpolation": "linear",
+                  "lineWidth": 1,
+                  "pointSize": 5,
+                  "scaleDistribution": {
+                    "type": "linear"
+                  },
+                  "showPoints": "auto",
+                  "spanNulls": false,
+                  "stacking": {
+                    "group": "A",
+                    "mode": "normal"
+                  },
+                  "thresholdsStyle": {
+                    "mode": "off"
+                  }
+                },
+                "mappings": [],
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "red",
+                      "value": 80
+                    }
+                  ]
+                }
+              },
+              "overrides": []
+            },
+            "gridPos": {
+              "h": 8,
+              "w": 8,
+              "x": 8,
+              "y": 29
+            },
+            "id": 73,
+            "options": {
+              "legend": {
+                "calcs": [],
+                "displayMode": "list",
+                "placement": "bottom"
+              },
+              "tooltip": {
+                "mode": "single"
+              }
+            },
+            "pluginVersion": "8.3.4",
+            "targets": [
+              {
+                "datasource": {
+                  "type": "prometheus",
+                  "uid": "prometheus_grafana_fluence"
+                },
+                "exemplar": true,
+                "expr": "sum by (env) (rate(particle_executor_interpretation_time_sec_count[$__rate_interval]))",
+                "interval": "1m",
+                "legendFormat": "{{ env }}",
+                "refId": "A"
+              }
+            ],
+            "title": "Interpretations per second",
+            "type": "timeseries"
+          },
+          {
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "continuous-GrYlRd"
+                },
+                "mappings": [],
+                "max": 500,
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "red",
+                      "value": 80
+                    }
+                  ]
+                }
+              },
+              "overrides": []
+            },
+            "gridPos": {
+              "h": 8,
+              "w": 4,
+              "x": 16,
+              "y": 29
+            },
+            "id": 75,
+            "options": {
+              "displayMode": "lcd",
+              "orientation": "vertical",
+              "reduceOptions": {
+                "calcs": [
+                  "lastNotNull"
+                ],
+                "fields": "",
+                "values": false
+              },
+              "showUnfilled": true
+            },
+            "pluginVersion": "8.3.4",
+            "targets": [
+              {
+                "datasource": {
+                  "type": "prometheus",
+                  "uid": "prometheus_grafana_fluence"
+                },
+                "exemplar": true,
+                "expr": "sum by (env) (particle_executor_interpretation_failures_total) ",
+                "instant": false,
+                "interval": "",
+                "legendFormat": "{{env}}",
+                "refId": "A"
+              }
+            ],
+            "title": "Interpretation Failures",
+            "type": "bargauge"
+          },
+          {
+            "fieldConfig": {
+              "defaults": {
+                "color": {
+                  "mode": "palette-classic"
+                },
+                "custom": {
+                  "axisLabel": "",
+                  "axisPlacement": "auto",
+                  "barAlignment": 0,
+                  "drawStyle": "line",
+                  "fillOpacity": 25,
+                  "gradientMode": "none",
+                  "hideFrom": {
+                    "legend": false,
+                    "tooltip": false,
+                    "viz": false
+                  },
+                  "lineInterpolation": "linear",
+                  "lineWidth": 1,
+                  "pointSize": 5,
+                  "scaleDistribution": {
+                    "type": "linear"
+                  },
+                  "showPoints": "auto",
+                  "spanNulls": false,
+                  "stacking": {
+                    "group": "A",
+                    "mode": "normal"
+                  },
+                  "thresholdsStyle": {
+                    "mode": "off"
+                  }
+                },
+                "mappings": [],
+                "thresholds": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "red",
+                      "value": 80
+                    }
+                  ]
+                }
+              },
+              "overrides": []
+            },
+            "gridPos": {
+              "h": 8,
+              "w": 4,
+              "x": 20,
+              "y": 29
+            },
+            "id": 74,
+            "options": {
+              "legend": {
+                "calcs": [],
+                "displayMode": "list",
+                "placement": "bottom"
+              },
+              "tooltip": {
+                "mode": "single"
+              }
+            },
+            "pluginVersion": "8.3.4",
+            "targets": [
+              {
+                "datasource": {
+                  "type": "prometheus",
+                  "uid": "prometheus_grafana_fluence"
+                },
+                "exemplar": true,
+                "expr": "sum by (env) (particle_executor_interpretation_failures_total) ",
+                "instant": false,
+                "interval": "",
+                "legendFormat": "{{env}}",
+                "refId": "A"
+              }
+            ],
+            "title": "Interpretation Failures",
+            "type": "timeseries"
+          }
+        ],
+        "title": "Execution Stats",
+        "type": "row"
+      },
+      {
+        "collapsed": false,
+        "gridPos": {
+          "h": 1,
+          "w": 24,
+          "x": 0,
+          "y": 3
+        },
+        "id": 41,
+        "panels": [],
+        "title": "AquaVM stats",
+        "type": "row"
+      },
+      {
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "continuous-GrYlRd"
+            },
+            "mappings": [],
+            "max": 200000000,
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                }
+              ]
+            },
+            "unit": "bytes"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 9,
+          "x": 0,
+          "y": 4
+        },
+        "id": 48,
+        "options": {
+          "displayMode": "lcd",
+          "orientation": "horizontal",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "showUnfilled": true
+        },
+        "pluginVersion": "8.3.4",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "prometheus_grafana_fluence"
+            },
+            "exemplar": true,
+            "expr": "aqua_vm_pool_vm_mem_total { env =~ \"$env\" }",
+            "interval": "",
+            "legendFormat": "{{ hostname }}",
+            "refId": "A"
+          }
+        ],
+        "title": "AquaVM total memory",
+        "type": "bargauge"
+      },
+      {
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "drawStyle": "line",
+              "fillOpacity": 0,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "lineInterpolation": "linear",
+              "lineWidth": 1,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "auto",
+              "spanNulls": false,
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "bytes"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 15,
+          "x": 9,
+          "y": 4
+        },
+        "id": 47,
+        "options": {
+          "legend": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "displayMode": "table",
+            "placement": "right",
+            "sortBy": "Last *",
+            "sortDesc": true
+          },
+          "tooltip": {
+            "mode": "single"
+          }
+        },
+        "pluginVersion": "8.3.4",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "prometheus_grafana_fluence"
+            },
+            "exemplar": true,
+            "expr": "aqua_vm_pool_vm_mem_total { env =~ \"$env\" }",
+            "interval": "",
+            "legendFormat": "{{ hostname }} max",
+            "refId": "A"
+          }
+        ],
+        "title": "AquaVM total memory",
+        "type": "timeseries"
+      },
+      {
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "continuous-GrYlRd"
+            },
+            "mappings": [],
+            "max": 100000000,
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "bytes"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 9,
+          "x": 0,
+          "y": 12
+        },
+        "id": 42,
+        "options": {
+          "displayMode": "lcd",
+          "orientation": "horizontal",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "showUnfilled": true
+        },
+        "pluginVersion": "8.3.4",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "prometheus_grafana_fluence"
+            },
+            "exemplar": true,
+            "expr": "aqua_vm_pool_vm_mem_max { env =~ \"$env\" }",
+            "interval": "",
+            "legendFormat": "{{ hostname }} max",
+            "refId": "A"
+          }
+        ],
+        "title": "Single AquaVM memory max",
+        "type": "bargauge"
+      },
+      {
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "drawStyle": "line",
+              "fillOpacity": 0,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "lineInterpolation": "linear",
+              "lineWidth": 1,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "auto",
+              "spanNulls": false,
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "bytes"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 15,
+          "x": 9,
+          "y": 12
+        },
+        "id": 49,
+        "options": {
+          "legend": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "displayMode": "table",
+            "placement": "right",
+            "sortBy": "Last *",
+            "sortDesc": true
+          },
+          "tooltip": {
+            "mode": "single"
+          }
+        },
+        "pluginVersion": "8.3.4",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "prometheus_grafana_fluence"
+            },
+            "exemplar": true,
+            "expr": "aqua_vm_pool_vm_mem_max { env =~ \"$env\" }",
+            "interval": "",
+            "legendFormat": "{{ hostname }} max",
+            "refId": "A"
+          }
+        ],
+        "title": "Single AquaVM memory max",
+        "type": "timeseries"
+      },
+      {
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "drawStyle": "line",
+              "fillOpacity": 0,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "lineInterpolation": "linear",
+              "lineWidth": 1,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "auto",
+              "spanNulls": false,
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 6,
+          "x": 0,
+          "y": 20
+        },
+        "id": 38,
+        "options": {
+          "legend": {
+            "calcs": [],
+            "displayMode": "hidden",
+            "placement": "bottom"
+          },
+          "tooltip": {
+            "mode": "single"
+          }
+        },
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "prometheus_grafana_fluence"
+            },
+            "exemplar": true,
+            "expr": "irate(aqua_vm_pool_no_free_vm_total { env =~ \"$env\" }[$__rate_interval])",
+            "interval": "",
+            "legendFormat": "{{ hostname }}",
+            "refId": "A"
+          }
+        ],
+        "title": "AquaVM Pool Starvation",
+        "type": "timeseries"
+      },
+      {
+        "description": "",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "drawStyle": "line",
+              "fillOpacity": 0,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "lineInterpolation": "linear",
+              "lineWidth": 1,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "auto",
+              "spanNulls": false,
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "percentage",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                }
+              ]
+            },
+            "unit": "vm"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 9,
+          "x": 6,
+          "y": 20
+        },
+        "id": 36,
+        "options": {
+          "legend": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "displayMode": "table",
+            "placement": "right",
+            "sortBy": "Last *",
+            "sortDesc": true
+          },
+          "tooltip": {
+            "mode": "single"
+          }
+        },
+        "pluginVersion": "8.3.4",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "prometheus_grafana_fluence"
+            },
+            "exemplar": true,
+            "expr": "aqua_vm_pool_get_vm_total { env =~ \"$env\" } - aqua_vm_pool_put_vm_total { env =~ \"$env\" } - aqua_vm_pool_no_free_vm_total { env =~ \"$env\" }",
+            "interval": "",
+            "legendFormat": "{{ hostname }}",
+            "refId": "A"
+          },
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "prometheus_grafana_fluence"
+            },
+            "exemplar": true,
+            "expr": "",
+            "hide": false,
+            "interval": "",
+            "legendFormat": "{{ hostname }} fail",
+            "refId": "B"
+          }
+        ],
+        "title": "Busy AquaVMs",
+        "type": "timeseries"
+      },
+      {
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "drawStyle": "line",
+              "fillOpacity": 0,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "lineInterpolation": "linear",
+              "lineWidth": 1,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "auto",
+              "spanNulls": false,
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "mappings": [],
+            "max": 16,
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                }
+              ]
+            },
+            "unit": "vms"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 9,
+          "x": 15,
+          "y": 20
+        },
+        "id": 32,
+        "options": {
+          "legend": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "displayMode": "table",
+            "placement": "right",
+            "sortBy": "Last *",
+            "sortDesc": true
+          },
+          "tooltip": {
+            "mode": "single"
+          }
+        },
+        "pluginVersion": "8.3.4",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "prometheus_grafana_fluence"
+            },
+            "exemplar": true,
+            "expr": "aqua_vm_pool_pool_size { env =~ \"$env\" } - aqua_vm_pool_free_vms { env =~ \"$env\" }",
+            "interval": "",
+            "legendFormat": "{{ hostname }}",
+            "refId": "A"
+          }
+        ],
+        "title": "Busy AquaVMs (misbehaves ???)",
+        "type": "timeseries"
+      }
+    ],
+    "schemaVersion": 34,
+    "style": "dark",
+    "tags": [],
+    "templating": {
+      "list": [
+        {
+          "current": {
+            "selected": true,
+            "text": [
+              "krasnodar"
+            ],
+            "value": [
+              "krasnodar"
+            ]
+          },
+          "definition": "label_values({__name__=\"up\"},env)",
+          "hide": 0,
+          "includeAll": true,
+          "label": "env",
+          "multi": true,
+          "name": "env",
+          "options": [],
+          "query": {
+            "query": "label_values({__name__=\"up\"},env)",
+            "refId": "StandardVariableQuery"
+          },
+          "refresh": 1,
+          "regex": "",
+          "skipUrlSync": false,
+          "sort": 0,
+          "type": "query"
+        },
+        {
+          "current": {
+            "selected": true,
+            "text": [
+              "krasnodar-00"
+            ],
+            "value": [
+              "krasnodar-00"
+            ]
+          },
+          "definition": "label_values({__name__=\"up\"}, hostname)",
+          "hide": 0,
+          "includeAll": true,
+          "label": "host",
+          "multi": true,
+          "name": "host",
+          "options": [],
+          "query": {
+            "query": "label_values({__name__=\"up\"}, hostname)",
+            "refId": "StandardVariableQuery"
+          },
+          "refresh": 1,
+          "regex": "",
+          "skipUrlSync": false,
+          "sort": 0,
+          "type": "query"
+        }
+      ]
+    },
+    "time": {
+      "from": "now-6h",
+      "to": "now"
+    },
+    "timepicker": {},
+    "timezone": "",
+    "title": "Fluence Stats",
+    "uid": "AP0dB2bnz",
+    "version": 36,
+    "weekStart": ""
+  }

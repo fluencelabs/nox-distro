@@ -13,5 +13,10 @@
     "version": "v3.0.1",
     "url": "https://github.com/fluencelabs/trust-graph/releases/download/v3.0.1/trust-graph.tar.gz",
     "sha256": "a2bac14334ba70e83722d03f6a032e062ba7e79ffdbd5174b2ab01e3b47fdced"
+  },
+  "registry": {
+    "version": "v0.3.0",
+    "url": "https://github.com/fluencelabs/registry/releases/download/v0.3.0/registry.tar.gz",
+    "sha256": "bd0253568dccd76c7a5c65d765ff3fbf7a0cbdfd8b50c4ac73d5acfd7b6c16bf"
   }
 }

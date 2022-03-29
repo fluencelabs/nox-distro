@@ -3,6 +3,8 @@ builtins_base_dir = "/builtins"
 aquavm_pool_size = 6
 aquavm_max_heap_size = "500 Mb"
 
+kademlia.query_timeout = "10s"
+
 [root_key_pair]
 format = "ed25519"
 path = "/node.key"

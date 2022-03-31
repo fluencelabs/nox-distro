@@ -15,8 +15,8 @@
     "sha256": "a2bac14334ba70e83722d03f6a032e062ba7e79ffdbd5174b2ab01e3b47fdced"
   },
   "registry": {
-    "version": "v0.3.7",
-    "url": "https://github.com/fluencelabs/registry/releases/download/v0.3.7/registry.tar.gz",
-    "sha256": "c8fd13093f739b8b86013d3b2da1d55be8f04aa15dcb9f8ea79a18bde79c03f1"
+    "version": "v0.3.8",
+    "url": "https://github.com/fluencelabs/registry/releases/download/v0.3.8/registry.tar.gz",
+    "sha256": "bbcd75d3e6c175eac5d60606311bf568e7af89c92d3f87ddfcbcb3f264b187c2"
   }
 }

@@ -3,7 +3,12 @@ builtins_base_dir = "/builtins"
 aquavm_pool_size = 6
 aquavm_max_heap_size = "500 Mb"
 
-kademlia.query_timeout = "10s"
+[kademlia]
+max_packet_size = 10040964096 # 100 Mb
+query_timeout = "10s"
+connection_idle_timeout = "1h"
+peer_fail_threshold = 3
+ban_cooldown = "60s"
 
 [root_key_pair]
 format = "ed25519"

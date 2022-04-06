@@ -27,7 +27,7 @@ CONFIG = {
             'environment': {
                 'RUST_BACKTRACE': 'full',
                 'WASM_LOG': 'info',
-                'RUST_LOG': 'info,network=trace,aquamarine=info,aquamarine::actor=info,tokio_threadpool=info,tokio_reactor=info,mio=info,tokio_io=info,soketto=info,yamux=info,multistream_select=info,libp2p_secio=info,libp2p_websocket::framed=info,libp2p_ping=info,libp2p_core::upgrade::apply=info,libp2p_kad::kbucket=info,cranelift_codegen=info,wasmer_wasi=info,async_io=info,polling=info,wasmer_interface_types_fl=info ,cranelift_codegen=info,wasmer_wasi=info,async_io=info,polling=info,wasmer_interface_types_fl=info,particle_server::behaviour::identify=info,libp2p_mplex=info,libp2p_identify=info,walrus=info,particle_protocol::libp2p_protocol::upgrade=info',
+                'RUST_LOG': 'info,network=trace,execution=trace,tide=warn,aquamarine=info,aquamarine::actor=info,tokio_threadpool=info,tokio_reactor=info,mio=info,tokio_io=info,soketto=info,yamux=info,multistream_select=info,libp2p_secio=info,libp2p_websocket::framed=info,libp2p_ping=info,libp2p_core::upgrade::apply=info,libp2p_kad::kbucket=info,cranelift_codegen=info,wasmer_wasi=info,async_io=info,polling=info,wasmer_interface_types_fl=info ,cranelift_codegen=info,wasmer_wasi=info,async_io=info,polling=info,wasmer_interface_types_fl=info,particle_server::behaviour::identify=info,libp2p_mplex=info,libp2p_identify=info,walrus=info,particle_protocol::libp2p_protocol::upgrade=info',
                 'FLUENCE_ENV_AQUA_IPFS_EXTERNAL_API_MULTIADDR': '/ip4/{host}/tcp/{ipfs_port}',
                 'FLUENCE_ENV_AQUA_IPFS_EXTERNAL_SWARM_MULTIADDR': '/ip4/{host}/tcp/{ipfs_swarm_port}',
             },

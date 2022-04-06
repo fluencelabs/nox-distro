@@ -1,10 +1,10 @@
 {
-  "target": "stage",
+  "target": "krasnodar",
 
   "environments": [
     {
       "name": "krasnodar",
-      "container_tag": "v0.0.39_37",
+      "container_tag": "update_libp2p_v437",
       "containers_per_host": 1,
       "external_bootstraps": [
         "/ip4/164.90.171.139/tcp/7770",
@@ -89,32 +89,9 @@
     },
     {
       "name": "testnet",
-      "container_tag": "v0.0.39_37",
+      "container_tag": "update_libp2p_v437",
       "containers_per_host": 1,
       "external_bootstraps": [
-        "/ip4/164.90.171.139/tcp/7770",
-        "/ip4/164.90.171.139/tcp/7001",
-        "/ip4/178.128.194.190/tcp/7001",
-        "/ip4/46.101.159.139/tcp/7001",
-        "/ip4/161.35.222.178/tcp/7001",
-        "/ip4/164.90.164.229/tcp/7001",
-        "/ip4/164.90.168.55/tcp/7001",
-        "/ip4/161.35.212.85/tcp/7001",
-        "/ip4/164.90.165.150/tcp/7001",
-        "/ip4/164.90.172.126/tcp/7001",
-        "/ip4/164.90.171.156/tcp/7001",
-
-        "/ip4/165.227.164.206/tcp/7770",
-        "/ip4/165.227.164.206/tcp/7001",
-        "/ip4/138.197.189.50/tcp/7001",
-        "/ip4/157.230.23.49/tcp/7001",
-        "/ip4/159.65.126.102/tcp/7001",
-        "/ip4/142.93.169.49/tcp/7001",
-        "/ip4/139.59.148.53/tcp/7001",
-        "/ip4/206.81.30.129/tcp/7001",
-        "/ip4/157.230.98.51/tcp/7001",
-        "/ip4/159.89.2.70/tcp/7001",
-        "/ip4/157.230.98.75/tcp/7001"
       ],
       "hosts": [
         "165.227.164.206",
@@ -174,7 +151,7 @@
     },
     {
       "name": "stage",
-      "container_tag": "v0.0.39_37",
+      "container_tag": "update_libp2p_v437",
       "containers_per_host": 5,
       "hosts": [
         "134.209.186.43"

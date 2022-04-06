@@ -3,6 +3,9 @@ builtins_base_dir = "/builtins"
 aquavm_pool_size = 6
 aquavm_max_heap_size = "500 Mb"
 
+[transport_config]
+packet_split_size = 1024
+
 [kademlia]
 max_packet_size = 10040964096 # 100 Mb
 query_timeout = "10s"

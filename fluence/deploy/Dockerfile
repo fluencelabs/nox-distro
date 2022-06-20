@@ -10,4 +10,4 @@ COPY . /deploy
 ENV PATH=/root/.local/bin:$PATH
 WORKDIR /deploy
 ENTRYPOINT ["/deploy/entrypoint.sh"]
-CMD ["-h"]
+CMD ["-l"]

@@ -7,7 +7,7 @@
       "container_tag": "v0.0.48_46",
       "containers_per_host": 1,
       "external_bootstraps": [
-        "/ip4/164.90.171.139/tcp/7770",
+        "/ip4/164.90.171.139/tcp/7770"
       ],
       "hosts": [
         "164.90.171.139",
@@ -70,7 +70,7 @@
       "container_tag": "v0.0.48_46",
       "containers_per_host": 1,
       "external_bootstraps": [
-        "/ip4/165.227.164.206/tcp/7770",
+        "/ip4/165.227.164.206/tcp/7770"
       ],
       "hosts": [
         "165.227.164.206",
@@ -138,7 +138,7 @@
       "user": "root",
       "bootstrap": "134.209.186.43",
       "external_bootstraps": [
-        "/ip4/134.209.186.43/tcp/7770",
+        "/ip4/134.209.186.43/tcp/7770"
       ],
       "management_key": "12D3KooWFRgVmb1uWcmCbmJqLr8tBQghL6ysSpK2VyE2VZbaQ6wy",
       "caddy": [

@@ -6,9 +6,9 @@ cleanup() {
   exit
 }
 
-if ! [[ -f /root/.ssh/id_rsa ]]; then
-  echo "Private key at '/root/.ssh/id_rsa' is missing or not readable"
-  echo "Did you forget to mount .ssh key with '-v $HOME/.ssh/id_rsa:/root/.ssh/id_rsa:ro'?"
+if ! [[ -d /root/.ssh ]]; then
+  echo "Private key at '/root/.ssh' is missing or not readable"
+  echo "Did you forget to mount .ssh directory with '-v $HOME/.ssh:/root/.ssh:ro'?"
   exit 1
 fi
 
@@ -18,6 +18,6 @@ echo "ssh-agent started with pid $SSH_AGENT_PID"
 # on exit kill ssh-agent
 trap 'cleanup' EXIT INT TERM
 echo "Adding private key to ssh-agent"
-ssh-add /root/.ssh/id_rsa
+ssh-add
 
 exec fab $@

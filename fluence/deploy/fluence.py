@@ -59,6 +59,7 @@ def deploy_bootstrap():
         host=env.host_string,
         management_key=target['management_key'],
         keypairs=keypair,
+        ceramic_host=target['ceramic_host'],
     )
 
     return do_deploy_fluence(yml)
@@ -81,6 +82,7 @@ def deploy_nodes():
         host=env.host_string,
         management_key=target['management_key'],
         keypairs=keypairs,
+        ceramic_host=target['ceramic_host'],
     )
 
     return do_deploy_fluence(yml)

@@ -2,6 +2,8 @@
 ###		  If needed, go to https://github.com/linuxserver/docker-ipfs to see how it's done.
 
 ARG IPFS=v0.9.0
+ARG CERAMIC_VERSION=2.3.x
+ARG GLAZED_VERSION=0.2.x
 
 FROM ipfs/go-ipfs:${IPFS} as ipfs
 
@@ -19,6 +21,8 @@ LABEL maintainer="fluencelabs"
 # environment
 ENV IPFS_PATH=/config/ipfs
 ENV IPFS_LOGGING_FMT=nocolor
+# https://github.com/ceramicnetwork/js-ceramic/issues/2245
+ENV CERAMIC_ROOT_PATH=/.ceramic
 ENV RUST_LOG="info,aquamarine=warn,tokio_threadpool=info,tokio_reactor=info,mio=info,tokio_io=info,soketto=info,yamux=info,multistream_select=info,libp2p_secio=info,libp2p_websocket::framed=info,libp2p_ping=info,libp2p_core::upgrade::apply=info,libp2p_kad::kbucket=info,cranelift_codegen=info,wasmer_wasi=info,cranelift_codegen=info,wasmer_wasi=info"
 ENV RUST_BACKTRACE="1"
 ## set /run_fluence as the CMD binary
@@ -29,10 +33,15 @@ ENV FLUENCE_ENV_AQUA_IPFS_EXTERNAL_API_MULTIADDR=/ip4/127.0.0.1/tcp/5001
 ENV FLUENCE_ENV_AQUA_IPFS_LOCAL_API_MULTIADDR=/ip4/127.0.0.1/tcp/5001
 ENV FLUENCE_ENV_AQUA_IPFS_EXTERNAL_SWARM_MULTIADDR=/ip4/127.0.0.1/tcp/4001
 
+# install nodejs 16.x
+RUN curl -fsSL https://deb.nodesource.com/gpgkey/nodesource.gpg.key | gpg --dearmor > /usr/share/keyrings/nodesource.gpg \
+    && echo "deb [signed-by=/usr/share/keyrings/nodesource.gpg] https://deb.nodesource.com/node_16.x focal main" > /etc/apt/sources.list.d/nodesource.list
+
 RUN \
  echo "**** install packages ****" && \
  apt-get update && \
- apt-get install -y \
+ apt-get install -y --no-install-recommends \
+	nodejs \
 	jq \
 	less \
 	logrotate \
@@ -43,6 +52,12 @@ RUN \
 	/tmp/* \
 	/var/lib/apt/lists/* \
 	/var/tmp/*
+
+# install ceramic and glaze
+RUN npm install --cache /cache --global \
+  @ceramicnetwork/cli@$CERAMIC_VERSION \
+  @glazed/cli@$GLAZED_VERSION \
+  && rm -rf /cache
 
 # download fluence & builtin services
 COPY fluence/services.json /services.json

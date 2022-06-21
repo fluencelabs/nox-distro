@@ -57,7 +57,7 @@ CONFIG = {
     }
 }
 
-def gen_compose_file(out, container_tag, scale, is_bootstrap, bootstraps, host, management_key, keypairs. ceramic_host):
+def gen_compose_file(out, container_tag, scale, is_bootstrap, bootstraps, host, management_key, keypairs, ceramic_host):
     assert len(container_tag) > 0, "container tag must not be empty, was: '{}'".format(container_tag)
 
     if is_bootstrap == True:

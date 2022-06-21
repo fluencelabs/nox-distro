@@ -33,7 +33,7 @@ ENV FLUENCE_ENV_AQUA_IPFS_EXTERNAL_API_MULTIADDR=/ip4/127.0.0.1/tcp/5001
 ENV FLUENCE_ENV_AQUA_IPFS_LOCAL_API_MULTIADDR=/ip4/127.0.0.1/tcp/5001
 ENV FLUENCE_ENV_AQUA_IPFS_EXTERNAL_SWARM_MULTIADDR=/ip4/127.0.0.1/tcp/4001
 
-# # install nodejs 16.x
+# install nodejs 16.x
 RUN curl -fsSL https://deb.nodesource.com/gpgkey/nodesource.gpg.key | gpg --dearmor > /usr/share/keyrings/nodesource.gpg \
     && echo "deb [signed-by=/usr/share/keyrings/nodesource.gpg] https://deb.nodesource.com/node_16.x focal main" > /etc/apt/sources.list.d/nodesource.list
 
@@ -53,7 +53,7 @@ RUN \
 	/var/lib/apt/lists/* \
 	/var/tmp/*
 
-# # install ceramic and glaze
+# install ceramic and glaze
 RUN npm install --cache /cache --global \
   @ceramicnetwork/cli@$CERAMIC_VERSION \
   @glazed/cli@$GLAZED_VERSION \

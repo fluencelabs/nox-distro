@@ -60,6 +60,9 @@ aquavm_pool_size = 16
 # default is not specified and defined by runtime
 # module_default_heap_size = "5 Mb"
 
+## How often send memory metrics to prometheus
+#metrics_timer_resolution = "60s"
+
 ## environment variables that will be passed to each service
 ## TODO: separate by service or move to service config
 services_envs = { name = "value" }

@@ -24,6 +24,7 @@
       "user": "root",
       "bootstrap": "164.90.171.139",
       "management_key": "12D3KooWFRgVmb1uWcmCbmJqLr8tBQghL6ysSpK2VyE2VZbaQ6wy",
+      "ceramic_host": "http://stage.fluence.dev:7007",
       "caddy": [
         { "host": "kras-00.fluence.dev", "ports": [9001, 9990, 5001, 5550, 8880, 8001], "addr": "164.90.171.139" },
         { "host": "kras-01.fluence.dev", "ports": [9001, 5001, 8001], "addr": "178.128.194.190" },
@@ -87,6 +88,7 @@
       "user": "root",
       "bootstrap": "165.227.164.206",
       "management_key": "12D3KooWFRgVmb1uWcmCbmJqLr8tBQghL6ysSpK2VyE2VZbaQ6wy",
+      "ceramic_host": "http://stage.fluence.dev:7007",
       "caddy": [
         { "host": "net01.fluence.dev", "ports": [9001, 9990, 5550, 5001, 8880, 8001], "addr":"165.227.164.206" },
         { "host": "net02.fluence.dev", "ports": [9001, 5001, 8001], "addr":"138.197.189.50" },
@@ -130,7 +132,7 @@
     },
     {
       "name": "stage",
-      "container_tag": "v0.0.48_46",
+      "container_tag": "v0.0.49_47",
       "containers_per_host": 5,
       "hosts": [
         "134.209.186.43"
@@ -141,6 +143,7 @@
         "/ip4/134.209.186.43/tcp/7770"
       ],
       "management_key": "12D3KooWFRgVmb1uWcmCbmJqLr8tBQghL6ysSpK2VyE2VZbaQ6wy",
+      "ceramic_host": "http://stage.fluence.dev:7007",
       "caddy": [
         {
           "host": "stage.fluence.dev",

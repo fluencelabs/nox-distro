@@ -1,7 +1,6 @@
 
 {
-  "version": "aws_ci_33",
-  "url": "https://fluence-branch-binaries.s3.eu-west-1.amazonaws.com/Ygg-hz579/particle-node",
-  "sha256": "976c90639e3ba4829ce200fb30361e77f5cef13113a94e848151bbc2371b4e3a"
+   "version": "v1.9.18",
+   "url": "https://github.com/fluencelabs/fluence/releases/download/v1.9.18/particle-node",
+   "sha256": "a3531db86340c7ec1c8f727df6761b9df034d3c8ba0e907ce5c2e1334337abf8"
 }
-

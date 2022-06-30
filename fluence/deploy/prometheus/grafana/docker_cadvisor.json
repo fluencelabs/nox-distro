@@ -1,4 +1,41 @@
 {
+  "__inputs": [
+    {
+      "name": "DS_PROMETHEUS",
+      "label": "Prometheus",
+      "description": "",
+      "type": "datasource",
+      "pluginId": "prometheus",
+      "pluginName": "Prometheus"
+    }
+  ],
+  "__elements": [],
+  "__requires": [
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "8.3.4"
+    },
+    {
+      "type": "panel",
+      "id": "graph",
+      "name": "Graph (old)",
+      "version": ""
+    },
+    {
+      "type": "datasource",
+      "id": "prometheus",
+      "name": "Prometheus",
+      "version": "1.0.0"
+    },
+    {
+      "type": "panel",
+      "id": "table-old",
+      "name": "Table (old)",
+      "version": ""
+    }
+  ],
   "annotations": {
     "list": [
       {
@@ -23,8 +60,8 @@
   "fiscalYearStartMonth": 0,
   "gnetId": 13946,
   "graphTooltip": 0,
-  "id": 8,
-  "iteration": 1643035174282,
+  "id": null,
+  "iteration": 1656573397842,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -32,7 +69,7 @@
       "collapsed": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus_grafana_fluence"
+        "uid": "${DS_PROMETHEUS}"
       },
       "gridPos": {
         "h": 1,
@@ -49,7 +86,7 @@
       "columns": [],
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus_grafana_fluence"
+        "uid": "${DS_PROMETHEUS}"
       },
       "description": "",
       "fontSize": "100%",
@@ -391,7 +428,7 @@
       "collapsed": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus_grafana_fluence"
+        "uid": "${DS_PROMETHEUS}"
       },
       "gridPos": {
         "h": 1,
@@ -411,7 +448,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus_grafana_fluence"
+        "uid": "${DS_PROMETHEUS}"
       },
       "decimals": 2,
       "fieldConfig": {
@@ -507,7 +544,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus_grafana_fluence"
+        "uid": "${DS_PROMETHEUS}"
       },
       "decimals": 2,
       "fieldConfig": {
@@ -600,7 +637,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus_grafana_fluence"
+        "uid": "${DS_PROMETHEUS}"
       },
       "description": "",
       "fieldConfig": {
@@ -695,7 +732,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus_grafana_fluence"
+        "uid": "${DS_PROMETHEUS}"
       },
       "description": "",
       "fieldConfig": {
@@ -792,7 +829,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus_grafana_fluence"
+        "uid": "${DS_PROMETHEUS}"
       },
       "fieldConfig": {
         "defaults": {
@@ -886,7 +923,7 @@
       "dashes": false,
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus_grafana_fluence"
+        "uid": "${DS_PROMETHEUS}"
       },
       "fieldConfig": {
         "defaults": {
@@ -985,14 +1022,10 @@
   "templating": {
     "list": [
       {
-        "current": {
-          "selected": false,
-          "text": "docker",
-          "value": "docker"
-        },
+        "current": {},
         "datasource": {
           "type": "prometheus",
-          "uid": "prometheus_grafana_fluence"
+          "uid": "${DS_PROMETHEUS}"
         },
         "definition": "label_values(container_cpu_user_seconds_total, job)",
         "hide": 0,
@@ -1016,14 +1049,10 @@
       },
       {
         "allValue": ".*",
-        "current": {
-          "selected": false,
-          "text": "All",
-          "value": "$__all"
-        },
+        "current": {},
         "datasource": {
           "type": "prometheus",
-          "uid": "prometheus_grafana_fluence"
+          "uid": "${DS_PROMETHEUS}"
         },
         "definition": "label_values({__name__=~\"container.*\"},name)",
         "hide": 0,
@@ -1047,14 +1076,10 @@
       },
       {
         "allValue": ".*",
-        "current": {
-          "selected": false,
-          "text": "All",
-          "value": "$__all"
-        },
+        "current": {},
         "datasource": {
           "type": "prometheus",
-          "uid": "prometheus_grafana_fluence"
+          "uid": "${DS_PROMETHEUS}"
         },
         "definition": "label_values(container_cpu_user_seconds_total{name=~\"$name\"}, instance)",
         "hide": 0,
@@ -1078,14 +1103,10 @@
       },
       {
         "allValue": ".*",
-        "current": {
-          "selected": false,
-          "text": "br-0df5f89d76cb",
-          "value": "br-0df5f89d76cb"
-        },
+        "current": {},
         "datasource": {
           "type": "prometheus",
-          "uid": "prometheus_grafana_fluence"
+          "uid": "${DS_PROMETHEUS}"
         },
         "definition": "label_values(container_network_receive_bytes_total{name=~\"$name\",instance=~\"$instance\"}, interface)",
         "hide": 0,
@@ -1179,6 +1200,6 @@
   "timezone": "browser",
   "title": "Docker-cAdvisor",
   "uid": "htoVWdxGt",
-  "version": 2,
+  "version": 1,
   "weekStart": ""
 }

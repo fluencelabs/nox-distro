@@ -1,6 +1,7 @@
 
 {
-   "version": "v1.9.18",
-   "url": "https://github.com/fluencelabs/fluence/releases/download/v1.9.18/particle-node",
-   "sha256": "a3531db86340c7ec1c8f727df6761b9df034d3c8ba0e907ce5c2e1334337abf8"
+  "version": "v1.9.19",
+  "url": "https://github.com/fluencelabs/fluence/releases/download/v1.9.19/particle-node",
+  "sha256": "0c46edd880fe5e8bb4b003076cfe8e8bc9457613f0c5e733457edb9724707cdf"
 }
+

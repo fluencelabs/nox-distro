@@ -80,7 +80,7 @@ COPY s6/fluence-ipfs/ /
 # fluence-bundle
 FROM fluence-ipfs as fluence-bundle
 
-LABEL org.opencontainers.image.discription="Fluence Node bundled with IPFS ${IPFS}, Ceramic CLI ${CERAMIC_VERSION} and Glazeda ${GLAZED_VERSION}"
+LABEL org.opencontainers.image.discription="Fluence Node bundled with IPFS ${IPFS}, Ceramic CLI ${CERAMIC_VERSION} and Glazed ${GLAZED_VERSION}"
 
 # install nodejs 16.x
 RUN curl -fsSL https://deb.nodesource.com/gpgkey/nodesource.gpg.key | gpg --dearmor > /usr/share/keyrings/nodesource.gpg \
@@ -103,3 +103,6 @@ RUN npm install --cache /cache --global \
   @ceramicnetwork/cli@$CERAMIC_VERSION \
   @glazed/cli@$GLAZED_VERSION \
   && rm -rf /cache
+
+# copy s6 configs
+COPY s6/fluence-bundle/ /

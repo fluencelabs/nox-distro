@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 set -o pipefail -o errexit -o nounset
 
+CONFIG="${1:-services.json}"
+
 BUILTINS_DIR=/builtins/
 TMP_BUILTINS=./tmp/builtins
 
@@ -9,7 +11,7 @@ mkdir -p $TMP_BUILTINS
 
 jq -r '
     to_entries | .[] | .key, .value.url, .value.sha256, .value.version
-' services.json |
+' $CONFIG |
     while
         read -r name
         read -r url

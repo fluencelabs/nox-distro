@@ -1,7 +1,7 @@
 #!/usr/bin/with-contenv bash
 
 if [[ -z $CERAMIC_HOST ]]; then
-  echo "\$CERAMIC_HOST is unset. Skipping."
+  echo "\$CERAMIC_HOST is unset. Skipping ceramic CLI initialization"
 else
   echo "Setting ceramicHost to $CERAMIC_HOST"
   /usr/bin/ceramic config set ceramicHost "$CERAMIC_HOST"

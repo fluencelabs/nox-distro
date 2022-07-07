@@ -1,4 +1,4 @@
-name: Publish Fluence Node containers
+name: Publish containers
 
 on:
   workflow_dispatch:
@@ -68,7 +68,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: .
-          # push: true
+          push: true
           target: ${{ matrix.package }}
           tags: |
             fluencelabs/${{ matrix.package }}:${{ env.TAG }}

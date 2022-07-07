@@ -27,7 +27,7 @@ jobs:
         run: echo "::set-output name=version::$(echo ${GITHUB_REF#refs/*/})"
 
   build:
-    name: "Build and push docker images"
+    name: Build and push ${{ matrix.package }}
     runs-on: ubuntu-latest
 
     needs: prepare

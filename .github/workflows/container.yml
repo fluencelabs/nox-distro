@@ -1,4 +1,4 @@
-name: Publish Container
+name: Publish Fluence Node containers
 
 on:
   workflow_dispatch:
@@ -25,15 +25,23 @@ jobs:
   build-publish:
     name: Build and publish ${{ github.event.inputs.container_tag || 'latest' }}
     runs-on: ubuntu-latest
+
     env:
-      CONTAINER_TAG: ${{ github.event.inputs.container_tag || 'latest' }}
-      UPDATE_FLUENCE: ${{ github.event.inputs.update_fluence == 'true' || github.event.inputs.container_tag == ''  }}
-      
+      TAG: ${{ github.event.inputs.container_tag || 'latest' }}
+      UPDATE_FLUENCE: ${{ github.event.inputs.update_fluence == 'true' || github.event.inputs.container_tag == '' }}
+
+    strategy:
+      matrix:
+        package:
+          - fluence
+          - fluence-ipfs
+          - fluence-bundle
+
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Update Fluence in fluence.json to ${{ github.event.inputs.version }}
-        if: ${{ env.UPDATE_FLUENCE != 'false' }}
+        if: env.UPDATE_FLUENCE != 'false'
         run: |
           echo '
           {
@@ -43,48 +51,32 @@ jobs:
           }
           ' > fluence/fluence.json
 
-      ### Prepare docker & login to Dockerhub
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v1
-
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
-
-      - name: Cache Docker layers
-        uses: actions/cache@v2
-        with:
-          path: /tmp/.buildx-cache
-          key: ${{ runner.os }}-buildx-${{ github.sha }}
-          restore-keys: |
-            ${{ runner.os }}-buildx-
+        uses: docker/setup-buildx-action@v2
 
       - name: Login to DockerHub
-        uses: docker/login-action@v1
+        uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Determine container tags
-        run: |
-          TAG="${{ env.CONTAINER_TAG }}"
-          RUN="${{ github.run_number }}"
-          TAGS=fluencelabs/node:${TAG},fluencelabs/node:${TAG}_v${RUN}
-          TAGS=$TAGS,fluencelabs/fluence:${TAG},fluencelabs/fluence:${TAG}_v${RUN}
-          
-          echo "TAGS=$TAGS" | tee -a $GITHUB_ENV
-          echo "BUILD_DATE=$(date '+%Y-%m-%dT%H:%M:%S%:z')"
+      - name: Set build date
+        id: build-date
+        run: echo "::set-output name=date::$(date '+%Y-%m-%dT%H:%M:%S%:z')"
 
-      ### Build and push docker image
-      - name: Build and push ${{ env.TAGS }}
-        id: docker_publish
-        uses: docker/build-push-action@v2
+      - name: Build and push ${{ matrix.package }}
+        uses: docker/build-push-action@v3
         with:
           context: .
-          file: Dockerfile
-          push: true
-          tags: "${{ env.TAGS }}"
+          # push: true
+          target: ${{ matrix.package }}
+          tags: |
+            fluencelabs/${{ matrix.package }}:${{ env.TAG }}
+            fluencelabs/${{ matrix.package }}:${{ env.TAG }}_${{ env.RUN }}
           build-args: |
             COMMIT=${{ github.sha }}
-            BUILD_DATE=${{ env.BUILD_DATE }}
-            RUN_NUMBER=${{ github.run_number }}
-            TAG=${{ env.CONTAINER_TAG }}
+            BUILD_DATE=${{ steps.build-date.outputs.date }}
+            RUN_NUMBER=${{ env.RUN }}
+            TAG=${{ env.TAG }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max

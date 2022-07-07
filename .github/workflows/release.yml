@@ -24,7 +24,7 @@ jobs:
 
       - set: Set release version
         id: release_version
-        run: echo "::set-output name=version::$(echo ${GITHUB_REF#refs/*/}"
+        run: echo "::set-output name=version::$(echo ${GITHUB_REF#refs/*/})"
 
   build:
     name: "Build and push docker images"

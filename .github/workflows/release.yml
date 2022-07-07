@@ -5,113 +5,146 @@ on:
     tags:
       - "v*"
 
+env:
+  RUN_NUMBER: ${{ github.run_number }}
+
 jobs:
-  release:
-    name: "release"
+  prepare:
+    name: "Prepare"
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        shell: bash
+
+    outputs:
+      build_date: "${{ steps.build_date.outputs.date }}"
+      release_version: "${{ steps.release_version.outputs.version }}"
 
     steps:
-### Setup
+      - name: Set build date
+        id: build_date
+        run: echo "::set-output name=date::$(date '+%Y-%m-%dT%H:%M:%S%:z')"
+
+      - set: Set release version
+        id: release_version
+        run: echo "::set-output name=version::$(echo ${GITHUB_REF#refs/*/}"
+
+  build:
+    name: "Build and push docker images"
+    runs-on: ubuntu-latest
+
+    needs: prepare
+
+    env:
+      BUILD_DATE: ${{ needs.prepare.outputs.build_date }}
+      RELEASE_VERSION: ${{ needs.prepare.outputs.release_version }}
+
+    strategy:
+      matrix:
+        package:
+          - minimal
+          - ipfs
+          - rich
+
+    steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
-
-      - name: Set RELEASE_VERSION
-        run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
-
-      ### Prepare docker & login to Dockerhub
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v1
+        uses: actions/checkout@v3
 
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
-
-      - name: Cache Docker layers
-        uses: actions/cache@v2
-        with:
-          path: /tmp/.buildx-cache
-          key: ${{ runner.os }}-buildx-${{ github.sha }}
-          restore-keys: |
-            ${{ runner.os }}-buildx-
+        uses: docker/setup-buildx-action@v2
 
       - name: Login to DockerHub
-        uses: docker/login-action@v1
+        uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Determine container tags
-        run: |
-          RUN="${{ github.run_number }}"
-          VERSION="${{ env.RELEASE_VERSION }}"
-          TAGS=fluencelabs/node:${VERSION},fluencelabs/node:${VERSION}_${RUN},fluencelabs/node:latest,fluencelabs/fluence:${VERSION},fluencelabs/fluence:${VERSION}_${RUN},fluencelabs/fluence:latest
-          
-          echo "TAGS=$TAGS" | tee -a $GITHUB_ENV
-          echo "BUILD_DATE=$(date '+%Y-%m-%dT%H:%M:%S%:z')"
-
-      ### Build and push docker image
-      - name: Build and push
-        id: docker_publish
-        uses: docker/build-push-action@v2
+      - name: Build and push ${{ matrix.package }}
+        uses: docker/build-push-action@v3
         with:
           context: .
-          file: Dockerfile
           push: true
-          tags: "${{ env.TAGS }}"
+          target: ${{ matrix.package }}
+          tags: |
+            fluencelabs/fluence:${{ matrix.package }}
+            fluencelabs/fluence:${{ matrix.package }}_${{ env.RELEASE_VERSION }}
+            fluencelabs/fluence:${{ matrix.package }}_${{ env.RELEASE_VERSION }}_${{ env.RUN_NUMBER }}
           build-args: |
             COMMIT=${{ github.sha }}
             BUILD_DATE=${{ env.BUILD_DATE }}
-            RUN_NUMBER=${{ github.run_number }}
+            RUN_NUMBER=${{ env.RUN_NUMBER }}
             TAG=${{ env.RELEASE_VERSION }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
 
-      ### Create GitHub release
-      - name: Build Changelog
-        id: github_release
-        uses: mikepenz/release-changelog-builder-action@v1
+      - name: Build and push ${{ matrix.package }}
+        if: matrix.package == 'ipfs'
+        uses: docker/build-push-action@v3
         with:
-          configuration: ".github/workflows/changelog_config.json"
+          context: .
+          push: true
+          target: ${{ matrix.package }}
+          tags: |
+            fluencelabs/fluence:latest
+            fluencelabs/fluence:${{ env.RELEASE_VERSION }}
+            fluencelabs/fluence:${{ env.RELEASE_VERSION }}_${{ env.RUN_NUMBER }}
+          build-args: |
+            COMMIT=${{ github.sha }}
+            BUILD_DATE=${{ env.BUILD_DATE }}
+            RUN_NUMBER=${{ env.RUN_NUMBER }}
+            TAG=${{ env.RELEASE_VERSION }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+  release:
+    name: "Release"
+    runs-on: ubuntu-latest
+
+    needs:
+      - prepare
+      - build
+
+    env:
+      RELEASE_VERSION: ${{ needs.prepare.outputs.release_version }}
+
+    steps:
+      - name: Build changelog
+        id: github_release
+        uses: mikepenz/release-changelog-builder-action@v3
+        with:
+          configuration: ".github/misc/changelog_config.json"
           commitMode: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Parse metadata from docker publish
-        id: metadata
-        uses: actions/github-script@v4
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          result-encoding: string
-          script: |
-            try {
-                let metadataRaw = `${{ steps.docker_publish.outputs.metadata }}`;
-                let metadata = JSON.parse(metadataRaw);
-                let imageTags = metadata['image.name'].split(",");
-                let tagString = imageTags.reduce(
-                  (acc, tag) => { return `${acc}\n- ${tag}` },
-                  ""
-                )
-                console.log(tagString);
-                return tagString;
-            } catch (e) {
-              console.log("Err: " + e);
-              throw e;
-            }
-
       - name: Release
-        id: release
         uses: softprops/action-gh-release@v1
         with:
           name: Fluence Node ${{ env.RELEASE_VERSION }}
           tag_name: ${{ env.RELEASE_VERSION }}
           body: |
-            ${{steps.github_release.outputs.changelog}}
+            ${{ steps.github_release.outputs.changelog }}
 
             ## Docker tags
-            ${{steps.metadata.outputs.result}}
+
+            ### ipfs
+
+            fluencelabs/fluence:latest
+            fluencelabs/fluence:${{ env.RELEASE_VERSION }}
+            fluencelabs/fluence:ipfs
+            fluencelabs/fluence:ipfs_${{ env.RELEASE_VERSION }}
+            fluencelabs/fluence:ipfs_${{ env.RELEASE_VERSION }}_${{ env.RUN_NUMBER }}
+
+            ## minimal
+
+            fluencelabs/fluence:minimal
+            fluencelabs/fluence:minimal_${{ env.RELEASE_VERSION }}
+            fluencelabs/fluence:minimal_${{ env.RELEASE_VERSION }}_${{ env.RUN_NUMBER }}
+
+            ## rich
+
+            fluencelabs/fluence:rich
+            fluencelabs/fluence:rich_${{ env.RELEASE_VERSION }}
+            fluencelabs/fluence:rich_${{ env.RELEASE_VERSION }}_${{ env.RUN_NUMBER }}
 
           draft: false
           prerelease: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-

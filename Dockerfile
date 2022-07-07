@@ -26,9 +26,9 @@ RUN grep " bitcoin-${BITCOIN_CLI_VERSION}-x86_64-linux-gnu.tar.gz\$" SHA256SUMS 
 # Extract
 RUN tar -xzf "bitcoin-${BITCOIN_CLI_VERSION}-x86_64-linux-gnu.tar.gz"
 
-# fluence-node image
+# minimal
 # ----------------------------------------------------------------------------
-FROM ghcr.io/linuxserver/baseimage-ubuntu:focal as fluence-node
+FROM ghcr.io/linuxserver/baseimage-ubuntu:focal as minimal
 
 # https://github.com/opencontainers/image-spec/blob/main/annotations.md#pre-defined-annotation-keys
 LABEL org.opencontainers.image.created="${BUILD_DATE}"
@@ -41,7 +41,7 @@ LABEL org.opencontainers.image.vendor="fluencelabs"
 LABEL maintainer="fluencelabs"
 LABEL org.opencontainers.image.authors="fluencelabs"
 LABEL org.opencontainers.image.title="Fluence Node"
-LABEL org.opencontainers.image.description="Base image containing only Fluence Node itself"
+LABEL org.opencontainers.image.description="Minimal image containing only Fluence Node itself"
 LABEL dev.fluence.image.builtins="${SERVICES_VERSION}"
 
 ENV RUST_LOG="info,aquamarine=warn,tokio_threadpool=info,tokio_reactor=info,mio=info,tokio_io=info,soketto=info,yamux=info,multistream_select=info,libp2p_secio=info,libp2p_websocket::framed=info,libp2p_ping=info,libp2p_core::upgrade::apply=info,libp2p_kad::kbucket=info,cranelift_codegen=info,wasmer_wasi=info,cranelift_codegen=info,wasmer_wasi=info"
@@ -64,26 +64,24 @@ RUN \
   	/var/lib/apt/lists/* \
   	/var/tmp/*
 
-# download fluence
+# download fluence and builtins
 RUN --mount=type=bind,source=fluence,target=/fluence /fluence/download_fluence.sh /fluence/fluence.json
+RUN --mount=type=bind,source=fluence,target=/fluence /fluence/download_builtins.sh /fluence/services.json
 
 # copy default fluence config
 COPY fluence/Config.default.toml /.fluence/v1/Config.toml
 
 # copy s6 configs
-COPY s6/fluence-node/ /
+COPY s6/minimal/ /
 
-# fluence image
+# ipfs
 # ----------------------------------------------------------------------------
-FROM fluence-node as fluence
+FROM minimal as ipfs
 
 LABEL org.opencontainers.image.description="Fluence Node bundled with IPFS"
 LABEL dev.fluence.bundles.ipfs="${IPFS_VERSION}"
 
-# download builtins
-RUN --mount=type=bind,source=fluence,target=/fluence /fluence/download_builtins.sh /fluence/services.json
-
-ENV IPFS_PATH=/ipfs IPFS_LOG_DIR=/ipfs/logs IPFS_LOGGING_FMT=nocolor
+ENV IPFS_PATH=/ipfs IPFS_LOG_DIR=$IPFS_PATH/logs IPFS_LOGGING_FMT=nocolor
 
 # fluence builtins default envs
 ENV FLUENCE_ENV_AQUA_IPFS_EXTERNAL_API_MULTIADDR=/ip4/127.0.0.1/tcp/5001
@@ -99,9 +97,9 @@ COPY s6/fluence/ /
 # expose IPFS node port
 EXPOSE 5001
 
-# fluence-bundle image
+# rich
 # ----------------------------------------------------------------------------
-FROM fluence as fluence-bundle
+FROM ipfs as rich
 ARG CERAMIC_VERSION
 ARG GLAZED_VERSION
 ARG GETH_VERSION
@@ -143,4 +141,4 @@ COPY --from=geth /usr/local/bin/geth /usr/bin/geth
 COPY --from=bitcoin /bitcoin-${BITCOIN_CLI_VERSION}/bin/bitcoin-cli /usr/bin/bitcoin-cli
 
 # copy s6 configs
-COPY s6/fluence-bundle/ /
+COPY s6/rich/ /

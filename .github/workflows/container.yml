@@ -21,12 +21,9 @@ on:
         description: 'Fluence binary SHA256 hash'
         required: false
 
-  pull_request:
-
 env:
   RUN_NUMBER: ${{ github.run_number }}
   DOCKER_BUILDKIT: 1
-  FORCE_COLOR: 1
 
 jobs:
   prepare:
@@ -61,16 +58,16 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      # - name: Update Fluence in fluence.json to ${{ github.event.inputs.version }}
-      #   if: env.UPDATE_FLUENCE != 'false'
-      #   run: |
-      #     echo '
-      #     {
-      #       "version": "${{ github.event.inputs.version }}",
-      #       "url": "${{ github.event.inputs.url }}",
-      #       "sha256": "${{ github.event.inputs.sha256 }}"
-      #     }
-      #     ' > fluence/fluence.json
+      - name: Update Fluence in fluence.json to ${{ github.event.inputs.version }}
+        if: env.UPDATE_FLUENCE != 'false'
+        run: |
+          cat <<FLUENCE > fluence/fluence.json
+          {
+            "version": "${{ github.event.inputs.version }}",
+            "url": "${{ github.event.inputs.url }}",
+            "sha256": "${{ github.event.inputs.sha256 }}"
+          }
+          FLUENCE
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2

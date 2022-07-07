@@ -60,16 +60,16 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Update Fluence in fluence.json to ${{ github.event.inputs.version }}
-        if: env.UPDATE_FLUENCE != 'false'
-        run: |
-          echo '
-          {
-            "version": "${{ github.event.inputs.version }}",
-            "url": "${{ github.event.inputs.url }}",
-            "sha256": "${{ github.event.inputs.sha256 }}"
-          }
-          ' > fluence/fluence.json
+      # - name: Update Fluence in fluence.json to ${{ github.event.inputs.version }}
+      #   if: env.UPDATE_FLUENCE != 'false'
+      #   run: |
+      #     echo '
+      #     {
+      #       "version": "${{ github.event.inputs.version }}",
+      #       "url": "${{ github.event.inputs.url }}",
+      #       "sha256": "${{ github.event.inputs.sha256 }}"
+      #     }
+      #     ' > fluence/fluence.json
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2

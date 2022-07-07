@@ -21,6 +21,8 @@ on:
         description: 'Fluence binary SHA256 hash'
         required: false
 
+  pull_request:
+
 env:
   RUN_NUMBER: ${{ github.run_number }}
 
@@ -81,7 +83,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: .
-          push: true
+          # push: true
           target: ${{ matrix.package }}
           tags: |
             fluencelabs/fluence:${{ matrix.package }}_${{ env.TAG }}

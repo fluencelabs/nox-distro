@@ -13,13 +13,16 @@ FROM ghcr.io/linuxserver/baseimage-ubuntu:focal as fluence
 
 # https://github.com/opencontainers/image-spec/blob/main/annotations.md#pre-defined-annotation-keys
 LABEL org.opencontainers.image.created="${BUILD_DATE}"
-LABEL org.opencontainers.image.revision="${RUN_NUMBER}"
+LABEL org.opencontainers.image.revision="${COMMIT}"
+LABEL org.opencontainers.image.ref.name="${COMMIT}"
 LABEL org.opencontainers.image.base.name="ghcr.io/linuxserver/baseimage-ubuntu:focal"
 LABEL org.opencontainers.image.url="https://github.com/fluencelabs/node-distro"
 LABEL org.opencontainers.image.version="${VERSION}"
 LABEL org.opencontainers.image.vendor="fluencelabs"
+LABEL org.opencontainers.image.authors="fluencelabs"
 LABEL org.opencontainers.image.title="Fluence Node"
 LABEL org.opencontainers.image.discription="Base image containing only Fluence Node itself"
+LABEL dev.fluence.image.builtins="${SERVICES_VERSION}"
 
 ENV RUST_LOG="info,aquamarine=warn,tokio_threadpool=info,tokio_reactor=info,mio=info,tokio_io=info,soketto=info,yamux=info,multistream_select=info,libp2p_secio=info,libp2p_websocket::framed=info,libp2p_ping=info,libp2p_core::upgrade::apply=info,libp2p_kad::kbucket=info,cranelift_codegen=info,wasmer_wasi=info,cranelift_codegen=info,wasmer_wasi=info"
 ENV RUST_BACKTRACE="1"
@@ -27,19 +30,19 @@ ENV RUST_BACKTRACE="1"
 ENV S6_CMD_ARG0="/run_fluence"
 
 RUN \
- echo "**** install packages ****" && \
- apt-get update && \
- apt-get install -y --no-install-recommends \
-	jq \
-	less \
-	logrotate \
-	curl && \
- echo "**** cleanup ****" && \
- apt-get clean && \
- rm -rf \
-	/tmp/* \
-	/var/lib/apt/lists/* \
-	/var/tmp/*
+  echo "**** install packages ****" && \
+  apt-get update && \
+  apt-get install -y --no-install-recommends \
+  	jq \
+  	less \
+  	logrotate \
+  	curl && \
+  echo "**** cleanup ****" && \
+  apt-get clean && \
+  rm -rf \
+  	/tmp/* \
+  	/var/lib/apt/lists/* \
+  	/var/tmp/*
 
 # download fluence & builtin services
 RUN --mount=type=bind,source=fluence,target=/fluence /fluence/download_fluence.sh /fluence/fluence.json
@@ -62,7 +65,8 @@ FROM ipfs/go-ipfs:${IPFS} as ipfs
 
 FROM fluence as fluence-ipfs
 
-LABEL org.opencontainers.image.discription="Fluence Node bundled with IPFS ${IPFS}"
+LABEL org.opencontainers.image.discription="Fluence Node bundled with IPFS node"
+LABEL dev.fluence.image.ipfs.version="${IPFS}"
 
 ENV IPFS_PATH=/ipfs IPFS_LOG_DIR=/ipfs/logs IPFS_LOGGING_FMT=nocolor
 
@@ -80,23 +84,25 @@ COPY s6/fluence-ipfs/ /
 # fluence-bundle
 FROM fluence-ipfs as fluence-bundle
 
-LABEL org.opencontainers.image.discription="Fluence Node bundled with IPFS ${IPFS}, Ceramic CLI ${CERAMIC_VERSION} and Glazed ${GLAZED_VERSION}"
+LABEL org.opencontainers.image.discription="Fluence Node bundled with IPFS, Ceramic CLI and Glazed"
+LABEL dev.fluence.image.ceramic.version="${CERAMIC_VERSION}"
+LABEL dev.fluence.image.glazed.version="${GLAZED_VERSION}"
 
 # install nodejs 16.x
 RUN curl -fsSL https://deb.nodesource.com/gpgkey/nodesource.gpg.key | gpg --dearmor > /usr/share/keyrings/nodesource.gpg \
     && echo "deb [signed-by=/usr/share/keyrings/nodesource.gpg] https://deb.nodesource.com/node_16.x focal main" > /etc/apt/sources.list.d/nodesource.list
 
 RUN \
- echo "**** install packages ****" && \
- apt-get update && \
- apt-get install -y --no-install-recommends \
-	nodejs && \
- echo "**** cleanup ****" && \
- apt-get clean && \
- rm -rf \
-	/tmp/* \
-	/var/lib/apt/lists/* \
-	/var/tmp/*
+  echo "**** install packages ****" && \
+  apt-get update && \
+  apt-get install -y --no-install-recommends \
+    nodejs && \
+  echo "**** cleanup ****" && \
+  apt-get clean && \
+  rm -rf \
+    /tmp/* \
+    /var/lib/apt/lists/* \
+    /var/tmp/*
 
 # install ceramic and glaze
 RUN npm install --cache /cache --global \

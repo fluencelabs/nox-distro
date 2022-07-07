@@ -4,12 +4,31 @@ ARG RUN_NUMBER
 ARG TAG
 ARG BUILD_DATE
 
-ARG IPFS=v0.9.0
+ARG IPFS_VERSION=0.9.0
 ARG CERAMIC_VERSION=2.3.x
 ARG GLAZED_VERSION=0.2.x
+ARG GETH_VERSION=1.10
+ARG BITCOIN_CLI_VERSION=23.0
 
-# fluence base image
-FROM ghcr.io/linuxserver/baseimage-ubuntu:focal as fluence
+# prepare stage images
+# ----------------------------------------------------------------------------
+FROM ethereum/client-go:release-${GETH_VERSION} as geth
+FROM ipfs/go-ipfs:v${IPFS_VERSION} as ipfs
+
+FROM alpine as bitcoin
+ARG BITCOIN_CLI_VERSION
+# Download checksums
+ADD https://bitcoincore.org/bin/bitcoin-core-${BITCOIN_CLI_VERSION}/SHA256SUMS ./
+# Download archive
+ADD https://bitcoincore.org/bin/bitcoin-core-${BITCOIN_CLI_VERSION}/bitcoin-${BITCOIN_CLI_VERSION}-x86_64-linux-gnu.tar.gz ./
+# Verify that downloaded archive matches exactly the hash that's provided
+RUN grep " bitcoin-${BITCOIN_CLI_VERSION}-x86_64-linux-gnu.tar.gz\$" SHA256SUMS | sha256sum -c -
+# Extract
+RUN tar -xzf "bitcoin-${BITCOIN_CLI_VERSION}-x86_64-linux-gnu.tar.gz"
+
+# fluence-node image
+# ----------------------------------------------------------------------------
+FROM ghcr.io/linuxserver/baseimage-ubuntu:focal as fluence-node
 
 # https://github.com/opencontainers/image-spec/blob/main/annotations.md#pre-defined-annotation-keys
 LABEL org.opencontainers.image.created="${BUILD_DATE}"
@@ -19,9 +38,10 @@ LABEL org.opencontainers.image.base.name="ghcr.io/linuxserver/baseimage-ubuntu:f
 LABEL org.opencontainers.image.url="https://github.com/fluencelabs/node-distro"
 LABEL org.opencontainers.image.version="${VERSION}"
 LABEL org.opencontainers.image.vendor="fluencelabs"
+LAbEL maintainer="fluencelabs"
 LABEL org.opencontainers.image.authors="fluencelabs"
 LABEL org.opencontainers.image.title="Fluence Node"
-LABEL org.opencontainers.image.discription="Base image containing only Fluence Node itself"
+LABEL org.opencontainers.image.description="Base image containing only Fluence Node itself"
 LABEL dev.fluence.image.builtins="${SERVICES_VERSION}"
 
 ENV RUST_LOG="info,aquamarine=warn,tokio_threadpool=info,tokio_reactor=info,mio=info,tokio_io=info,soketto=info,yamux=info,multistream_select=info,libp2p_secio=info,libp2p_websocket::framed=info,libp2p_ping=info,libp2p_core::upgrade::apply=info,libp2p_kad::kbucket=info,cranelift_codegen=info,wasmer_wasi=info,cranelift_codegen=info,wasmer_wasi=info"
@@ -44,29 +64,24 @@ RUN \
   	/var/lib/apt/lists/* \
   	/var/tmp/*
 
-# download fluence & builtin services
+# download fluence
 RUN --mount=type=bind,source=fluence,target=/fluence /fluence/download_fluence.sh /fluence/fluence.json
-RUN --mount=type=bind,source=fluence,target=/fluence /fluence/download_builtins.sh /fluence/services.json
 
 # copy default fluence config
 COPY fluence/Config.default.toml /.fluence/v1/Config.toml
 
 # copy s6 configs
-# NOTE: copy configs should be after installing packages because
-# 		configs may replace default configs of installed packages
-COPY s6/fluence/ /
+COPY s6/fluence-node/ /
 
-EXPOSE 5001
+# fluence image
+# ----------------------------------------------------------------------------
+FROM fluence-node as fluence
 
-# fluence-ipfs image
-### NOTE: original linuxserver.org docker-ipfs image also builds & runs migrations.
-###		  If needed, go to https://github.com/linuxserver/docker-ipfs to see how it's done.
-FROM ipfs/go-ipfs:${IPFS} as ipfs
+LABEL org.opencontainers.image.description="Fluence Node bundled with IPFS"
+LABEL dev.fluence.bundles.ipfs="${IPFS_VERSION}"
 
-FROM fluence as fluence-ipfs
-
-LABEL org.opencontainers.image.discription="Fluence Node bundled with IPFS node"
-LABEL dev.fluence.image.ipfs.version="${IPFS}"
+# download builtins
+RUN --mount=type=bind,source=fluence,target=/fluence /fluence/download_builtins.sh /fluence/services.json
 
 ENV IPFS_PATH=/ipfs IPFS_LOG_DIR=/ipfs/logs IPFS_LOGGING_FMT=nocolor
 
@@ -79,16 +94,26 @@ ENV FLUENCE_ENV_AQUA_IPFS_EXTERNAL_SWARM_MULTIADDR=/ip4/127.0.0.1/tcp/4001
 COPY --from=ipfs /usr/local/bin/ipfs /usr/bin/ipfs
 
 # copy s6 configs
-COPY s6/fluence-ipfs/ /
+COPY s6/fluence/ /
 
-# fluence-bundle
-FROM fluence-ipfs as fluence-bundle
+# expose IPFS node port
+EXPOSE 5001
 
-LABEL org.opencontainers.image.discription="Fluence Node bundled with IPFS, Ceramic CLI and Glazed"
-LABEL dev.fluence.image.ceramic.version="${CERAMIC_VERSION}"
-LABEL dev.fluence.image.glazed.version="${GLAZED_VERSION}"
+# fluence-bundle image
+# ----------------------------------------------------------------------------
+FROM fluence as fluence-bundle
+ARG CERAMIC_VERSION
+ARG GLAZED_VERSION
+ARG GETH_VERSION
+ARG BITCOIN_CLI_VERSION
 
-# install nodejs 16.x
+LABEL org.opencontainers.image.description="Fluence Node bundled with IPFS, Ceramic CLI and other tools"
+LABEL dev.fluence.image.bundles.ceramic="${CERAMIC_VERSION}"
+LABEL dev.fluence.image.bundles.glazed="${GLAZED_VERSION}"
+LABEL dev.fluence.image.bundles.bitcoin_cli="${BITCOIN_CLI_VERSION}"
+LABEL dev.fluence.image.bundles.geth="${GETH_VERSION}"
+
+# add nodejs 16.x repo
 RUN curl -fsSL https://deb.nodesource.com/gpgkey/nodesource.gpg.key | gpg --dearmor > /usr/share/keyrings/nodesource.gpg \
     && echo "deb [signed-by=/usr/share/keyrings/nodesource.gpg] https://deb.nodesource.com/node_16.x focal main" > /etc/apt/sources.list.d/nodesource.list
 
@@ -96,6 +121,7 @@ RUN \
   echo "**** install packages ****" && \
   apt-get update && \
   apt-get install -y --no-install-recommends \
+    musl \
     nodejs && \
   echo "**** cleanup ****" && \
   apt-get clean && \
@@ -109,6 +135,12 @@ RUN npm install --cache /cache --global \
   @ceramicnetwork/cli@$CERAMIC_VERSION \
   @glazed/cli@$GLAZED_VERSION \
   && rm -rf /cache
+
+# copy geth
+COPY --from=geth /usr/local/bin/geth /usr/bin/geth
+
+# copy bitcoin-cli
+COPY --from=bitcoin /bitcoin-${BITCOIN_CLI_VERSION}/bin/bitcoin-cli /usr/bin/bitcoin-cli
 
 # copy s6 configs
 COPY s6/fluence-bundle/ /

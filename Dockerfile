@@ -12,10 +12,10 @@ ARG BITCOIN_CLI_VERSION=23.0
 
 # prepare stage images
 # ----------------------------------------------------------------------------
-FROM ethereum/client-go:release-${GETH_VERSION} as geth
-FROM ipfs/go-ipfs:v${IPFS_VERSION} as ipfs
+FROM ethereum/client-go:release-${GETH_VERSION} as prepare-geth
+FROM ipfs/go-ipfs:v${IPFS_VERSION} as prepare-ipfs
 
-FROM alpine as bitcoin
+FROM alpine as prepare-bitcoin
 ARG BITCOIN_CLI_VERSION
 # Download checksums
 ADD https://bitcoincore.org/bin/bitcoin-core-${BITCOIN_CLI_VERSION}/SHA256SUMS ./
@@ -89,10 +89,10 @@ ENV FLUENCE_ENV_AQUA_IPFS_LOCAL_API_MULTIADDR=/ip4/127.0.0.1/tcp/5001
 ENV FLUENCE_ENV_AQUA_IPFS_EXTERNAL_SWARM_MULTIADDR=/ip4/127.0.0.1/tcp/4001
 
 # copy IPFS binary
-COPY --from=ipfs /usr/local/bin/ipfs /usr/bin/ipfs
+COPY --from=prepare-ipfs /usr/local/bin/ipfs /usr/bin/ipfs
 
 # copy s6 configs
-COPY s6/fluence/ /
+COPY s6/ipfs/ /
 
 # expose IPFS node port
 EXPOSE 5001
@@ -135,10 +135,10 @@ RUN npm install --cache /cache --global \
   && rm -rf /cache
 
 # copy geth
-COPY --from=geth /usr/local/bin/geth /usr/bin/geth
+COPY --from=prepare-geth /usr/local/bin/geth /usr/bin/geth
 
 # copy bitcoin-cli
-COPY --from=bitcoin /bitcoin-${BITCOIN_CLI_VERSION}/bin/bitcoin-cli /usr/bin/bitcoin-cli
+COPY --from=prepare-bitcoin /bitcoin-${BITCOIN_CLI_VERSION}/bin/bitcoin-cli /usr/bin/bitcoin-cli
 
 # copy s6 configs
 COPY s6/rich/ /

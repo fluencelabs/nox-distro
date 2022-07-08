@@ -82,7 +82,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: .
-          # push: true
+          push: true
           target: ${{ matrix.package }}
           tags: |
             fluencelabs/fluence:${{ matrix.package }}_${{ env.TAG }}

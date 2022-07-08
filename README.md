@@ -15,7 +15,7 @@ Contains Fluence Node itself and some builtin services:
 - [trust-graph](https://github.com/fluencelabs/trust-graph)
 - [registry](https://github.com/fluencelabs/registry)
 
-For those who whant to run IPFS node separately. Serves as a base image for all
+For those who want to run IPFS node separately. Serves as a base image for all
 other image flavours.
 
 ### ipfs

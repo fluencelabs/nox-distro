@@ -1,7 +1,7 @@
 ### NOTE: original linuxserver.org docker-ipfs image also builds & runs migrations.
 ###		  If needed, go to https://github.com/linuxserver/docker-ipfs to see how it's done.
 
-ARG IPFS=v0.9.0
+ARG IPFS=v0.13.1
 ARG CERAMIC_VERSION=2.3.x
 ARG GLAZED_VERSION=0.2.x
 

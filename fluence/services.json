@@ -4,11 +4,6 @@
     "url": "https://github.com/fluencelabs/aqua-ipfs/releases/download/v0.5.5/aqua-ipfs.tar.gz",
     "sha256": "b1050e265f6382d476e9a8f615cfd882ed45e6edbca3df7355599bc94910fefd"
   },
-  "aqua-dht": {
-    "version": "v0.2.9",
-    "url": "https://github.com/fluencelabs/registry/releases/download/v0.2.9/aqua-dht.tar.gz",
-    "sha256": "89addb7b2d2089340bccec8d90474d284cf2d70d4e043fa85c47f274e6cb206d"
-  },
   "trust-graph": {
     "version": "v3.0.4",
     "url": "https://github.com/fluencelabs/trust-graph/releases/download/v3.0.4/trust-graph.tar.gz",

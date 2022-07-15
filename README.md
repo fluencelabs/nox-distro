@@ -6,18 +6,17 @@ Currently provides Network Dashboard as a side-car.
 
 ## Image tags
 
-| Container flavor | IPFS daemon | services                                   | binaries                                   |
-| ---------------- | ----------- | ------------------------------------------ | ------------------------------------------ |
-| minimal          | ❌           | aqua-ipfs, aqua-dht, trust-graph, registry | curl                                       |
-| ipfs             | ✅           | aqua-ipfs, aqua-dht, trust-graph, registry | curl, ipfs                                 |
-| rich             | ✅           | aqua-ipfs, aqua-dht, trust-graph, registry | curl, ipfs, ceramic, bitcoin cli, geth cli |
+| Container flavor | IPFS daemon | services                         | binaries                                   |
+| ---------------- | ----------- | -------------------------------- | ------------------------------------------ |
+| minimal          | ❌           | aqua-ipfs, trust-graph, registry | curl                                       |
+| ipfs             | ✅           | aqua-ipfs, trust-graph, registry | curl, ipfs                                 |
+| rich             | ✅           | aqua-ipfs, trust-graph, registry | curl, ipfs, ceramic, bitcoin cli, geth cli |
 
 ### minimal
 
 Contains Fluence Node itself and some builtin services:
 
 - [aqua-ipfs](https://github.com/fluencelabs/aqua-ipfs)
-- aqua-dht
 - [trust-graph](https://github.com/fluencelabs/trust-graph)
 - [registry](https://github.com/fluencelabs/registry)
 

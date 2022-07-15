@@ -6,6 +6,12 @@ Currently provides Network Dashboard as a side-car.
 
 ## Image tags
 
+| Container flavor | IPFS daemon | binaries                                   |
+| ---------------- | ----------- | ------------------------------------------ |
+| minimal          | ❌           | curl                                       |
+| ipfs             | ✅           | curl, ipfs                                 |
+| rich             | ✅           | curl, ipfs, ceramic, bitcoin cli, geth cli |
+
 ### minimal
 
 Contains Fluence Node itself and some builtin services:
@@ -38,7 +44,7 @@ binaries like bitcoin-cli or
 | variable                                         | default           | description                                 |
 | ------------------------------------------------ | ----------------- | ------------------------------------------- |
 | `CERAMIC_HOST`                                   |                   | ceramic daemon address                      |
-| `IPFS_PATH`                                      | `/ipfs`           | IPFS node data directory                    |
+| `IPFS_PATH`                                      | `/config/ipfs`    | IPFS node data directory                    |
 | `IPFS_LOG_PATH`                                  | `$IPFS_PATH/logs` | directory where IPFS will store its logs    |
 | `FLUENCE_ENV_AQUA_IPFS_EXTERNAL_API_MULTIADDR`   |                   | IPFS node address used by aqua-ipfs builtin |
 | `FLUENCE_ENV_AQUA_IPFS_LOCAL_API_MULTIADDR`      |                   | IPFS node address used by aqua-ipfs builtin |

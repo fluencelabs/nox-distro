@@ -81,7 +81,7 @@ FROM minimal as ipfs
 LABEL org.opencontainers.image.description="Fluence Node bundled with IPFS"
 LABEL dev.fluence.bundles.ipfs="${IPFS_VERSION}"
 
-ENV IPFS_PATH=/ipfs IPFS_LOG_DIR=$IPFS_PATH/logs IPFS_LOGGING_FMT=nocolor
+ENV IPFS_PATH=/config/ipfs IPFS_LOG_DIR=$IPFS_PATH/logs IPFS_LOGGING_FMT=nocolor
 
 # fluence builtins default envs
 ENV FLUENCE_ENV_AQUA_IPFS_EXTERNAL_API_MULTIADDR=/ip4/127.0.0.1/tcp/5001

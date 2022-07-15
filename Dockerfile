@@ -49,6 +49,11 @@ ENV RUST_BACKTRACE="1"
 ## set /run_fluence as the CMD binary
 ENV S6_CMD_ARG0="/run_fluence"
 
+# fluence builtins default envs
+ENV FLUENCE_ENV_AQUA_IPFS_EXTERNAL_API_MULTIADDR=/ip4/127.0.0.1/tcp/5001
+ENV FLUENCE_ENV_AQUA_IPFS_LOCAL_API_MULTIADDR=/ip4/127.0.0.1/tcp/5001
+ENV FLUENCE_ENV_AQUA_IPFS_EXTERNAL_SWARM_MULTIADDR=/ip4/127.0.0.1/tcp/4001
+
 RUN \
   echo "**** install packages ****" && \
   apt-get update && \
@@ -81,12 +86,7 @@ FROM minimal as ipfs
 LABEL org.opencontainers.image.description="Fluence Node bundled with IPFS"
 LABEL dev.fluence.bundles.ipfs="${IPFS_VERSION}"
 
-ENV IPFS_PATH=/config/ipfs IPFS_LOG_DIR=$IPFS_PATH/logs IPFS_LOGGING_FMT=nocolor
-
-# fluence builtins default envs
-ENV FLUENCE_ENV_AQUA_IPFS_EXTERNAL_API_MULTIADDR=/ip4/127.0.0.1/tcp/5001
-ENV FLUENCE_ENV_AQUA_IPFS_LOCAL_API_MULTIADDR=/ip4/127.0.0.1/tcp/5001
-ENV FLUENCE_ENV_AQUA_IPFS_EXTERNAL_SWARM_MULTIADDR=/ip4/127.0.0.1/tcp/4001
+ENV IPFS_PATH=/config/ipfs IPFS_LOG_DIR=/log/ipfs IPFS_LOGGING_FMT=nocolor
 
 # copy IPFS binary
 COPY --from=prepare-ipfs /usr/local/bin/ipfs /usr/bin/ipfs

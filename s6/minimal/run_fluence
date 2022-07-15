@@ -1,6 +1,9 @@
 #!/usr/bin/execlineb -s0
 # '-s0' defines '$@' to hold all positional parameters
 
+# import ENV from container
+with-contenv
+
 # remove old HOME variable from the environment, so the daemon isn't confused by it
 # see https://github.com/fluencelabs/node-distro/issues/14 for more details
 unexport HOME

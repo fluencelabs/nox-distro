@@ -19,7 +19,5 @@ if [[ ! -d "$IPFS_PATH" ]]; then
   # in IPFS logs
 fi
 
-# create directories
 mkdir -p $IPFS_PATH $IPFS_LOG_DIR
-
 chown -R abc:abc $IPFS_PATH $IPFS_LOG_DIR

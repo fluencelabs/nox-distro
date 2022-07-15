@@ -24,7 +24,7 @@ jobs:
         id: build_date
         run: echo "::set-output name=date::$(date '+%Y-%m-%dT%H:%M:%S%:z')"
 
-      - set: Set release version
+      - name: Set release version
         id: release_version
         run: echo "::set-output name=version::$(echo ${GITHUB_REF#refs/*/})"
 

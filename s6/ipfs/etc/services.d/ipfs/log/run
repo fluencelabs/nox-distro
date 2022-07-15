@@ -1,4 +1,4 @@
-#!/bin/execlineb -P
+#!/usr/bin/with-contenv bash
 
 # s6-setuidgid abc - run as a user abc (unprivileged)
 
@@ -7,4 +7,4 @@
 # S30000000    - keep only 30 MB of rotated (and compressed) logs
 # T            - prepend timestamp to each line
 # !"gzip -nq9" - compresses logs on rotation
-s6-setuidgid abc s6-log n30 s10000000 S30000000 T !"gzip -nq9" /config/log/ipfs
+s6-setuidgid abc s6-log n30 s10000000 S30000000 T !"gzip -nq9" $IPFS_LOG_DIR

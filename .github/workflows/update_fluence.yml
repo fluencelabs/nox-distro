@@ -27,13 +27,13 @@ jobs:
 
       - name: Update Fluence in fluence.json to ${{ github.event.inputs.version }}
         run: |
-          echo '
+          cat <<FLUENCE > fluence/fluence.json
           {
             "version": "${{ github.event.inputs.version }}",
             "url": "${{ github.event.inputs.url }}",
             "sha256": "${{ github.event.inputs.sha256 }}"
           }
-          ' > fluence/fluence.json
+          FLUENCE
 
       - name: Commit updated fluence.json
         uses: EndBug/add-and-commit@v7

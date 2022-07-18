@@ -40,14 +40,15 @@ binaries like bitcoin-cli or
 
 ### Environmental variables
 
-| variable                                         | default        | description                                 |
-| ------------------------------------------------ | -------------- | ------------------------------------------- |
-| `CERAMIC_HOST`                                   |                | ceramic daemon address                      |
-| `IPFS_PATH`                                      | `/config/ipfs` | IPFS node data directory                    |
-| `IPFS_LOG_PATH`                                  | `/log/ipfs`    | directory where IPFS will store its logs    |
-| `FLUENCE_ENV_AQUA_IPFS_EXTERNAL_API_MULTIADDR`   |                | IPFS node address used by aqua-ipfs builtin |
-| `FLUENCE_ENV_AQUA_IPFS_LOCAL_API_MULTIADDR`      |                | IPFS node address used by aqua-ipfs builtin |
-| `FLUENCE_ENV_AQUA_IPFS_EXTERNAL_SWARM_MULTIADDR` |                | IPFS node address used by aqua-ipfs builtin |
+| variable                                         | default        | description                                   |
+| ------------------------------------------------ | -------------- | --------------------------------------------- |
+| `CERAMIC_HOST`                                   |                | ceramic daemon address                        |
+| `IPFS_PATH`                                      | `/config/ipfs` | IPFS node data directory                      |
+| `IPFS_LOG_PATH`                                  | `/log/ipfs`    | directory where IPFS will store its logs      |
+| `IPFS_CMD`                                       | `--migrate`    | command line arguments to pass to IPFS daemon |
+| `FLUENCE_ENV_AQUA_IPFS_EXTERNAL_API_MULTIADDR`   |                | IPFS node address used by aqua-ipfs builtin   |
+| `FLUENCE_ENV_AQUA_IPFS_LOCAL_API_MULTIADDR`      |                | IPFS node address used by aqua-ipfs builtin   |
+| `FLUENCE_ENV_AQUA_IPFS_EXTERNAL_SWARM_MULTIADDR` |                | IPFS node address used by aqua-ipfs builtin   |
 
 ## How to run
 

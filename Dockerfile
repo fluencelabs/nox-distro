@@ -86,7 +86,9 @@ FROM minimal as ipfs
 LABEL org.opencontainers.image.description="Fluence Node bundled with IPFS"
 LABEL dev.fluence.bundles.ipfs="${IPFS_VERSION}"
 
-ENV IPFS_PATH=/config/ipfs IPFS_LOG_DIR=/log/ipfs IPFS_LOGGING_FMT=nocolor
+ENV IPFS_PATH=/config/ipfs
+ENV IPFS_LOG_DIR=/log/ipfs IPFS_LOGGING_FMT=nocolor
+ENV IPFS_CMD="--migrate"
 
 # copy IPFS binary
 COPY --from=prepare-ipfs /usr/local/bin/ipfs /usr/bin/ipfs

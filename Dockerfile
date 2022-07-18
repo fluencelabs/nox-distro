@@ -88,7 +88,7 @@ LABEL dev.fluence.bundles.ipfs="${IPFS_VERSION}"
 
 ENV IPFS_PATH=/config/ipfs
 ENV IPFS_LOG_DIR=/log/ipfs IPFS_LOGGING_FMT=nocolor
-ENV IPFS_CMD="--migrate"
+ENV IPFS_CMD=--migrate=true
 
 # copy IPFS binary
 COPY --from=prepare-ipfs /usr/local/bin/ipfs /usr/bin/ipfs

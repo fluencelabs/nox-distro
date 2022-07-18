@@ -38,7 +38,7 @@ CONFIG = {
                 '{container_name}_config:/config',
             ],
             'container_name': '{container_name}',
-            'image': 'fluencelabs/node:{container_tag}',
+            'image': 'fluencelabs/fluence:{container_tag}',
             'ports': [
                 '{tcp_port}:{tcp_port}',
                 '{ws_port}:{ws_port}',

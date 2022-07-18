@@ -61,7 +61,7 @@ RUN \
   	jq \
   	less \
   	logrotate \
-  	curl && \
+  	curl wget && \
   echo "**** cleanup ****" && \
   apt-get clean && \
   rm -rf \
@@ -92,6 +92,8 @@ ENV IPFS_CMD=--migrate=true
 
 # copy IPFS binary
 COPY --from=prepare-ipfs /usr/local/bin/ipfs /usr/bin/ipfs
+# download fs-repo-migrations
+RUN wget -qO - "https://dist.ipfs.io/fs-repo-migrations/v2.0.2/fs-repo-migrations_v2.0.2_linux-amd64.tar.gz" | tar -C /usr/local/bin --strip-components=1 -zxvf -
 
 # copy s6 configs
 COPY s6/ipfs/ /

@@ -19,7 +19,7 @@ if [[ ! -d "$IPFS_PATH" ]]; then
   # in IPFS logs
 fi
 
-if [[ ! -z "$IPFS_MIGRATE_FS" ]]; then
+if [[ "$IPFS_MIGRATE_FS" == true ]]; then
   fs-repo-migrations -y
 fi
 

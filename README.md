@@ -45,7 +45,7 @@ binaries like bitcoin-cli or
 | `CERAMIC_HOST`                                   |                | ceramic daemon address                                                                      |
 | `IPFS_PATH`                                      | `/config/ipfs` | IPFS node data directory                                                                    |
 | `IPFS_LOG_PATH`                                  | `/log/ipfs`    | directory where IPFS will store its logs                                                    |
-| `IPFS_MIGRATE_FS`                                |                | automatically run [fs-repo-migrations](https://github.com/ipfs/fs-repo-migrations) on start |
+| `IPFS_MIGRATE_FS`                                | `false`        | automatically run [fs-repo-migrations](https://github.com/ipfs/fs-repo-migrations) on start |
 | `FLUENCE_ENV_AQUA_IPFS_EXTERNAL_API_MULTIADDR`   |                | IPFS node address used by aqua-ipfs builtin                                                 |
 | `FLUENCE_ENV_AQUA_IPFS_LOCAL_API_MULTIADDR`      |                | IPFS node address used by aqua-ipfs builtin                                                 |
 | `FLUENCE_ENV_AQUA_IPFS_EXTERNAL_SWARM_MULTIADDR` |                | IPFS node address used by aqua-ipfs builtin                                                 |

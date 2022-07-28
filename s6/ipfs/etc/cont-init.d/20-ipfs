@@ -19,5 +19,9 @@ if [[ ! -d "$IPFS_PATH" ]]; then
   # in IPFS logs
 fi
 
+if [[ "$IPFS_MIGRATE_FS" == true ]]; then
+  fs-repo-migrations -y
+fi
+
 mkdir -p $IPFS_PATH $IPFS_LOG_DIR
 chown -R abc:abc $IPFS_PATH $IPFS_LOG_DIR

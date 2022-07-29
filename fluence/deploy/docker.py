@@ -135,7 +135,7 @@ def do_deploy_cadvisor():
     name = "--name=cadvisor"
     ports = "-p 16000:8080"
     container = "gcr.io/cadvisor/cadvisor:v0.39.3"
-    commands = "--docker_only=true --disable_metrics=diskIO,advtcp,perf_event,referenced_memory,memory_numa,resctrl,hugetlb,accelerator --store_container_labels=false --allow_dynamic_housekeeping=false --housekeeping_interval=15s --max_housekeeping_interval=30s"
+    commands = "--docker_only=true --disable_metrics=diskIO,advtcp,referenced_memory,memory_numa,resctrl,hugetlb,accelerator --store_container_labels=false --allow_dynamic_housekeeping=false --housekeeping_interval=15s --max_housekeeping_interval=30s"
 
     command = "docker stop cadvisor && docker rm cadvisor && docker run -d {} {} {} {} {} {}".format(volumes, devices, name, ports, container, commands)
     run(command)

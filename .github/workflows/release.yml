@@ -85,6 +85,7 @@ jobs:
           target: ${{ matrix.package }}
           tags: |
             fluencelabs/fluence:latest
+            fluencelabs/fluence:${{ env.RELEASE_VERSION }}
           build-args: |
             COMMIT=${{ github.sha }}
             BUILD_DATE=${{ env.BUILD_DATE }}

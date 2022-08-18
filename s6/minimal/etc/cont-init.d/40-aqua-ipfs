@@ -1,0 +1,6 @@
+#!/usr/bin/with-contenv bash
+
+if ! command -v ipfs; then
+  echo "IPFS binary not present, removing aqua-ipfs builtin"
+  rm -rf /builtins/aqua-ipfs
+fi

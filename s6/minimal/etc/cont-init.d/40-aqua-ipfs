@@ -1,0 +1,19 @@
+#!/usr/bin/with-contenv bash
+
+aqua_ipfs_vars=(
+  "FLUENCE_ENV_AQUA_IPFS_EXTERNAL_API_MULTIADDR"
+  "FLUENCE_ENV_AQUA_IPFS_LOCAL_API_MULTIADDR"
+  "FLUENCE_ENV_AQUA_IPFS_EXTERNAL_SWARM_MULTIADDR"
+)
+
+error=0
+for var in ${aqua_ipfs_vars[@]}; do
+  if [[ -z ${!var} ]]; then
+    echo "$var must be defined in order for aqua-ipfs to work"
+    error=1
+  fi
+done
+if ((error)); then
+  echo "removing aqua-ipfs builtin"
+  rm -rf /builtins/aqua-ipfs
+fi

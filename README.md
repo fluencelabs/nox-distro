@@ -8,7 +8,7 @@ Currently provides Network Dashboard as a side-car.
 
 | Container flavor | IPFS daemon | services                         | binaries                                   |
 | ---------------- | ----------- | -------------------------------- | ------------------------------------------ |
-| minimal          | ❌           | aqua-ipfs, trust-graph, registry | curl                                       |
+| minimal          | ❌           | trust-graph, registry            | curl                                       |
 | ipfs             | ✅           | aqua-ipfs, trust-graph, registry | curl, ipfs                                 |
 | rich             | ✅           | aqua-ipfs, trust-graph, registry | curl, ipfs, ceramic, bitcoin cli, geth cli |
 

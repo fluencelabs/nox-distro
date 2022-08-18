@@ -15,7 +15,7 @@ Currently provides Network Dashboard as a side-car.
 
 ### minimal
 
-Contains Fluence Node itself and some builtin services:
+Contains rust-peer itself and some builtin services:
 
 - [aqua-ipfs](https://github.com/fluencelabs/aqua-ipfs)
 - [trust-graph](https://github.com/fluencelabs/trust-graph)
@@ -36,7 +36,7 @@ aqua-ipfs builtin will be removed.
 
 ### ipfs
 
-Fluence Node packaged with
+rust-peer packaged with
 [IPFS node](https://docs.ipfs.io/how-to/command-line-quick-start/#take-your-node-online)
 running inside container.
 
@@ -51,7 +51,7 @@ running inside container.
 
 ### rich
 
-Fluence Node packaged with IPFS node,
+rust-peer packaged with IPFS node,
 [Ceramic](https://developers.ceramic.network/learn/welcome/) CLI and some other
 binaries like bitcoin-cli or
 [geth](https://geth.ethereum.org/docs/interface/command-line-options).
@@ -74,7 +74,7 @@ Copy `docker-compose.yml` locally and run
 docker-compose up -d
 ```
 
-That will run 2 containers: local Fluence node and Network Dashboard connected
+That will run 2 containers: local rust-peer and Network Dashboard connected
 to it.
 
 ## How to open dashboard

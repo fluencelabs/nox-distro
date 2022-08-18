@@ -49,11 +49,6 @@ ENV RUST_BACKTRACE="1"
 ## set /run_fluence as the CMD binary
 ENV S6_CMD_ARG0="/run_fluence"
 
-# fluence builtins default envs
-ENV FLUENCE_ENV_AQUA_IPFS_EXTERNAL_API_MULTIADDR=/ip4/127.0.0.1/tcp/5001
-ENV FLUENCE_ENV_AQUA_IPFS_LOCAL_API_MULTIADDR=/ip4/127.0.0.1/tcp/5001
-ENV FLUENCE_ENV_AQUA_IPFS_EXTERNAL_SWARM_MULTIADDR=/ip4/127.0.0.1/tcp/4001
-
 RUN \
   echo "**** install packages ****" && \
   apt-get update && \
@@ -76,6 +71,9 @@ RUN --mount=type=bind,source=fluence,target=/fluence /fluence/download_builtins.
 # copy default fluence config
 COPY fluence/Config.default.toml /.fluence/v1/Config.toml
 
+# copy IPFS binary
+COPY --from=prepare-ipfs /usr/local/bin/ipfs /usr/bin/ipfs
+
 # copy s6 configs
 COPY s6/minimal/ /
 
@@ -83,7 +81,7 @@ COPY s6/minimal/ /
 # ----------------------------------------------------------------------------
 FROM minimal as ipfs
 
-LABEL org.opencontainers.image.description="Fluence Node bundled with IPFS"
+LABEL org.opencontainers.image.description="Fluence Node bundled with IPFS daemon"
 LABEL dev.fluence.bundles.ipfs="${IPFS_VERSION}"
 
 ENV IPFS_PATH=/config/ipfs
@@ -91,8 +89,11 @@ ENV IPFS_LOG_DIR=/log/ipfs
 ENV IPFS_LOGGING_FMT=nocolor
 ENV IPFS_MIGRATE_FS=false
 
-# copy IPFS binary
-COPY --from=prepare-ipfs /usr/local/bin/ipfs /usr/bin/ipfs
+# aqua-ipfs builtin default env variables
+ENV FLUENCE_ENV_AQUA_IPFS_EXTERNAL_API_MULTIADDR=/ip4/127.0.0.1/tcp/5001
+ENV FLUENCE_ENV_AQUA_IPFS_LOCAL_API_MULTIADDR=/ip4/127.0.0.1/tcp/5001
+ENV FLUENCE_ENV_AQUA_IPFS_EXTERNAL_SWARM_MULTIADDR=/ip4/127.0.0.1/tcp/4001
+
 # download fs-repo-migrations
 RUN wget -qO - "https://dist.ipfs.io/fs-repo-migrations/v2.0.2/fs-repo-migrations_v2.0.2_linux-amd64.tar.gz" | tar -C /usr/local/bin --strip-components=1 -zxvf -
 

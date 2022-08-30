@@ -27,11 +27,12 @@ on:
 
 env:
   RUN_NUMBER: ${{ github.run_number }}
+  TAG: ${{ github.event.inputs.container_tag || 'latest' }}
   DOCKER_BUILDKIT: 1
 
 jobs:
   prepare:
-    name: "Prepare"
+    name: Prepare
     runs-on: ubuntu-latest
 
     outputs:
@@ -49,7 +50,6 @@ jobs:
     needs: prepare
 
     env:
-      TAG: ${{ github.event.inputs.container_tag || 'latest' }}
       UPDATE_FLUENCE: ${{ github.event.inputs.update_fluence == 'true' || github.event.inputs.container_tag == '' }}
 
     strategy:
@@ -100,3 +100,55 @@ jobs:
             TAG=${{ env.TAG }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
+
+  notify:
+    name: Notify
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      id-token: write
+
+    needs:
+      - prepare
+      - build
+
+    steps:
+      - name: Import secrets
+        uses: hashicorp/vault-action@v2.4.1
+        with:
+          url: https://vault.fluence.dev
+          path: jwt/github
+          role: ci
+          method: jwt
+          jwtGithubAudience: "https://github.com/fluencelabs"
+          jwtTtl: 300
+          secrets: |
+            kv/slack/dockerhub webhook | INCOMING_WEBHOOK_URL
+
+      - name: Send message with published tags to Slack
+        uses: tokorom/action-slack-incoming-webhook@v1.1.4
+        with:
+          text: New container tags published
+          attachments: |
+            [
+              {
+                "color": "good",
+                "author_name": "${{ github.actor }}",
+                "author_icon": "${{ github.event.sender.avatar_url }}",
+                "fields": [
+                  {
+                    "title": "minimal",
+                    "value": "- fluencelabs/fluence:minimal_${{ env.TAG }}\n- fluencelabs/fluence:minimal_${{ env.TAG }}_${{ env.RUN_NUMBER }}"
+                  },
+                  {
+                    "title": "ipfs",
+                    "value": "- fluencelabs/fluence:ipfs_${{ env.TAG }}\n- fluencelabs/fluence:ipfs_${{ env.TAG }}_${{ env.RUN_NUMBER }}"
+                  },
+                  {
+                    "title": "rich",
+                    "value": "- fluencelabs/fluence:rich_${{ env.TAG }}\n- fluencelabs/fluence:rich_${{ env.TAG }}_${{ env.RUN_NUMBER }}"
+                  }
+                ]
+              }
+            ]

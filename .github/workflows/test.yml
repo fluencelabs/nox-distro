@@ -22,22 +22,31 @@ jobs:
           jwtGithubAudience: "https://github.com/fluencelabs"
           jwtTtl: 300
           secrets: |
-            kv/slack/dockerhub webhook | SLACK_WEBHOOK_URL
+            kv/slack/dockerhub webhook | INCOMING_WEBHOOK_URL
 
       - name: Send message with published tags to Slack
-        uses: slackapi/slack-github-action@v1.18.0
-        env:
-          SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
+        uses: tokorom/action-slack-incoming-webhook@v1.1.4
         with:
-          payload: |
-            {
-              "blocks": [
-                {
-                  "type": "section",
-                  "text": {
-                    "type": "mrkdwn",
-                    "text": "New container tags published:\n* fluencelabs/fluence:blahblah\n* fluencelabs/fluence:blahblah"
+          text: New container tags published
+          attachments: |
+            [
+              {
+                "color": "good",
+                "author_name": "${{ github.actor }}",
+                "author_icon": "${{ github.event.sender.avatar_url }}",
+                "fields": [
+                  {
+                    "title": "minimal",
+                    "value": "- fluencelabs/fluence:blahblah\n- fluencelabs/fluence:blahblah"
+                  },
+                  {
+                    "title": "ipfs",
+                    "value": "- fluencelabs/fluence:blahblah\n- fluencelabs/fluence:blahblah"
+                  },
+                  {
+                    "title": "rich",
+                    "value": "- fluencelabs/fluence:blahblah\n- fluencelabs/fluence:blahblah"
                   }
-                }
-              ]
-            }
+                ]
+              }
+            ]

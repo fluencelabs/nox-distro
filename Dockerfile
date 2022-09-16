@@ -77,8 +77,6 @@ COPY --from=prepare-ipfs /usr/local/bin/ipfs /usr/bin/ipfs
 # copy s6 configs
 COPY s6/minimal/ /
 
-CMD ["--local"]
-
 # ipfs
 # ----------------------------------------------------------------------------
 FROM minimal as ipfs

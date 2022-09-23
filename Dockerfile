@@ -28,7 +28,7 @@ RUN tar -xzf "bitcoin-${BITCOIN_CLI_VERSION}-x86_64-linux-gnu.tar.gz"
 
 # minimal
 # ----------------------------------------------------------------------------
-FROM ghcr.io/linuxserver/baseimage-ubuntu:focal as minimal
+FROM ghcr.io/linuxserver/baseimage-ubuntu:jammy as minimal
 
 # https://github.com/opencontainers/image-spec/blob/main/annotations.md#pre-defined-annotation-keys
 LABEL org.opencontainers.image.created="${BUILD_DATE}"

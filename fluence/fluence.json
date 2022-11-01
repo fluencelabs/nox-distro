@@ -1,5 +1,5 @@
 {
-  "version": "v1.10.0",
-  "url": "https://github.com/fluencelabs/rust-peer/releases/download/v1.10.0/particle-node",
-  "sha256": "2c52941055a023f605a1be88ceadae377ca295c083981f5d9b2a43ab4593f1f6"
+  "version": "v1.11.0",
+  "url": "https://github.com/fluencelabs/rust-peer/releases/download/v1.11.0/particle-node",
+  "sha256": "e1f35454ca1683160abe5264901c564166459e88bf507fe4604573ed1c27d790"
 }

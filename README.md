@@ -31,7 +31,7 @@ aqua-ipfs builtin will be removed.
 | variable                                       | default                          | description                                                                        |
 | ---------------------------------------------- | -------------------------------- | ---------------------------------------------------------------------------------- |
 | `FLUENCE_ENV_AQUA_IPFS_EXTERNAL_API_MULTIADDR` | `/dns4/ipfs.fluence.dev/tcp/443` | used by aqua-ipfs builtin to tell frontend which address to use to connect to IPFS |
-| `FLUENCE_ENV_AQUA_IPFS_LOCAL_API_MULTIADDR`    | `/dns4/ipfs.fluence.dev/tcp/443` | used by aqua-ipfs builtin to connect to IPFS node to manage and manage it          |
+| `FLUENCE_ENV_AQUA_IPFS_LOCAL_API_MULTIADDR`    | `/dns4/ipfs.fluence.dev/tcp/443` | used by aqua-ipfs builtin to connect to IPFS and node manage it                    |
 
 ### rich
 
@@ -54,7 +54,7 @@ running inside container.
 | `IPFS_ADDRESSES_GATEWAY`                       | `/ip4/0.0.0.0/tcp/8080`                              | IPFS gateway multiaddr                                                                      |
 | `IPFS_ADDRESSES_ANNOUNCE`                      | `/ip4/127.0.0.1/tcp/4001,/ip4/127.0.0.1/tcp/4001/wc` | IPFS announce multiaddr                                                                     |
 | `FLUENCE_ENV_AQUA_IPFS_EXTERNAL_API_MULTIADDR` | `/ip4/127.0.0.1/tcp/5001`                            | used by aqua-ipfs builtin to tell frontend which address to use to connect to IPFS          |
-| `FLUENCE_ENV_AQUA_IPFS_LOCAL_API_MULTIADDR`    | `/ip4/127.0.0.1/tcp/5001`                            | used by aqua-ipfs builtin to connect to IPFS node to manage and manage it                   |
+| `FLUENCE_ENV_AQUA_IPFS_LOCAL_API_MULTIADDR`    | `/ip4/127.0.0.1/tcp/5001`                            | used by aqua-ipfs builtin to connect to IPFS node and manage it                             |
 
 ### rich
 
@@ -74,7 +74,7 @@ binaries like bitcoin-cli or
 | `IPFS_ADDRESSES_GATEWAY`                       | `/ip4/0.0.0.0/tcp/8080`                              | IPFS gateway multiaddr                                                                      |
 | `IPFS_ADDRESSES_ANNOUNCE`                      | `/ip4/127.0.0.1/tcp/4001,/ip4/127.0.0.1/tcp/4001/wc` | IPFS announce multiaddr                                                                     |
 | `FLUENCE_ENV_AQUA_IPFS_EXTERNAL_API_MULTIADDR` | `/ip4/127.0.0.1/tcp/5001`                            | used by aqua-ipfs builtin to tell frontend which address to use to connect to IPFS          |
-| `FLUENCE_ENV_AQUA_IPFS_LOCAL_API_MULTIADDR`    | `/ip4/127.0.0.1/tcp/5001`                            | used by aqua-ipfs builtin to connect to IPFS node to manage and manage it                   |
+| `FLUENCE_ENV_AQUA_IPFS_LOCAL_API_MULTIADDR`    | `/ip4/127.0.0.1/tcp/5001`                            | used by aqua-ipfs builtin to connect to IPFS node and manage it                             |
 
 ## How to run
 

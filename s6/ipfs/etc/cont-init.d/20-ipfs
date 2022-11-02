@@ -2,10 +2,6 @@
 
 if [[ ! -d "$IPFS_PATH" ]]; then
 	ipfs init
-	ipfs config --json API.HTTPHeaders.Access-Control-Allow-Origin '["*"]'
-	ipfs config --json API.HTTPHeaders.Access-Control-Allow-Methods '["PUT", "POST"]'
-	ipfs config --json Addresses.API '"/ip4/0.0.0.0/tcp/5001"'
-	ipfs config --json Addresses.Gateway '"/ip4/0.0.0.0/tcp/8080"'
 
 	# remove default bootstraps
 	ipfs bootstrap rm --all
@@ -22,6 +18,17 @@ fi
 if [[ "$IPFS_MIGRATE_FS" == true ]]; then
   fs-repo-migrations -y
 fi
+
+to_json() {
+ echo "$1" | jq -Rc 'split(",")'
+}
+
+ipfs config --json API.HTTPHeaders.Access-Control-Allow-Origin '["*"]'
+ipfs config --json API.HTTPHeaders.Access-Control-Allow-Methods '["PUT", "POST"]'
+ipfs config --json Addresses.API $(to_json ${IPFS_ADDRESSES_API})
+ipfs config --json Addresses.Gateway $(to_json ${IPFS_ADDRESSES_GATEWAY})
+ipfs config --json Addresses.Swarm $(to_json ${IPFS_ADDRESSES_SWARM})
+ipfs config --json Addresses.Announce $(to_json ${IPFS_ADDRESSES_ANNOUNCE})
 
 mkdir -p $IPFS_PATH $IPFS_LOG_DIR
 chown -R abc:abc $IPFS_PATH $IPFS_LOG_DIR

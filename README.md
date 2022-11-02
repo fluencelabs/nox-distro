@@ -33,11 +33,6 @@ aqua-ipfs builtin will be removed.
 | `FLUENCE_ENV_AQUA_IPFS_EXTERNAL_API_MULTIADDR` | `/dns4/ipfs.fluence.dev/tcp/443` | used by aqua-ipfs builtin to tell frontend which address to use to connect to IPFS |
 | `FLUENCE_ENV_AQUA_IPFS_LOCAL_API_MULTIADDR`    | `/dns4/ipfs.fluence.dev/tcp/443` | used by aqua-ipfs builtin to connect to IPFS and node manage it                    |
 
-### rich
-
-rust-peer packaged with IPFS node,
-[Ceramic](https://developers.ceramic.network/learn/welcome/) CLI and some other
-
 ### ipfs
 
 rust-peer packaged with

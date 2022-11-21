@@ -70,6 +70,11 @@ RUN \
   && dpkg -i libssl1.1_1.1.1f-1ubuntu2.16_amd64.deb \
   && rm libssl1.1_1.1.1f-1ubuntu2.16_amd64.deb
 
+# aqua-ipfs builtin default env variables
+# instruct aqua-ipfs (client) to work with an IPFS node hosted on ipfs.fluence.dev
+ENV FLUENCE_ENV_AQUA_IPFS_EXTERNAL_API_MULTIADDR=/dns4/ipfs.fluence.dev/tcp/5001
+ENV FLUENCE_ENV_AQUA_IPFS_LOCAL_API_MULTIADDR=/dns4/ipfs.fluence.dev/tcp/5001
+
 # download fluence and builtins
 RUN --mount=type=bind,source=fluence,target=/fluence /fluence/download_fluence.sh /fluence/fluence.json
 RUN --mount=type=bind,source=fluence,target=/fluence /fluence/download_builtins.sh /fluence/services.json
@@ -94,11 +99,15 @@ ENV IPFS_PATH=/config/ipfs
 ENV IPFS_LOG_DIR=/log/ipfs
 ENV IPFS_LOGGING_FMT=nocolor
 ENV IPFS_MIGRATE_FS=false
+ENV IPFS_ADDRESSES_SWARM=/ip4/0.0.0.0/tcp/4001,/ip4/0.0.0.0/tcp/4001/wc
+ENV IPFS_ADDRESSES_API=/ip4/0.0.0.0/tcp/5001
+ENV IPFS_ADDRESSES_GATEWAY=/ip4/0.0.0.0/tcp/8080
+ENV IPFS_ADDRESSES_ANNOUNCE=/ip4/127.0.0.1/tcp/4001,/ip4/127.0.0.1/tcp/4001/wc
 
 # aqua-ipfs builtin default env variables
+# instruct aqua-ipfs (client) to work with an IPFS node hosted on 127.0.0.1 (inside this docker container)
 ENV FLUENCE_ENV_AQUA_IPFS_EXTERNAL_API_MULTIADDR=/ip4/127.0.0.1/tcp/5001
 ENV FLUENCE_ENV_AQUA_IPFS_LOCAL_API_MULTIADDR=/ip4/127.0.0.1/tcp/5001
-ENV FLUENCE_ENV_AQUA_IPFS_EXTERNAL_SWARM_MULTIADDR=/ip4/127.0.0.1/tcp/4001
 
 # download fs-repo-migrations
 RUN wget -qO - "https://dist.ipfs.io/fs-repo-migrations/v2.0.2/fs-repo-migrations_v2.0.2_linux-amd64.tar.gz" | tar -C /usr/local/bin --strip-components=1 -zxvf -

@@ -47,7 +47,7 @@ running inside container.
 | `IPFS_ADDRESSES_SWARM`                         | `/ip4/0.0.0.0/tcp/4001,/ip4/0.0.0.0/tcp/4001/wc`     | IPFS swarm multiaddr                                                                        |
 | `IPFS_ADDRESSES_API`                           | `/ip4/0.0.0.0/tcp/5001`                              | IPFS API multiaddr                                                                          |
 | `IPFS_ADDRESSES_GATEWAY`                       | `/ip4/0.0.0.0/tcp/8080`                              | IPFS gateway multiaddr                                                                      |
-| `IPFS_ADDRESSES_ANNOUNCE`                      | `/ip4/127.0.0.1/tcp/4001,/ip4/127.0.0.1/tcp/4001/wc` | IPFS announce multiaddr                                                                     |
+| `IPFS_ADDRESSES_ANNOUNCE`                      | `/ip4/127.0.0.1/tcp/4001,/ip4/127.0.0.1/tcp/4001/wc` | IPFS p2p multiaddr of the IPFS swarm protocol |
 | `FLUENCE_ENV_AQUA_IPFS_EXTERNAL_API_MULTIADDR` | `/ip4/127.0.0.1/tcp/5001`                            | used by aqua-ipfs builtin to tell frontend which address to use to connect to IPFS          |
 | `FLUENCE_ENV_AQUA_IPFS_LOCAL_API_MULTIADDR`    | `/ip4/127.0.0.1/tcp/5001`                            | used by aqua-ipfs builtin to connect to IPFS node                                           |
 

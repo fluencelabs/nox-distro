@@ -71,6 +71,7 @@ RUN \
   && rm libssl1.1_1.1.1f-1ubuntu2.16_amd64.deb
 
 # aqua-ipfs builtin default env variables
+# instruct aqua-ipfs (client) to work with an IPFS node hosted on ipfs.fluence.dev
 ENV FLUENCE_ENV_AQUA_IPFS_EXTERNAL_API_MULTIADDR=/dns4/ipfs.fluence.dev/tcp/5001
 ENV FLUENCE_ENV_AQUA_IPFS_LOCAL_API_MULTIADDR=/dns4/ipfs.fluence.dev/tcp/5001
 
@@ -104,6 +105,7 @@ ENV IPFS_ADDRESSES_GATEWAY=/ip4/0.0.0.0/tcp/8080
 ENV IPFS_ADDRESSES_ANNOUNCE=/ip4/127.0.0.1/tcp/4001,/ip4/127.0.0.1/tcp/4001/wc
 
 # aqua-ipfs builtin default env variables
+# instruct aqua-ipfs (client) to work with an IPFS node hosted on 127.0.0.1 (inside this docker container)
 ENV FLUENCE_ENV_AQUA_IPFS_EXTERNAL_API_MULTIADDR=/ip4/127.0.0.1/tcp/5001
 ENV FLUENCE_ENV_AQUA_IPFS_LOCAL_API_MULTIADDR=/ip4/127.0.0.1/tcp/5001
 

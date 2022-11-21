@@ -71,8 +71,8 @@ RUN \
   && rm libssl1.1_1.1.1f-1ubuntu2.16_amd64.deb
 
 # aqua-ipfs builtin default env variables
-ENV FLUENCE_ENV_AQUA_IPFS_EXTERNAL_API_MULTIADDR=/dns4/ipfs.fluence.dev/tcp/443
-ENV FLUENCE_ENV_AQUA_IPFS_LOCAL_API_MULTIADDR=/dns4/ipfs.fluence.dev/tcp/443
+ENV FLUENCE_ENV_AQUA_IPFS_EXTERNAL_API_MULTIADDR=/dns4/ipfs.fluence.dev/tcp/5001
+ENV FLUENCE_ENV_AQUA_IPFS_LOCAL_API_MULTIADDR=/dns4/ipfs.fluence.dev/tcp/5001
 
 # download fluence and builtins
 RUN --mount=type=bind,source=fluence,target=/fluence /fluence/download_fluence.sh /fluence/fluence.json

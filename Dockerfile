@@ -75,9 +75,10 @@ RUN \
 ENV FLUENCE_ENV_AQUA_IPFS_EXTERNAL_API_MULTIADDR=/dns4/ipfs.fluence.dev/tcp/5001
 ENV FLUENCE_ENV_AQUA_IPFS_LOCAL_API_MULTIADDR=/dns4/ipfs.fluence.dev/tcp/5001
 
-# download fluence and builtins
-RUN --mount=type=bind,source=fluence,target=/fluence /fluence/download_fluence.sh /fluence/fluence.json
+# download fluence, builtins and spell
 RUN --mount=type=bind,source=fluence,target=/fluence /fluence/download_builtins.sh /fluence/services.json
+RUN --mount=type=bind,source=fluence,target=/fluence /fluence/download_fluence.sh /fluence/fluence.json
+RUN --mount=type=bind,source=fluence,target=/fluence /fluence/download_spell.sh /fluence/spell.json
 
 # copy default fluence config
 COPY fluence/Config.default.toml /.fluence/v1/Config.toml

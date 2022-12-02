@@ -132,7 +132,7 @@
     },
     {
       "name": "stage",
-      "container_tag": "rich_v0.0.69",
+      "container_tag": "rich_v0.0.70",
       "containers_per_host": 5,
       "hosts": [
         "134.209.186.43"

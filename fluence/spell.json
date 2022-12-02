@@ -1,5 +1,7 @@
 {
-  "version": "v0.0.3",
-  "url": "https://github.com/fluencelabs/spell/releases/download/v0.0.3/spell.tar.gz",
-  "sha256": "a7bfca11090c807b00bfc3d07d518953cb84fb8f4afb9a4e12bcc84ad54ec11b"
+  "spell": {
+    "version": "v0.0.3",
+    "url": "https://github.com/fluencelabs/spell/releases/download/v0.0.3/spell.tar.gz",
+    "sha256": "009be73cf616af08a7b6d824f7dc68a7dab4ac0a410fd54d7820e5b7e923e304"
+  }
 }

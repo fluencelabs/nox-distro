@@ -44,10 +44,10 @@ running inside container.
 | `IPFS_PATH`                                    | `/config/ipfs`                                       | IPFS node data directory                                                                                        |
 | `IPFS_LOG_PATH`                                | `/log/ipfs`                                          | directory where IPFS will store its logs                                                                        |
 | `IPFS_MIGRATE_FS`                              | `false`                                              | automatically run [fs-repo-migrations](https://github.com/ipfs/fs-repo-migrations) on start                     |
-| `IPFS_ADDRESSES_SWARM`                         | `/ip4/0.0.0.0/tcp/4001,/ip4/0.0.0.0/tcp/4001/wc`     | IPFS swarm multiaddr                                                                                            |
+| `IPFS_ADDRESSES_SWARM`                         | `/ip4/0.0.0.0/tcp/4001,/ip4/0.0.0.0/tcp/4001/ws`     | IPFS swarm multiaddr                                                                                            |
 | `IPFS_ADDRESSES_API`                           | `/ip4/0.0.0.0/tcp/5001`                              | IPFS API multiaddr                                                                                              |
 | `IPFS_ADDRESSES_GATEWAY`                       | `/ip4/0.0.0.0/tcp/8080`                              | IPFS gateway multiaddr                                                                                          |
-| `IPFS_ADDRESSES_ANNOUNCE`                      | `/ip4/127.0.0.1/tcp/4001,/ip4/127.0.0.1/tcp/4001/wc` | IPFS p2p multiaddr of the IPFS swarm protocol                                                                   |
+| `IPFS_ADDRESSES_ANNOUNCE`                      | `/ip4/127.0.0.1/tcp/4001,/ip4/127.0.0.1/tcp/4001/ws` | IPFS p2p multiaddr of the IPFS swarm protocol                                                                   |
 | `FLUENCE_ENV_AQUA_IPFS_EXTERNAL_API_MULTIADDR` | `/ip4/127.0.0.1/tcp/5001`                            | advertised to clients (eg frontend apps) to use in uploading files (`ipfs.put`), managing pins (`ipfs.pin`) etc |
 | `FLUENCE_ENV_AQUA_IPFS_LOCAL_API_MULTIADDR`    | `/ip4/127.0.0.1/tcp/5001`                            | used by aqua-ipfs builtin to connect to IPFS node                                                               |
 
@@ -64,10 +64,10 @@ binaries like bitcoin-cli or
 | `IPFS_PATH`                                    | `/config/ipfs`                                       | IPFS node data directory                                                                                        |
 | `IPFS_LOG_PATH`                                | `/log/ipfs`                                          | directory where IPFS will store its logs                                                                        |
 | `IPFS_MIGRATE_FS`                              | `false`                                              | automatically run [fs-repo-migrations](https://github.com/ipfs/fs-repo-migrations) on start                     |
-| `IPFS_ADDRESSES_SWARM`                         | `/ip4/0.0.0.0/tcp/4001,/ip4/0.0.0.0/tcp/4001/wc`     | IPFS swarm multiaddr                                                                                            |
+| `IPFS_ADDRESSES_SWARM`                         | `/ip4/0.0.0.0/tcp/4001,/ip4/0.0.0.0/tcp/4001/ws`     | IPFS swarm multiaddr                                                                                            |
 | `IPFS_ADDRESSES_API`                           | `/ip4/0.0.0.0/tcp/5001`                              | IPFS API multiaddr                                                                                              |
 | `IPFS_ADDRESSES_GATEWAY`                       | `/ip4/0.0.0.0/tcp/8080`                              | IPFS gateway multiaddr                                                                                          |
-| `IPFS_ADDRESSES_ANNOUNCE`                      | `/ip4/127.0.0.1/tcp/4001,/ip4/127.0.0.1/tcp/4001/wc` | IPFS announce multiaddr                                                                                         |
+| `IPFS_ADDRESSES_ANNOUNCE`                      | `/ip4/127.0.0.1/tcp/4001,/ip4/127.0.0.1/tcp/4001/ws` | IPFS announce multiaddr                                                                                         |
 | `FLUENCE_ENV_AQUA_IPFS_EXTERNAL_API_MULTIADDR` | `/ip4/127.0.0.1/tcp/5001`                            | advertised to clients (eg frontend apps) to use in uploading files (`ipfs.put`), managing pins (`ipfs.pin`) etc |
 | `FLUENCE_ENV_AQUA_IPFS_LOCAL_API_MULTIADDR`    | `/ip4/127.0.0.1/tcp/5001`                            | used by aqua-ipfs builtin to connect to IPFS node                                                               |
 

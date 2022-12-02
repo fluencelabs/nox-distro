@@ -100,10 +100,10 @@ ENV IPFS_PATH=/config/ipfs
 ENV IPFS_LOG_DIR=/log/ipfs
 ENV IPFS_LOGGING_FMT=nocolor
 ENV IPFS_MIGRATE_FS=false
-ENV IPFS_ADDRESSES_SWARM=/ip4/0.0.0.0/tcp/4001,/ip4/0.0.0.0/tcp/4001/wc
+ENV IPFS_ADDRESSES_SWARM=/ip4/0.0.0.0/tcp/4001,/ip4/0.0.0.0/tcp/4001/ws
 ENV IPFS_ADDRESSES_API=/ip4/0.0.0.0/tcp/5001
 ENV IPFS_ADDRESSES_GATEWAY=/ip4/0.0.0.0/tcp/8080
-ENV IPFS_ADDRESSES_ANNOUNCE=/ip4/127.0.0.1/tcp/4001,/ip4/127.0.0.1/tcp/4001/wc
+ENV IPFS_ADDRESSES_ANNOUNCE=/ip4/127.0.0.1/tcp/4001,/ip4/127.0.0.1/tcp/4001/ws
 
 # aqua-ipfs builtin default env variables
 # instruct aqua-ipfs (client) to work with an IPFS node hosted on 127.0.0.1 (inside this docker container)

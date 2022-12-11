@@ -91,6 +91,8 @@ jobs:
           push: true
           target: ${{ matrix.package }}
           tags: |
+            fluencelabs/rust-peer:${{ matrix.package }}_${{ env.TAG }}
+            fluencelabs/rust-peer:${{ matrix.package }}_${{ env.TAG }}_${{ env.RUN_NUMBER }}
             fluencelabs/fluence:${{ matrix.package }}_${{ env.TAG }}
             fluencelabs/fluence:${{ matrix.package }}_${{ env.TAG }}_${{ env.RUN_NUMBER }}
           build-args: |
@@ -115,7 +117,7 @@ jobs:
 
     steps:
       - name: Import secrets
-        uses: hashicorp/vault-action@v2.4.1
+        uses: hashicorp/vault-action@v2.4.3
         with:
           url: https://vault.fluence.dev
           path: jwt/github
@@ -139,15 +141,15 @@ jobs:
                 "fields": [
                   {
                     "title": "minimal",
-                    "value": "- fluencelabs/fluence:minimal_${{ env.TAG }}\n- fluencelabs/fluence:minimal_${{ env.TAG }}_${{ env.RUN_NUMBER }}"
+                    "value": "- fluencelabs/rust-peer:minimal_${{ env.TAG }}\n- fluencelabs/rust-peer:minimal_${{ env.TAG }}_${{ env.RUN_NUMBER }}"
                   },
                   {
                     "title": "ipfs",
-                    "value": "- fluencelabs/fluence:ipfs_${{ env.TAG }}\n- fluencelabs/fluence:ipfs_${{ env.TAG }}_${{ env.RUN_NUMBER }}"
+                    "value": "- fluencelabs/rust-peer:ipfs_${{ env.TAG }}\n- fluencelabs/rust-peer:ipfs_${{ env.TAG }}_${{ env.RUN_NUMBER }}"
                   },
                   {
                     "title": "rich",
-                    "value": "- fluencelabs/fluence:rich_${{ env.TAG }}\n- fluencelabs/fluence:rich_${{ env.TAG }}_${{ env.RUN_NUMBER }}"
+                    "value": "- fluencelabs/rust-peer:rich_${{ env.TAG }}\n- fluencelabs/rust-peer:rich_${{ env.TAG }}_${{ env.RUN_NUMBER }}"
                   }
                 ]
               }

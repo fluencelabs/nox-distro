@@ -67,10 +67,8 @@ jobs:
           tags: |
             fluencelabs/rust-peer:${{ matrix.package }}
             fluencelabs/rust-peer:${{ matrix.package }}_${{ env.RELEASE_VERSION }}
-            fluencelabs/rust-peer:${{ matrix.package }}_${{ env.RELEASE_VERSION }}_${{ env.RUN_NUMBER }}
             fluencelabs/fluence:${{ matrix.package }}
             fluencelabs/fluence:${{ matrix.package }}_${{ env.RELEASE_VERSION }}
-            fluencelabs/fluence:${{ matrix.package }}_${{ env.RELEASE_VERSION }}_${{ env.RUN_NUMBER }}
           build-args: |
             COMMIT=${{ github.sha }}
             BUILD_DATE=${{ env.BUILD_DATE }}
@@ -140,21 +138,18 @@ jobs:
             fluencelabs/rust-peer:${{ env.RELEASE_VERSION }}
             fluencelabs/rust-peer:ipfs
             fluencelabs/rust-peer:ipfs_${{ env.RELEASE_VERSION }}
-            fluencelabs/rust-peer:ipfs_${{ env.RELEASE_VERSION }}_${{ env.RUN_NUMBER }}
 
             ## minimal
             Contains Fluence rust-peer only.
 
             fluencelabs/rust-peer:minimal
             fluencelabs/rust-peer:minimal_${{ env.RELEASE_VERSION }}
-            fluencelabs/rust-peer:minimal_${{ env.RELEASE_VERSION }}_${{ env.RUN_NUMBER }}
 
             ## rich
             Contains Fluence rust-peer, IPFS, ceramic cli, bitcoin cli and geth cli.
 
             fluencelabs/rust-peer:rich
             fluencelabs/rust-peer:rich_${{ env.RELEASE_VERSION }}
-            fluencelabs/rust-peer:rich_${{ env.RELEASE_VERSION }}_${{ env.RUN_NUMBER }}
 
           draft: false
           prerelease: false

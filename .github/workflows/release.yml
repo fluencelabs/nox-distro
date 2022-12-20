@@ -94,6 +94,14 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
+      - name: Docker Hub Description
+        if: matrix.package == 'ipfs'
+        uses: peter-evans/dockerhub-description@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+          repository: fluencelabs/rust-peer
+
   release:
     name: "Release"
     runs-on: ubuntu-latest

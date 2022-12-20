@@ -65,9 +65,10 @@ jobs:
           push: true
           target: ${{ matrix.package }}
           tags: |
+            fluencelabs/rust-peer:${{ matrix.package }}
+            fluencelabs/rust-peer:${{ matrix.package }}_${{ env.RELEASE_VERSION }}
             fluencelabs/fluence:${{ matrix.package }}
             fluencelabs/fluence:${{ matrix.package }}_${{ env.RELEASE_VERSION }}
-            fluencelabs/fluence:${{ matrix.package }}_${{ env.RELEASE_VERSION }}_${{ env.RUN_NUMBER }}
           build-args: |
             COMMIT=${{ github.sha }}
             BUILD_DATE=${{ env.BUILD_DATE }}
@@ -84,6 +85,8 @@ jobs:
           push: true
           target: ${{ matrix.package }}
           tags: |
+            fluencelabs/rust-peer:latest
+            fluencelabs/rust-peer:${{ env.RELEASE_VERSION }}
             fluencelabs/fluence:latest
             fluencelabs/fluence:${{ env.RELEASE_VERSION }}
           build-args: |
@@ -137,27 +140,24 @@ jobs:
             ## Docker tags
 
             ### ipfs
-            Contains Fluence Rust Peer and builtin IPFS deaemon.
+            Contains Fluence rust-peer and builtin IPFS deaemon.
 
-            fluencelabs/fluence:latest
-            fluencelabs/fluence:${{ env.RELEASE_VERSION }}
-            fluencelabs/fluence:ipfs
-            fluencelabs/fluence:ipfs_${{ env.RELEASE_VERSION }}
-            fluencelabs/fluence:ipfs_${{ env.RELEASE_VERSION }}_${{ env.RUN_NUMBER }}
+            fluencelabs/rust-peer:latest
+            fluencelabs/rust-peer:${{ env.RELEASE_VERSION }}
+            fluencelabs/rust-peer:ipfs
+            fluencelabs/rust-peer:ipfs_${{ env.RELEASE_VERSION }}
 
             ## minimal
-            Contains Fluence Peer only.
+            Contains Fluence rust-peer only.
 
-            fluencelabs/fluence:minimal
-            fluencelabs/fluence:minimal_${{ env.RELEASE_VERSION }}
-            fluencelabs/fluence:minimal_${{ env.RELEASE_VERSION }}_${{ env.RUN_NUMBER }}
+            fluencelabs/rust-peer:minimal
+            fluencelabs/rust-peer:minimal_${{ env.RELEASE_VERSION }}
 
             ## rich
-            Contains Fluence Rust Peer, IPFS, ceramic cli, bitcoin cli and geth cli.
+            Contains Fluence rust-peer, IPFS, ceramic cli, bitcoin cli and geth cli.
 
-            fluencelabs/fluence:rich
-            fluencelabs/fluence:rich_${{ env.RELEASE_VERSION }}
-            fluencelabs/fluence:rich_${{ env.RELEASE_VERSION }}_${{ env.RUN_NUMBER }}
+            fluencelabs/rust-peer:rich
+            fluencelabs/rust-peer:rich_${{ env.RELEASE_VERSION }}
 
           draft: false
           prerelease: false

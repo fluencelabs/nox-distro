@@ -52,7 +52,7 @@ def deploy_bootstrap():
     keypair = get_keypairs(yml, get_host_idx(containers=1), count=1)
     gen_compose_file(
         out=yml,
-        container_tag=target['container_tag'],
+        container_image=target['container_image'],
         scale=1,
         is_bootstrap=True,
         bootstraps=target['external_bootstraps'],
@@ -75,7 +75,7 @@ def deploy_nodes():
     keypairs = get_keypairs(yml, get_host_idx(scale), count=scale)
     gen_compose_file(
         out=yml,
-        container_tag=target['container_tag'],
+        container_image=target['container_image'],
         scale=scale,
         is_bootstrap=False,
         bootstraps=env.bootstraps + target['external_bootstraps'],

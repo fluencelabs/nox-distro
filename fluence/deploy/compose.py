@@ -38,7 +38,7 @@ CONFIG = {
                 '{container_name}_config:/config',
             ],
             'container_name': '{container_name}',
-            'image': 'fluencelabs/fluence:{container_tag}',
+            'image': '{container_image}',
             'ports': [
                 '{tcp_port}:{tcp_port}',
                 '{ws_port}:{ws_port}',
@@ -57,8 +57,8 @@ CONFIG = {
     }
 }
 
-def gen_compose_file(out, container_tag, scale, is_bootstrap, bootstraps, host, management_key, keypairs, ceramic_host):
-    assert len(container_tag) > 0, "container tag must not be empty, was: '{}'".format(container_tag)
+def gen_compose_file(out, container_image, scale, is_bootstrap, bootstraps, host, management_key, keypairs, ceramic_host):
+    assert len(container_image) > 0, "container image must not be empty, was: '{}'".format(container_image)
 
     if is_bootstrap == True:
         container = 'fluence_bootstrap'
@@ -90,9 +90,7 @@ def gen_compose_file(out, container_tag, scale, is_bootstrap, bootstraps, host, 
         container_config = config['services'][container_name]
 
         container_config['container_name'] = container_name
-        container_config['image'] = container_config['image'].format(
-            container_tag=container_tag
-        )
+        container_config['image'] = container_image
         container_config['volumes'] = map(
             lambda v: v.format(container_name=container_name),
             container_config['volumes']

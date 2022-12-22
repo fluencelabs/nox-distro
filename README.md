@@ -1,4 +1,4 @@
-# node-distro
+# [rust-peer distro](https://github.com/fluencelabs/node-distro)
 
 The distributive and packaging of the
 [rust-peer](https://github.com/fluencelabs/rust-peer).
@@ -7,11 +7,13 @@ Currently provides Network Dashboard as a side-car.
 
 ## Image tags
 
-| Container flavor | IPFS daemon | services                         | binaries                                   |
-| ---------------- | ----------- | -------------------------------- | ------------------------------------------ |
-| minimal          | ❌           | aqua-ipfs, trust-graph, registry | curl, ipfs                                 |
-| ipfs             | ✅           | aqua-ipfs, trust-graph, registry | curl, ipfs                                 |
-| rich             | ✅           | aqua-ipfs, trust-graph, registry | curl, ipfs, ceramic, bitcoin cli, geth cli |
+| Container flavour | IPFS daemon | services                         | binaries                                   |
+| ----------------- | ----------- | -------------------------------- | ------------------------------------------ |
+| minimal           | ❌          | aqua-ipfs, trust-graph, registry | curl, ipfs                                 |
+| ipfs              | ✅          | aqua-ipfs, trust-graph, registry | curl, ipfs                                 |
+| rich              | ✅          | aqua-ipfs, trust-graph, registry | curl, ipfs, ceramic, bitcoin cli, geth cli |
+
+`latest` points to the latest version of `ipfs` flavour
 
 ### minimal
 
@@ -73,7 +75,7 @@ binaries like bitcoin-cli or
 
 ## How to run
 
-Copy `docker-compose.yml` locally and run
+Copy `[docker-compose.yml](https://github.com/fluencelabs/node-distro/blob/main/docker-compose.yml)` locally and run
 
 ```bash
 docker-compose up -d

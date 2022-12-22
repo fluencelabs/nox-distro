@@ -75,7 +75,7 @@ binaries like bitcoin-cli or
 
 ## How to run
 
-Copy `[docker-compose.yml](https://github.com/fluencelabs/node-distro/blob/main/docker-compose.yml)` locally and run
+Copy `[docker-compose.yml`](https://github.com/fluencelabs/node-distro/blob/main/docker-compose.yml) locally and run
 
 ```bash
 docker-compose up -d

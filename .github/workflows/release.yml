@@ -45,6 +45,8 @@ jobs:
           - ipfs
           - rich
 
+    # for authentication to Vault with vault-action
+    # https://github.com/hashicorp/vault-action#jwt-with-github-oidc-tokens
     permissions:
       contents: read
       id-token: write

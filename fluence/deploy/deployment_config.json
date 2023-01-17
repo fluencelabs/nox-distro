@@ -132,7 +132,7 @@
     },
     {
       "name": "stage",
-      "container_image": "fluencelabs/fluence:rich_v0.0.70",
+      "container_image": "docker.fluence.dev/rust-peer:rich_master_534_1",
       "containers_per_host": 5,
       "hosts": [
         "134.209.186.43"

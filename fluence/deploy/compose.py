@@ -90,7 +90,7 @@ def gen_compose_file(out, container_image, scale, is_bootstrap, bootstraps, host
         container_config = config['services'][container_name]
 
         container_config['container_name'] = container_name
-        container_config['image'] = container_image
+        container_config['image'] = container_image.encode('utf-8')
         container_config['volumes'] = map(
             lambda v: v.format(container_name=container_name),
             container_config['volumes']

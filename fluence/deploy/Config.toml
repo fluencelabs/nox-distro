@@ -1,6 +1,5 @@
 autodeploy_particle_ttl = "60s"
 builtins_base_dir = "/builtins"
-spell_base_dir = "/spell"
 aquavm_pool_size = 6
 aquavm_max_heap_size = "500 Mb"
 

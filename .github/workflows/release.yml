@@ -1,42 +1,45 @@
-name: "release"
+name: "release-please"
 
 on:
   push:
-    tags:
-      - "v*"
+    branches:
+      - "main"
 
 env:
-  RUN_NUMBER: ${{ github.run_number }}
   DOCKER_BUILDKIT: 1
   FORCE_COLOR: 1
 
 jobs:
-  prepare:
-    name: "Prepare"
+  release-please:
     runs-on: ubuntu-latest
 
     outputs:
-      build_date: "${{ steps.build_date.outputs.date }}"
-      release_version: "${{ steps.release_version.outputs.version }}"
+      release-created: ${{ steps.release.outputs['release_created'] }}
+      tag-name: ${{ steps.release.outputs['tag_name'] }}
+      version: ${{ steps.release.outputs['version'] }}
+      pr: ${{ steps.release.outputs['pr'] }}
 
     steps:
-      - name: Set build date
-        id: build_date
-        run: echo "::set-output name=date::$(date '+%Y-%m-%dT%H:%M:%S%:z')"
+      - name: Run release-please
+        id: release
+        uses: google-github-actions/release-please-action@v3
+        with:
+          token: ${{ secrets.FLUENCEBOT_RELEASE_PLEASE_PAT }}
+          command: manifest
+          config-file: .github/release-please/config.json
+          manifest-file: .github/release-please/manifest.json
 
-      - name: Set release version
-        id: release_version
-        run: echo "::set-output name=version::$(echo ${GITHUB_REF#refs/*/})"
+      - name: Show output from release-please
+        if: steps.release.outputs.releases_created
+        env:
+          RELEASE_PLEASE_OUTPUT: ${{ toJSON(steps.release.outputs) }}
+        run: echo "${RELEASE_PLEASE_OUTPUT}" | jq
 
-  build:
-    name: Build and push ${{ matrix.package }}
+  publish:
+    if: needs.release-please.outputs.release-created
+    name: "Build and push ${{ matrix.package }}"
     runs-on: ubuntu-latest
-
-    needs: prepare
-
-    env:
-      BUILD_DATE: ${{ needs.prepare.outputs.build_date }}
-      RELEASE_VERSION: ${{ needs.prepare.outputs.release_version }}
+    needs: release-please
 
     strategy:
       matrix:
@@ -51,7 +54,13 @@ jobs:
       contents: read
       id-token: write
 
+    env:
+      RELEASE_VERSION: ${{ needs.release-please.outputs.version }}
+
     steps:
+      - name: Set build date
+        run: echo "BUILD_DATE=$(date '+%Y-%m-%dT%H:%M:%S%:z')" >> $GITHUB_ENV
+
       - name: Checkout repository
         uses: actions/checkout@v3
 
@@ -88,11 +97,11 @@ jobs:
             fluencelabs/rust-peer:${{ matrix.package }}_${{ env.RELEASE_VERSION }}
             fluencelabs/fluence:${{ matrix.package }}
             fluencelabs/fluence:${{ matrix.package }}_${{ env.RELEASE_VERSION }}
-          build-args: |
-            COMMIT=${{ github.sha }}
-            BUILD_DATE=${{ env.BUILD_DATE }}
-            RUN_NUMBER=${{ env.RUN_NUMBER }}
-            TAG=${{ env.RELEASE_VERSION }}
+          labels: |
+            org.opencontainers.image.version=${{ env.RELEASE_VERSION }}
+            org.opencontainers.image.created=${{ env.BUILD_DATE }}
+            org.opencontainers.image.revision=${{ github.sha }}
+            org.opencontainers.image.ref.name=${{ needs.release-please.outputs.tag-name }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
@@ -108,11 +117,11 @@ jobs:
             fluencelabs/rust-peer:${{ env.RELEASE_VERSION }}
             fluencelabs/fluence:latest
             fluencelabs/fluence:${{ env.RELEASE_VERSION }}
-          build-args: |
-            COMMIT=${{ github.sha }}
-            BUILD_DATE=${{ env.BUILD_DATE }}
-            RUN_NUMBER=${{ env.RUN_NUMBER }}
-            TAG=${{ env.RELEASE_VERSION }}
+          labels: |
+            org.opencontainers.image.version=${{ env.RELEASE_VERSION }}
+            org.opencontainers.image.created=${{ env.BUILD_DATE }}
+            org.opencontainers.image.revision=${{ github.sha }}
+            org.opencontainers.image.ref.name=${{ needs.release-please.outputs.tag-name }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
@@ -124,37 +133,24 @@ jobs:
           password: ${{ env.DOCKER_PASSWORD }}
           repository: fluencelabs/rust-peer
 
-  release:
-    name: "Release"
+  update-release:
+    name: "Update release"
     runs-on: ubuntu-latest
 
     needs:
-      - prepare
-      - build
+      - release-please
+      - publish
 
     env:
-      RELEASE_VERSION: ${{ needs.prepare.outputs.release_version }}
+      RELEASE_VERSION: ${{ needs.release-please.outputs.version }}
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - name: Build changelog
-        id: github_release
-        uses: mikepenz/release-changelog-builder-action@v3
-        with:
-          configuration: ".github/misc/changelog_config.json"
-          commitMode: true
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
-          name: Fluence Node ${{ env.RELEASE_VERSION }}
-          tag_name: ${{ env.RELEASE_VERSION }}
+          tag_name: ${{ needs.release-please.outputs.tag-name }}
+          append_body: true
           body: |
-            ${{ steps.github_release.outputs.changelog }}
 
             ## Docker tags
 
@@ -178,7 +174,50 @@ jobs:
             fluencelabs/rust-peer:rich
             fluencelabs/rust-peer:rich_${{ env.RELEASE_VERSION }}
 
-          draft: false
-          prerelease: false
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  slack:
+    if: always()
+    name: "Notify"
+    runs-on: ubuntu-latest
+
+    needs:
+      - release-please
+      - publish
+      - update-release
+
+    permissions:
+      contents: read
+      id-token: write
+
+    steps:
+      - uses: lwhiteley/dependent-jobs-result-check@v1
+        id: status
+        with:
+          statuses: failure
+          dependencies: ${{ toJSON(needs) }}
+
+      - name: Log output
+        run: |
+          echo "statuses:" "${{ steps.status.outputs.statuses }}"
+          echo "jobs:" "${{ steps.status.outputs.jobs }}"
+          echo "found any?:" "${{ steps.status.outputs.found }}"
+
+      - name: Import secrets
+        uses: hashicorp/vault-action@v2.4.3
+        with:
+          url: https://vault.fluence.dev
+          path: jwt/github
+          role: ci
+          method: jwt
+          jwtGithubAudience: "https://github.com/fluencelabs"
+          jwtTtl: 300
+          exportToken: false
+          secrets: |
+            kv/slack/release-please webhook | SLACK_WEBHOOK_URL
+
+      - uses: ravsamhq/notify-slack-action@v2
+        if: steps.status.outputs.found == 'true'
+        with:
+          status: "failure"
+          notification_title: "*{workflow}* has {status_message}"
+          message_format: "${{ steps.status.outputs.jobs }} {status_message} in <{repo_url}|{repo}>"
+          footer: "<{run_url}>"

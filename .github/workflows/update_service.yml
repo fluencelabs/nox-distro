@@ -50,6 +50,6 @@ jobs:
         uses: EndBug/add-and-commit@v7
         with:
           add: 'fluence/services.json'
-          message: 'Update ${{ github.event.inputs.name }} to ${{ github.event.inputs.version }}'
+          message: 'fix(deps): Update ${{ github.event.inputs.name }} to ${{ github.event.inputs.version }}'
           push: true
           pull_strategy: 'NO-PULL'

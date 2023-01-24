@@ -1,0 +1,12 @@
+{
+  "bootstrap-sha": "2e9429016356cb6599aa13da13f3a1f37c92c59a",
+  "release-type": "simple",
+  "bump-minor-pre-major": true,
+  "bump-patch-for-minor-pre-major": true,
+  "packages": {
+    ".": {
+      "package-name": "distro",
+      "component": "distro"
+    }
+  }
+}

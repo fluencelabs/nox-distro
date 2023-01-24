@@ -26,12 +26,12 @@ FROM ghcr.io/linuxserver/baseimage-ubuntu:jammy as minimal
 
 # https://github.com/opencontainers/image-spec/blob/main/annotations.md#pre-defined-annotation-keys
 LABEL org.opencontainers.image.base.name="ghcr.io/linuxserver/baseimage-ubuntu:focal"
-LABEL org.opencontainers.image.url="https://github.com/fluencelabs/node-distro"
+LABEL org.opencontainers.image.url="https://github.com/fluencelabs/rust-peer-distro"
 LABEL org.opencontainers.image.vendor="fluencelabs"
 LABEL maintainer="fluencelabs"
 LABEL org.opencontainers.image.authors="fluencelabs"
-LABEL org.opencontainers.image.title="Fluence Node"
-LABEL org.opencontainers.image.description="Minimal image containing only Fluence Node itself"
+LABEL org.opencontainers.image.title="Fluence rust-peer distro"
+LABEL org.opencontainers.image.description="Minimal image containing only rust-peer itself"
 
 ENV RUST_LOG="info,aquamarine=warn,tokio_threadpool=info,tokio_reactor=info,mio=info,tokio_io=info,soketto=info,yamux=info,multistream_select=info,libp2p_secio=info,libp2p_websocket::framed=info,libp2p_ping=info,libp2p_core::upgrade::apply=info,libp2p_kad::kbucket=info,cranelift_codegen=info,wasmer_wasi=info,cranelift_codegen=info,wasmer_wasi=info"
 ENV RUST_BACKTRACE="1"
@@ -81,7 +81,7 @@ COPY s6/minimal/ /
 # ----------------------------------------------------------------------------
 FROM minimal as ipfs
 
-LABEL org.opencontainers.image.description="Fluence Node bundled with IPFS daemon"
+LABEL org.opencontainers.image.description="rust-peer bundled with IPFS daemon"
 LABEL dev.fluence.bundles.ipfs="${IPFS_VERSION}"
 
 ENV IPFS_PATH=/config/ipfs
@@ -115,7 +115,7 @@ ARG GLAZED_VERSION
 ARG GETH_VERSION
 ARG BITCOIN_CLI_VERSION
 
-LABEL org.opencontainers.image.description="Fluence Node bundled with IPFS, Ceramic CLI and other tools"
+LABEL org.opencontainers.image.description="rust-peer bundled with IPFS, Ceramic CLI and other tools"
 LABEL dev.fluence.image.bundles.ceramic="${CERAMIC_VERSION}"
 LABEL dev.fluence.image.bundles.glazed="${GLAZED_VERSION}"
 LABEL dev.fluence.image.bundles.bitcoin_cli="${BITCOIN_CLI_VERSION}"

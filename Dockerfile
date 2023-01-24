@@ -1,9 +1,3 @@
-ARG COMMIT
-ARG SERVICES_VERSION
-ARG RUN_NUMBER
-ARG TAG
-ARG BUILD_DATE
-
 ARG IPFS_VERSION=0.13.1
 ARG CERAMIC_VERSION=2.3.x
 ARG GLAZED_VERSION=0.2.x
@@ -31,18 +25,13 @@ RUN tar -xzf "bitcoin-${BITCOIN_CLI_VERSION}-x86_64-linux-gnu.tar.gz"
 FROM ghcr.io/linuxserver/baseimage-ubuntu:jammy as minimal
 
 # https://github.com/opencontainers/image-spec/blob/main/annotations.md#pre-defined-annotation-keys
-LABEL org.opencontainers.image.created="${BUILD_DATE}"
-LABEL org.opencontainers.image.revision="${COMMIT}"
-LABEL org.opencontainers.image.ref.name="${COMMIT}"
 LABEL org.opencontainers.image.base.name="ghcr.io/linuxserver/baseimage-ubuntu:focal"
 LABEL org.opencontainers.image.url="https://github.com/fluencelabs/node-distro"
-LABEL org.opencontainers.image.version="${VERSION}"
 LABEL org.opencontainers.image.vendor="fluencelabs"
 LABEL maintainer="fluencelabs"
 LABEL org.opencontainers.image.authors="fluencelabs"
 LABEL org.opencontainers.image.title="Fluence Node"
 LABEL org.opencontainers.image.description="Minimal image containing only Fluence Node itself"
-LABEL dev.fluence.image.builtins="${SERVICES_VERSION}"
 
 ENV RUST_LOG="info,aquamarine=warn,tokio_threadpool=info,tokio_reactor=info,mio=info,tokio_io=info,soketto=info,yamux=info,multistream_select=info,libp2p_secio=info,libp2p_websocket::framed=info,libp2p_ping=info,libp2p_core::upgrade::apply=info,libp2p_kad::kbucket=info,cranelift_codegen=info,wasmer_wasi=info,cranelift_codegen=info,wasmer_wasi=info"
 ENV RUST_BACKTRACE="1"

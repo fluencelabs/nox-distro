@@ -4,7 +4,7 @@
   "environments": [
     {
       "name": "krasnodar",
-      "container_image": "fluencelabs/fluence:rich_v0.0.65_67",
+      "container_image": "docker.fluence.dev/rust-peer:rich_test-antiddos_758_1",
       "containers_per_host": 1,
       "external_bootstraps": [
         "/ip4/164.90.171.139/tcp/7770"
@@ -68,7 +68,7 @@
     },
     {
       "name": "testnet",
-      "container_image": "fluencelabs/fluence:rich_v0.0.65_67",
+      "container_image": "docker.fluence.dev/rust-peer:rich_test-antiddos_758_1",
       "containers_per_host": 1,
       "external_bootstraps": [
         "/ip4/165.227.164.206/tcp/7770"

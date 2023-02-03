@@ -12,6 +12,9 @@ connection_idle_timeout = "1h"
 peer_fail_threshold = 3
 ban_cooldown = "60s"
 
+[transport_config]
+max_established_per_peer = 2
+
 [root_key_pair]
 format = "ed25519"
 path = "/node.key"

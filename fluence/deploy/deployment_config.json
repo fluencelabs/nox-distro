@@ -68,7 +68,7 @@
     },
     {
       "name": "testnet",
-      "container_image": "docker.fluence.dev/rust-peer:rich_test-antiddos_758_1",
+      "container_image": "fluencelabs/rust-peer:rich_0.0.77",
       "containers_per_host": 1,
       "external_bootstraps": [
         "/ip4/165.227.164.206/tcp/7770"
@@ -132,7 +132,7 @@
     },
     {
       "name": "stage",
-      "container_image": "docker.fluence.dev/rust-peer:rich_master_534_1",
+      "container_image": "fluencelabs/rust-peer:rich_0.0.77",
       "containers_per_host": 5,
       "hosts": [
         "134.209.186.43"

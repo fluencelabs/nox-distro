@@ -22,14 +22,14 @@ jobs:
     runs-on: "ubuntu-latest"
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.FLUENCEBOT_RELEASE_PLEASE_PAT }}
 
       - name: Download jq
         run: |
           curl -L https://github.com/stedolan/jq/releases/download/jq-1.5/jq-linux64 -o /usr/local/bin/jq
           chmod +x /usr/local/bin/jq
-
-      - run: git pull --rebase
 
       - name: Update ${{ github.event.inputs.name }} services.json to ${{ github.event.inputs.version }}
         run: |
@@ -46,10 +46,10 @@ jobs:
           # write updated content to disk
           echo "$UPDATED" > fluence/services.json
 
-      - name: Commit updated services.json
-        uses: EndBug/add-and-commit@v7
+      - name: Commit updated fluence.json
+        uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          add: 'fluence/services.json'
-          message: 'fix(deps): Update ${{ github.event.inputs.name }} to ${{ github.event.inputs.version }}'
-          push: true
-          pull_strategy: 'NO-PULL'
+          commit_message: 'fix(deps): Update ${{ github.event.inputs.name }} to ${{ github.event.inputs.version }}'
+          commit_user_name: fluencebot
+          commit_user_email: devops@fluence.one
+          commit_author: fluencebot <devops@fluence.one>

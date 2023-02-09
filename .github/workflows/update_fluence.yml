@@ -19,11 +19,9 @@ jobs:
     runs-on: "ubuntu-latest"
 
     steps:
-      - uses: actions/checkout@v2
-
-      - name: git pull
-        run: |
-          git pull --rebase
+      - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.FLUENCEBOT_RELEASE_PLEASE_PAT }}
 
       - name: Update Fluence in fluence.json to ${{ github.event.inputs.version }}
         run: |
@@ -36,9 +34,9 @@ jobs:
           FLUENCE
 
       - name: Commit updated fluence.json
-        uses: EndBug/add-and-commit@v7
+        uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          add: 'fluence/fluence.json'
-          message: 'fix(deps): Update Fluence to ${{ github.event.inputs.version }}'
-          push: true
-          pull_strategy: 'NO-PULL'
+          commit_message: 'fix(deps): Update Fluence to ${{ github.event.inputs.version }}'
+          commit_user_name: fluencebot
+          commit_user_email: devops@fluence.one
+          commit_author: fluencebot <devops@fluence.one>

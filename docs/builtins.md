@@ -13,7 +13,7 @@ transfer with Aqua scripts.
 
 Image flavours [ipfs](flavours#ipfs) and [rich](flavours#rich) have IPFS daemon
 running as a sidecar and aqua-ipfs configured to use this sidecar IPFS daemon.
-[minimal](flabours#minimal) connects to IPFS daemon hosted by Fluence Labs.
+[minimal](flavours#minimal) connects to IPFS daemon hosted by Fluence Labs.
 
 In case you want to use a separately running IPFS daemon configure you need to
 inject two variables:

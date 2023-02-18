@@ -4,6 +4,9 @@ Each flavour is represented by docker image tag. See
 [docker hub](https://hub.docker.com/r/fluencelabs/rust-peer) and
 [releases](https://github.com/fluencelabs/rust-peer-distro/releases) page.
 
+Each flavour builds upon previous flavour. `ipfs` has everything that `minimal`
+has and `rich` everything that `minimal` and `ipfs` have.
+
 | flavour | IPFS daemon | services                         | binaries                                   |
 | ------- | ----------- | -------------------------------- | ------------------------------------------ |
 | minimal | ❌          | aqua-ipfs, trust-graph, registry | curl, ipfs                                 |
@@ -11,9 +14,6 @@ Each flavour is represented by docker image tag. See
 | rich    | ✅          | aqua-ipfs, trust-graph, registry | curl, ipfs, ceramic, bitcoin cli, geth cli |
 
 Tag `latest` points to the latest version of `ipfs` flavour.
-
-Each flavour builds upon previous flavour. `ipfs` has everything that `minimal`
-has and `rich` everything that `minimal` and `ipfs` have.
 
 ## minimal
 
@@ -31,7 +31,7 @@ builtin will be removed**.
 | `FLUENCE_ENV_AQUA_IPFS_EXTERNAL_API_MULTIADDR` | `/dns4/ipfs.fluence.dev/tcp/5001` | advertised to clients (eg frontend apps) to use in uploading files (`ipfs.put`), managing pins (`ipfs.pin`) etc |
 | `FLUENCE_ENV_AQUA_IPFS_LOCAL_API_MULTIADDR`    | `/dns4/ipfs.fluence.dev/tcp/5001` | used by aqua-ipfs builtin to connect to IPFS node                                                               |
 
-### ipfs
+## ipfs
 
 rust-peer packaged with
 [IPFS node](https://docs.ipfs.io/how-to/command-line-quick-start/#take-your-node-online)
@@ -49,7 +49,7 @@ running inside container.
 | `FLUENCE_ENV_AQUA_IPFS_EXTERNAL_API_MULTIADDR` | `/ip4/127.0.0.1/tcp/5001`                            | advertised to clients (eg frontend apps) to use in uploading files (`ipfs.put`), managing pins (`ipfs.pin`) etc |
 | `FLUENCE_ENV_AQUA_IPFS_LOCAL_API_MULTIADDR`    | `/ip4/127.0.0.1/tcp/5001`                            | used by aqua-ipfs builtin to connect to IPFS node                                                               |
 
-### rich
+## rich
 
 rust-peer packaged with IPFS node,
 [Ceramic](https://developers.ceramic.network/learn/welcome/) CLI and some other

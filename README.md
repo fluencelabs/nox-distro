@@ -15,7 +15,7 @@ To get a list of commands that can be passed to rust-peer run:
 docker run --rm --name rust-peer fluencelabs/rust-peer:latest --help
 ```
 
-See more deployment instructions and tips at [`deploy`](deploy).
+See deployment instructions and tips at [deploy](deploy).
 
 ## Documentation
 

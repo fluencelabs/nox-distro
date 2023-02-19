@@ -18,8 +18,8 @@ See deployment instructions and tips at [deploy](deploy).
 
 ## Documentation
 
-- rust-peer distro [image flavours](docs/flavours.md)
-- [builtin services](docs/builtins.md)
+- Rust peer distro [image flavours](docs/flavours.md)
+- [Builtin services](docs/builtins.md)
 
 Comprehensive documentation on everything related to Fluence can be found [here](https://fluence.dev/). Check also our [YouTube channel](https://www.youtube.com/@fluencelabs).
 

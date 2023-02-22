@@ -13,5 +13,10 @@
     "version": "0.7.1",
     "url": "https://github.com/fluencelabs/registry/releases/download/registry-v0.7.1/registry.tar.gz",
     "sha256": "85258154ec9d17e6b3c384be2eae6a109f2afc0d83c05ec03c9d37fc990c44a0"
+  },
+  "decider": {
+    "version": "0.1.0",
+    "url": "https://github.com/fluencelabs/control-plane/releases/download/v0.1.0/connector.tar.gz",
+    "sha256": "a5fe4b72881c7c5f6ff8153ae77f3fd6eebfd270a7301b98ad6626078f106397"
   }
 }

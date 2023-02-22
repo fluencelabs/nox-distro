@@ -1,5 +1,5 @@
 {
-  "version": "v0.7.4",
-  "url": "https://github.com/fluencelabs/rust-peer/releases/download/rust-peer-v0.7.4/rust-peer",
-  "sha256": "fe61ad063b5fb8e4092a02960139bf3a396d7b6569f62974486123eb5d6cb9f8"
+  "version": "v0.8.0",
+  "url": "https://github.com/fluencelabs/rust-peer/releases/download/rust-peer-v0.8.0/rust-peer",
+  "sha256": "2f04dd8db41f4f5c06cbce3dd5487a4af074526caff2f31bdba544a9af9d206a"
 }

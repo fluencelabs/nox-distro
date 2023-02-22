@@ -1,5 +1,22 @@
 # Changelog
 
+## [0.1.0](https://github.com/fluencelabs/rust-peer-distro/compare/distro-v0.0.77...distro-v0.1.0) (2023-02-22)
+
+
+### ⚠ BREAKING CHANGES
+
+* **builtins:** Add decider spell to services.json ([#98](https://github.com/fluencelabs/rust-peer-distro/issues/98))
+
+### Features
+
+* **builtins:** Add decider spell to services.json ([#98](https://github.com/fluencelabs/rust-peer-distro/issues/98)) ([48417ca](https://github.com/fluencelabs/rust-peer-distro/commit/48417caed2d4442a60a0aa96e35a21fffb41a82b))
+
+
+### Bug Fixes
+
+* **deps:** Update registry to 0.7.1 ([a58b8ef](https://github.com/fluencelabs/rust-peer-distro/commit/a58b8efff12a7f543e99863e7be0e7fdd7dd56e6))
+* return fluence/Config.default.toml ([#99](https://github.com/fluencelabs/rust-peer-distro/issues/99)) ([4ee13e6](https://github.com/fluencelabs/rust-peer-distro/commit/4ee13e669b374b9f2b95d5a0de5b2fc10f4df70f))
+
 ## [0.0.77](https://github.com/fluencelabs/rust-peer-distro/compare/distro-v0.0.76...distro-v0.0.77) (2023-02-09)
 
 

@@ -15,8 +15,8 @@
     "sha256": "8fb948e2533298bb5d89905f57421e1e64ad5af2c0cc87d9bc79dc075f663b5a"
   },
   "connector": {
-    "version": "0.1.0",
-    "url": "https://github.com/fluencelabs/decider/releases/download/v0.2.0/connector.tar.gz",
-    "sha256": "cf804a11ce3161ca4dbec12a3ecd8a931a95ff42dc995658e3d283a1cbed3f91"
+    "version": "0.3.0",
+    "url": "https://github.com/fluencelabs/decider/releases/download/v0.3.0/connector.tar.gz",
+    "sha256": "5297786b2cf10d839cf95524bdeef3130164cfb5b8f2e0f4fe323d95e471d83a"
   }
 }

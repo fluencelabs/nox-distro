@@ -30,4 +30,5 @@ jobs:
       id-token: write
     uses: ./.github/workflows/container.yml
     with:
+      image: "distro"
       version: ${{ needs.version.outputs.id }}

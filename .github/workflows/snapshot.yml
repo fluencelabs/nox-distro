@@ -30,4 +30,4 @@ jobs:
       id-token: write
     uses: ./.github/workflows/container.yml
     with:
-      version: ${{ needs.versions.outputs.id }}
+      version: ${{ needs.version.outputs.id }}

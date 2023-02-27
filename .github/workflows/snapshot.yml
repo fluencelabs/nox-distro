@@ -1,0 +1,33 @@
+name: "snapshot"
+
+on:
+  pull_request:
+    paths-ignore:
+      - "!**.md"
+  push:
+    branches:
+      - "main"
+
+env:
+  DOCKER_BUILDKIT: 1
+  FORCE_COLOR: 1
+
+jobs:
+  version:
+    name: "Generate snapshot id"
+    runs-on: ubuntu-latest
+    outputs:
+      id: ${{ steps.version.outputs.id }}
+    steps:
+      - name: Generate snapshot version
+        id: version
+        uses: fluencelabs/github-actions/generate-snapshot-id@main
+
+  snapshot:
+    needs: version
+    permissions:
+      contents: read
+      id-token: write
+    uses: ./.github/workflows/container.yml
+    with:
+      version: ${{ needs.versions.outputs.id }}

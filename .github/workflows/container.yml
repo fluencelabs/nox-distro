@@ -12,7 +12,7 @@ on:
         type: string
       release:
         description: "if triggered by release workflow"
-        type: bool
+        type: boolean
         default: false
 
 jobs:

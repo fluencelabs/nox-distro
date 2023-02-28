@@ -58,7 +58,7 @@ jobs:
             kv/hub.docker.com/fluencebot password | DOCKER_PASSWORD
 
       - name: Import secrets
-        if: ! inputs.release
+        if: ${{ !inputs.release }}
         uses: hashicorp/vault-action@v2.4.3
         with:
           url: https://vault.fluence.dev
@@ -82,7 +82,7 @@ jobs:
           password: ${{ env.DOCKER_PASSWORD }}
 
       - name: Login to private DockerHub
-        if: ! inputs.release
+        if: ${{ !inputs.release }}
         uses: docker/login-action@v2
         with:
           registry: "docker.fluence.dev"
@@ -107,7 +107,7 @@ jobs:
           cache-to: type=gha,mode=max
 
       - name: Build and push ${{ matrix.package }}
-        if: matrix.package == 'ipfs' && ! inputs.release
+        if: ${{ matrix.package == 'ipfs' && !inputs.release }}
         uses: docker/build-push-action@v3
         with:
           context: .
@@ -124,7 +124,7 @@ jobs:
           cache-to: type=gha,mode=max
 
       - name: Docker Hub Description
-        if: matrix.package == 'ipfs' && ! inputs.release
+        if: ${{ matrix.package == 'ipfs' && !inputs.release }}
         uses: peter-evans/dockerhub-description@v3
         with:
           username: ${{ env.DOCKER_USERNAME }}

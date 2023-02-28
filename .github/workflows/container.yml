@@ -107,7 +107,7 @@ jobs:
           cache-to: type=gha,mode=max
 
       - name: Build and push ${{ matrix.package }}
-        if: ${{ matrix.package == 'ipfs' && !inputs.release }}
+        if: ${{ matrix.package == 'ipfs' && inputs.release }}
         uses: docker/build-push-action@v3
         with:
           context: .
@@ -124,7 +124,7 @@ jobs:
           cache-to: type=gha,mode=max
 
       - name: Docker Hub Description
-        if: ${{ matrix.package == 'ipfs' && !inputs.release }}
+        if: ${{ matrix.package == 'ipfs' && inputs.release }}
         uses: peter-evans/dockerhub-description@v3
         with:
           username: ${{ env.DOCKER_USERNAME }}

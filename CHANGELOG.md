@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.5](https://github.com/fluencelabs/rust-peer-distro/compare/distro-v0.1.4...distro-v0.1.5) (2023-03-08)
+
+
+### Bug Fixes
+
+* **deps:** Update registry to 0.8.2 ([556d068](https://github.com/fluencelabs/rust-peer-distro/commit/556d0689063a5609a9e3113106f4ded9f4f41c9c))
+* Do not deploy connector builtin by default ([de58659](https://github.com/fluencelabs/rust-peer-distro/commit/de58659b6e32377d6548559d28dce09cae3f4931))
+
 ## [0.1.4](https://github.com/fluencelabs/rust-peer-distro/compare/distro-v0.1.3...distro-v0.1.4) (2023-02-28)
 
 

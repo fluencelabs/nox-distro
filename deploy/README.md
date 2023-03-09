@@ -7,4 +7,3 @@ Currently there is only one way to try out the Rust peer. It is by running it wi
 
 Checkout [this doc](../docs/flavours.md) to learn more about Rust peer image
 flavours and environment variables used to configure the images.
-

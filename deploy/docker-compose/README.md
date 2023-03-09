@@ -28,7 +28,6 @@ operating system:
   ```bash
   docker-compose pull
   ```
-
 3.Start the rust-peer network by running the following command:
   ```bash
   docker-compose up -d
@@ -49,7 +48,6 @@ To interact with the rust-peer network, you can use the
       peerIds:
         - 12D3KooWBM3SdXWqGaawQDGQ6JprtwswEg3FWGvGhmgmMez1vRbR
   ```
-
 3. Change `relays` key in `fluence.yaml` to:
   ```yml
   relays:
@@ -57,9 +55,10 @@ To interact with the rust-peer network, you can use the
     - /ip4/127.0.0.1/tcp/9992/ws/p2p/12D3KooWQdpukY3p2DhDfUfDgphAqsGu5ZUrmQ4mcHSGrRag6gQK
     - /ip4/127.0.0.1/tcp/9993/ws/p2p/12D3KooWRT8V5awYdEZm6aAV9HWweCEbhWd7df4wehqHZXAB7yMZ
   ```
-
 4. Run
-   `fluence run -f 'helloWorld("Fluence")' --relay /ip4/127.0.0.1/tcp/9991/ws/p2p/12D3KooWBM3SdXWqGaawQDGQ6JprtwswEg3FWGvGhmgmMez1vRbR`
+   ```bash
+   fluence run -f 'helloWorld("Fluence")' --relay /ip4/127.0.0.1/tcp/9991/ws/p2p/12D3KooWBM3SdXWqGaawQDGQ6JprtwswEg3FWGvGhmgmMez1vRbR
+   ```
 
 ## Using local rust-peer network in your project
 

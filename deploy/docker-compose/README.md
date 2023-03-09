@@ -41,11 +41,28 @@ This will start three rust-peer nodes, each listening on a different port.
 ## Accessing local rust-peer network
 
 To interact with the rust-peer network, you can use the
-[fluence-cli](https://github.com/fluencelabs/fluence-cli) tool. You can follow
-the example
+[fluence-cli](https://github.com/fluencelabs/fluence-cli) tool.
+
+You can follow the example
 [workflow](https://github.com/fluencelabs/fluence-cli/blob/main/docs/EXAMPLE.md)
-provided by Fluence Labs, appending `--relay <peer-multiaddr>` to the `run`
-commands.
+provided by Fluence Labs making these changes after running first step of the
+example instruction:
+
+- appending `--relay <peer-multiaddr>` to the `run` commands.
+- changing `hosts` key in `fluence.yaml` to:
+  ```yml
+  hosts:
+    defaultWorker:
+      peerIds:
+        - 12D3KooWBM3SdXWqGaawQDGQ6JprtwswEg3FWGvGhmgmMez1vRbR
+  ```
+- changing `relays` key in `fluence.yaml` to:
+  ```yml
+  relays:
+    - /ip4/127.0.0.1/tcp/9991/ws/p2p/12D3KooWBM3SdXWqGaawQDGQ6JprtwswEg3FWGvGhmgmMez1vRbR
+    - /ip4/127.0.0.1/tcp/9992/ws/p2p/12D3KooWQdpukY3p2DhDfUfDgphAqsGu5ZUrmQ4mcHSGrRag6gQK
+    - /ip4/127.0.0.1/tcp/9993/ws/p2p/12D3KooWRT8V5awYdEZm6aAV9HWweCEbhWd7df4wehqHZXAB7yMZ
+  ```
 
 You can use the following table to find the multiaddress for each node:
 

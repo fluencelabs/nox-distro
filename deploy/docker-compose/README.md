@@ -26,15 +26,15 @@ operating system:
 
 2. Pull the latest container images by running the following command:
 
-```bash
-docker-compose pull
-```
+  ```bash
+  docker-compose pull
+  ```
 
 3.Start the rust-peer network by running the following command:
 
-```bash
-docker-compose up -d
-```
+  ```bash
+  docker-compose up -d
+  ```
 
 This will start three rust-peer nodes, each listening on a different port.
 
@@ -46,21 +46,21 @@ To interact with the rust-peer network, you can use the
 1. Run `fluence init` and chose `mininal` project template.
 2. Change `hosts` key in `fluence.yaml` to:
 
-```yml
-hosts:
-  defaultWorker:
-    peerIds:
-      - 12D3KooWBM3SdXWqGaawQDGQ6JprtwswEg3FWGvGhmgmMez1vRbR
-```
+  ```yml
+  hosts:
+    defaultWorker:
+      peerIds:
+        - 12D3KooWBM3SdXWqGaawQDGQ6JprtwswEg3FWGvGhmgmMez1vRbR
+  ```
 
 3. Change `relays` key in `fluence.yaml` to:
 
-```yml
-relays:
-  - /ip4/127.0.0.1/tcp/9991/ws/p2p/12D3KooWBM3SdXWqGaawQDGQ6JprtwswEg3FWGvGhmgmMez1vRbR
-  - /ip4/127.0.0.1/tcp/9992/ws/p2p/12D3KooWQdpukY3p2DhDfUfDgphAqsGu5ZUrmQ4mcHSGrRag6gQK
-  - /ip4/127.0.0.1/tcp/9993/ws/p2p/12D3KooWRT8V5awYdEZm6aAV9HWweCEbhWd7df4wehqHZXAB7yMZ
-```
+  ```yml
+  relays:
+    - /ip4/127.0.0.1/tcp/9991/ws/p2p/12D3KooWBM3SdXWqGaawQDGQ6JprtwswEg3FWGvGhmgmMez1vRbR
+    - /ip4/127.0.0.1/tcp/9992/ws/p2p/12D3KooWQdpukY3p2DhDfUfDgphAqsGu5ZUrmQ4mcHSGrRag6gQK
+    - /ip4/127.0.0.1/tcp/9993/ws/p2p/12D3KooWRT8V5awYdEZm6aAV9HWweCEbhWd7df4wehqHZXAB7yMZ
+  ```
 
 4. Run
    `fluence run -f 'helloWorld("Fluence")' --relay /ip4/127.0.0.1/tcp/9991/ws/p2p/12D3KooWBM3SdXWqGaawQDGQ6JprtwswEg3FWGvGhmgmMez1vRbR`

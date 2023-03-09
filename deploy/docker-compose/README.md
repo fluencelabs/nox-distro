@@ -25,13 +25,11 @@ operating system:
 1. `git clone` this repository locally and run `cd deploy/docker-compose`.
 
 2. Pull the latest container images by running the following command:
-
   ```bash
   docker-compose pull
   ```
 
 3.Start the rust-peer network by running the following command:
-
   ```bash
   docker-compose up -d
   ```
@@ -45,7 +43,6 @@ To interact with the rust-peer network, you can use the
 
 1. Run `fluence init` and chose `mininal` project template.
 2. Change `hosts` key in `fluence.yaml` to:
-
   ```yml
   hosts:
     defaultWorker:
@@ -54,7 +51,6 @@ To interact with the rust-peer network, you can use the
   ```
 
 3. Change `relays` key in `fluence.yaml` to:
-
   ```yml
   relays:
     - /ip4/127.0.0.1/tcp/9991/ws/p2p/12D3KooWBM3SdXWqGaawQDGQ6JprtwswEg3FWGvGhmgmMez1vRbR

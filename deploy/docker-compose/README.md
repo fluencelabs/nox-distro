@@ -26,9 +26,9 @@ operating system:
 
 2. Pull the latest container images by running the following command:
 
-   ```bash
-   docker-compose pull
-   ```
+```bash
+docker-compose pull
+```
 
 3.Start the rust-peer network by running the following command:
 
@@ -43,12 +43,32 @@ This will start three rust-peer nodes, each listening on a different port.
 To interact with the rust-peer network, you can use the
 [fluence-cli](https://github.com/fluencelabs/fluence-cli) tool.
 
-You can follow the example
-[workflow](https://github.com/fluencelabs/fluence-cli/blob/main/docs/EXAMPLE.md)
-provided by Fluence Labs making these changes after running first step of the
-example instruction:
+1. Run `fluence init` and chose `mininal` project template.
+2. Change `hosts` key in `fluence.yaml` to:
 
-- appending `--relay <peer-multiaddr>` to the `run` commands.
+```yml
+hosts:
+  defaultWorker:
+    peerIds:
+      - 12D3KooWBM3SdXWqGaawQDGQ6JprtwswEg3FWGvGhmgmMez1vRbR
+```
+
+3. Change `relays` key in `fluence.yaml` to:
+
+```yml
+relays:
+  - /ip4/127.0.0.1/tcp/9991/ws/p2p/12D3KooWBM3SdXWqGaawQDGQ6JprtwswEg3FWGvGhmgmMez1vRbR
+  - /ip4/127.0.0.1/tcp/9992/ws/p2p/12D3KooWQdpukY3p2DhDfUfDgphAqsGu5ZUrmQ4mcHSGrRag6gQK
+  - /ip4/127.0.0.1/tcp/9993/ws/p2p/12D3KooWRT8V5awYdEZm6aAV9HWweCEbhWd7df4wehqHZXAB7yMZ
+```
+
+4. Run
+   `fluence run -f 'helloWorld("Fluence")' --relay /ip4/127.0.0.1/tcp/9991/ws/p2p/12D3KooWBM3SdXWqGaawQDGQ6JprtwswEg3FWGvGhmgmMez1vRbR`
+
+## Using local rust-peer network in your project
+
+You must make changes to `fluence.yaml` to use a local rust-peer network:
+
 - changing `hosts` key in `fluence.yaml` to:
   ```yml
   hosts:
@@ -64,7 +84,14 @@ example instruction:
     - /ip4/127.0.0.1/tcp/9993/ws/p2p/12D3KooWRT8V5awYdEZm6aAV9HWweCEbhWd7df4wehqHZXAB7yMZ
   ```
 
-You can use the following table to find the multiaddress for each node:
+Do not forget to append `--relay <peer-multiaddr>` to the commands to use a
+local rust-peer as a relay to local rust-peer network.
+
+You can try following the example
+[workflow](https://github.com/fluencelabs/fluence-cli/blob/main/docs/EXAMPLE.md)
+provided by Fluence Labs making these changes.
+
+Here is a table with multiaddress for each node:
 
 | container | multiaddress                                                                        |
 | --------- | ----------------------------------------------------------------------------------- |

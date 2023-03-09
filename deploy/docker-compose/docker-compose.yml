@@ -13,6 +13,9 @@ services:
       - --aqua-pool-size=2
       - -t=7771
       - -w=9991
+      - --external-maddrs
+      - /dns4/peer-1/tcp/7771
+      - /dns4/peer-1/tcp/9991/ws
       - --local
       # 12D3KooWBM3SdXWqGaawQDGQ6JprtwswEg3FWGvGhmgmMez1vRbR
       - -k=hK62afickoeP2uZbmSkAYXxxqP8ozq16VRN7qfTP719EHC5V5tjrtW57BSjUr8GvsEXmJRbtejUWyPZ2rZMyQdq
@@ -31,6 +34,9 @@ services:
       - --aqua-pool-size=2
       - -t=7772
       - -w=9992
+      - --external-maddrs
+      - /dns4/peer-2/tcp/7772
+      - /dns4/peer-2/tcp/9992/ws
       - --bootstraps=/dns/peer-1/tcp/7771
       # 12D3KooWQdpukY3p2DhDfUfDgphAqsGu5ZUrmQ4mcHSGrRag6gQK
       - -k=2WijTVdhVRzyZamWjqPx4V4iNMrajegNMwNa2PmvPSZV6RRpo5M2fsPWdQr22HVRubuJhhSw8BrWiGt6FPhFAuXy
@@ -49,6 +55,9 @@ services:
       - --aqua-pool-size=2
       - -t=7773
       - -w=9993
+      - --external-maddrs
+      - /dns4/peer-3/tcp/7773
+      - /dns4/peer-3/tcp/9993/ws
       - --bootstraps=/dns/peer-1/tcp/7771
       # 12D3KooWRT8V5awYdEZm6aAV9HWweCEbhWd7df4wehqHZXAB7yMZ
       - -k=2n2wBVanBeu2GWtvKBdrYK9DJAocgG3PrTUXMharq6TTfxqTL4sLdXL9BF23n6rsnkAY5pR9vBtx2uWYDQAiZdrX

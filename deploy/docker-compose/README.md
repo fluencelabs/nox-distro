@@ -1,40 +1,80 @@
 # Run rust-peer with docker-compose
 
-This docker-compose file starts a local network of three rust-peers.
+This guide explains how to use docker-compose to start a local network of three
+[rust-peer](https://github.com/fluencelabs/rust-peer) nodes.
 
-## Installing docker and docker-compose
+## Introduction
 
-Follow official instruction for
-[docker](https://docs.docker.com/engine/install/) and
-[docker-compose](https://docs.docker.com/compose/install/linux/#install-using-the-repository).
+The rust-peer network is a set of peer nodes that can communicate with each
+other to share data and execute code. By running a local rust-peer network, you
+can test your applications in a controlled environment without relying on
+external networks.
 
-## Running local rust-peer network
+## Prerequisites
 
-1. Either `git clone` this repository locally and run `cd deploy/docker-compose`
-   or download [`docker-compose.yml`](docker-compose.yml) directly.
+Before you can run the rust-peer network, you need to have Docker and
+docker-compose installed on your system. You can follow the official
+instructions for installing Docker and installing docker-compose on your
+operating system:
 
-2. Ensure you have the most up-to-date container images:
+- [docker](https://docs.docker.com/engine/install/)
+- [docker-compose](https://docs.docker.com/compose/install/linux/#install-using-the-repository)
+
+## Starting local rust-peer network
+
+1. `git clone` this repository locally and run `cd deploy/docker-compose`.
+
+2. Pull the latest container images by running the following command:
 
    ```bash
    docker-compose pull
    ```
 
-3. Run the network:
+3.Start the rust-peer network by running the following command:
 
-   ```bash
-   docker-compose up -d
-   ```
+```bash
+docker-compose up -d
+```
+
+This will start three rust-peer nodes, each listening on a different port.
 
 ## Accessing local rust-peer network
 
-Using fluence-cli follow the
-[example workflow](https://github.com/fluencelabs/fluence-cli/blob/main/docs/EXAMPLE.md#currently-supported-workflow-example)
-appending `--relay <peer-multiaddr>` to `run` commands.
+To interact with the rust-peer network, you can use the
+[fluence-cli](https://github.com/fluencelabs/fluence-cli) tool. You can follow
+the example
+[workflow](https://github.com/fluencelabs/fluence-cli/blob/main/docs/EXAMPLE.md)
+provided by Fluence Labs, appending `--relay <peer-multiaddr>` to the `run`
+commands.
 
-Local network multiaddresses:
+You can use the following table to find the multiaddress for each node:
 
 | container | multiaddress                                                                        |
 | --------- | ----------------------------------------------------------------------------------- |
 | peer-1    | /ip4/127.0.0.1/tcp/9991/ws/p2p/12D3KooWBM3SdXWqGaawQDGQ6JprtwswEg3FWGvGhmgmMez1vRbR |
 | peer-2    | /ip4/127.0.0.1/tcp/9992/ws/p2p/12D3KooWQdpukY3p2DhDfUfDgphAqsGu5ZUrmQ4mcHSGrRag6gQK |
 | peer-3    | /ip4/127.0.0.1/tcp/9993/ws/p2p/12D3KooWRT8V5awYdEZm6aAV9HWweCEbhWd7df4wehqHZXAB7yMZ |
+
+## Running with observability stack
+
+Stack consists of:
+
+- [Prometheus](https://prometheus.io/) - TSDB that collects and stores metrics
+- [Loki](https://grafana.com/logs/) - lightweight centralized logging solution
+- [Promtail](https://grafana.com/docs/loki/latest/clients/promtail/) - log
+  collection agent
+- [Grafana](https://grafana.com/grafana/) - data visualization tool
+
+To set it up run:
+
+```bash
+docker-compose -f docker-compose.yml -f docker-compose.observability.yml up -d
+```
+
+Grafana will have automatically preprovisioned dashboards:
+
+- rust-peer stats - overview of rust-peer network
+- Service metrics - detailed stats on deployed services
+
+You can find Grafana at http://localhost:3000. To access rust-peer logs use
+`Explore` tab and chose `Loki` datasource.

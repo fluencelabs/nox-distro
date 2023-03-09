@@ -4,6 +4,11 @@ services:
     ports:
       - 7771:7771
       - 9991:9991
+    expose:
+      - 18080
+    labels:
+      name: peer-1
+      scrape: true
     command:
       - --aqua-pool-size=2
       - -t=7771
@@ -17,6 +22,11 @@ services:
     ports:
       - 7772:7772
       - 9992:9992
+    expose:
+      - 18080
+    labels:
+      name: peer-2
+      scrape: true
     command:
       - --aqua-pool-size=2
       - -t=7772
@@ -30,6 +40,11 @@ services:
     ports:
       - 7773:7773
       - 9993:9993
+    expose:
+      - 18080
+    labels:
+      name: peer-3
+      scrape: true
     command:
       - --aqua-pool-size=2
       - -t=7773

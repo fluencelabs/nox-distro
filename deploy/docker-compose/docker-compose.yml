@@ -6,6 +6,8 @@ services:
       - 9991:9991
     expose:
       - 18080
+    environment:
+      RUST_LOG: "info"
     labels:
       name: peer-1
       scrape: true
@@ -28,6 +30,8 @@ services:
       - 9992:9992
     expose:
       - 18080
+    environment:
+      RUST_LOG: "info"
     labels:
       name: peer-2
       scrape: true
@@ -50,6 +54,8 @@ services:
       - 9993:9993
     expose:
       - 18080
+    environment:
+      RUST_LOG: "info"
     labels:
       name: peer-3
       scrape: true

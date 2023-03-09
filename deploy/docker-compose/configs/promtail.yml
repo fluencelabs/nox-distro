@@ -8,7 +8,6 @@ scrape_configs:
   - job_name: "rust-peer"
     docker_sd_configs:
       - host: unix:///var/run/docker.sock
-        port: 18080
         filters:
           - name: label
             values: ["scrape=true"]
@@ -20,9 +19,6 @@ scrape_configs:
       - timestamp:
           source: time
           format: "RFC3339Nano"
-      - drop:
-          expression: ".*Error: error parsing json test.*"
-          drop_counter_reason: "invalid-deal"
       - drop:
           expression: "tide::log::middleware"
           drop_counter_reason: "spam"

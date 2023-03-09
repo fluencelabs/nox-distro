@@ -13,6 +13,7 @@ services:
       - --aqua-pool-size=2
       - -t=7771
       - -w=9991
+      - --allow-private-ips
       - --external-maddrs
       - /dns4/peer-1/tcp/7771
       - /dns4/peer-1/tcp/9991/ws
@@ -34,6 +35,7 @@ services:
       - --aqua-pool-size=2
       - -t=7772
       - -w=9992
+      - --allow-private-ips
       - --external-maddrs
       - /dns4/peer-2/tcp/7772
       - /dns4/peer-2/tcp/9992/ws
@@ -55,6 +57,7 @@ services:
       - --aqua-pool-size=2
       - -t=7773
       - -w=9993
+      - --allow-private-ips
       - --external-maddrs
       - /dns4/peer-3/tcp/7773
       - /dns4/peer-3/tcp/9993/ws

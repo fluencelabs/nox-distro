@@ -25,7 +25,6 @@ services:
     volumes:
       - ./configs/prometheus.yml:/config.yml
       - prometheus:/data
-      - /var/run/docker.sock:/var/run/docker.sock
 
   loki:
     image: grafana/loki:2.7.4

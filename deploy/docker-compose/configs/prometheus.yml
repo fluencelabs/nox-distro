@@ -4,14 +4,19 @@ global:
 scrape_configs:
   - job_name: "rust-peer"
     scrape_interval: "15s"
-    docker_sd_configs:
-      - host: unix:///var/run/docker.sock
-        port: 18080
-        filters:
-          - name: label
-            values: ["scrape=true"]
-    relabel_configs:
-      - source_labels: ["__meta_docker_container_label_name"]
-        target_label: "instance"
-      - replacement: "demo"
-        target_label: env
+    static_configs:
+      - targets:
+          - "peer-1:18080"
+        labels:
+          instance: "peer-1"
+          env: "demo"
+      - targets:
+          - "peer-2:18080"
+        labels:
+          instance: "peer-2"
+          env: "demo"
+      - targets:
+          - "peer-3:18080"
+        labels:
+          instance: "peer-3"
+          env: "demo"

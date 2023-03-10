@@ -6,9 +6,10 @@ This guide explains how to use docker-compose to start a local network of three
 ## Introduction
 
 The rust-peer network is a set of peer nodes that can communicate with each
-other to share data and execute code. By running a local rust-peer network, you
-can test your applications in a controlled environment without relying on
-external networks.
+other to share data and execute code plus local IPFS node used by
+[aqua-ipfs builtin](../../docs/builtins.md##aqua-ipfs). By running a local
+rust-peer network, you can test your applications in a controlled environment
+without relying on external networks.
 
 ## Prerequisites
 
@@ -41,7 +42,7 @@ This will start three rust-peer nodes, each listening on a different port.
 To interact with the rust-peer network, you can use the
 [fluence-cli](https://github.com/fluencelabs/fluence-cli) tool.
 
-1. Run `fluence init` and chose `mininal` project template.
+1. Run `fluence init` and chose `minimal` project template.
 2. Change `hosts` key in `fluence.yaml` to:
    ```yml
    hosts:
@@ -60,7 +61,8 @@ To interact with the rust-peer network, you can use the
 
 4. Run
    ```bash
-   fluence run -f 'helloWorld("Fluence")' --relay /ip4/127.0.0.1/tcp/9991/ws/p2p/12D3KooWBM3SdXWqGaawQDGQ6JprtwswEg3FWGvGhmgmMez1vRbR
+   fluence run -f 'helloWorld("Fluence")'
+   fluence run -f 'getInfo()'
    ```
 
 ## Using local rust-peer network in your project
@@ -81,9 +83,6 @@ You must make changes to `fluence.yaml` to use a local rust-peer network:
     - /ip4/127.0.0.1/tcp/9992/ws/p2p/12D3KooWQdpukY3p2DhDfUfDgphAqsGu5ZUrmQ4mcHSGrRag6gQK
     - /ip4/127.0.0.1/tcp/9993/ws/p2p/12D3KooWRT8V5awYdEZm6aAV9HWweCEbhWd7df4wehqHZXAB7yMZ
   ```
-
-Do not forget to append `--relay <peer-multiaddr>` to the commands to use a
-local rust-peer as a relay to local rust-peer network.
 
 You can try following the example
 [workflow](https://github.com/fluencelabs/fluence-cli/blob/main/docs/EXAMPLE.md)

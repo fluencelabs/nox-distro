@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.6](https://github.com/fluencelabs/rust-peer-distro/compare/distro-v0.1.5...distro-v0.1.6) (2023-03-13)
+
+
+### Bug Fixes
+
+* Do deploy connector always ([#114](https://github.com/fluencelabs/rust-peer-distro/issues/114)) ([fe52de8](https://github.com/fluencelabs/rust-peer-distro/commit/fe52de8b28c6d387fc899c8827c073a1cf69ab34))
+
 ## [0.1.5](https://github.com/fluencelabs/rust-peer-distro/compare/distro-v0.1.4...distro-v0.1.5) (2023-03-08)
 
 

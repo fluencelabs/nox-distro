@@ -98,9 +98,6 @@ ENV IPFS_ADDRESSES_ANNOUNCE=/ip4/127.0.0.1/tcp/4001,/ip4/127.0.0.1/tcp/4001/ws
 ENV FLUENCE_ENV_AQUA_IPFS_EXTERNAL_API_MULTIADDR=/ip4/127.0.0.1/tcp/5001
 ENV FLUENCE_ENV_AQUA_IPFS_LOCAL_API_MULTIADDR=/ip4/127.0.0.1/tcp/5001
 
-# do not deploy connector by default
-ENV FLUENCE_DEPLOY_CONNECTOR=false
-
 # download fs-repo-migrations
 RUN wget -qO - "https://dist.ipfs.io/fs-repo-migrations/v2.0.2/fs-repo-migrations_v2.0.2_linux-amd64.tar.gz" | tar -C /usr/local/bin --strip-components=1 -zxvf -
 

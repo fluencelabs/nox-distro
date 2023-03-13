@@ -1,6 +1,0 @@
-#!/usr/bin/with-contenv bash
-
-if [[ ${FLUENCE_DEPLOY_CONNECTOR} != true ]]; then
-  echo "removing connector builtin"
-  rm -rf /builtins/connector
-fi

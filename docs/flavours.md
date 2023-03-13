@@ -8,11 +8,11 @@ Each flavour builds upon its previous flavour. In particular, `ipfs` has
 everything that `minimal` has, and `rich` has everything that `minimal` and
 `ipfs` have.
 
-| flavour | IPFS daemon | services                         | binaries                                   |
-| ------- | ----------- | -------------------------------- | ------------------------------------------ |
-| minimal | ❌          | aqua-ipfs, trust-graph, registry | curl, ipfs                                 |
-| ipfs    | ✅          | aqua-ipfs, trust-graph, registry | curl, ipfs                                 |
-| rich    | ✅          | aqua-ipfs, trust-graph, registry | curl, ipfs, ceramic, bitcoin cli, geth cli |
+| flavour | IPFS daemon | services                                    | binaries                                   |
+| ------- | ----------- | ------------------------------------------- | ------------------------------------------ |
+| minimal | ❌          | aqua-ipfs, trust-graph, registry, connector | curl, ipfs                                 |
+| ipfs    | ✅          | aqua-ipfs, trust-graph, registry, connector | curl, ipfs                                 |
+| rich    | ✅          | aqua-ipfs, trust-graph, registry, connector | curl, ipfs, ceramic, bitcoin cli, geth cli |
 
 Tag `latest` points to the latest version of `ipfs` flavour.
 
@@ -30,7 +30,6 @@ running IPFS daemon in order for `aqua-ipfs` to work. If not defined,
 | ---------------------------------------------- | --------------------------------- | --------------------------------------------------------------------------------------------------------------- |
 | `FLUENCE_ENV_AQUA_IPFS_EXTERNAL_API_MULTIADDR` | `/dns4/ipfs.fluence.dev/tcp/5001` | advertised to clients (eg frontend apps) to use in uploading files (`ipfs.put`), managing pins (`ipfs.pin`) etc |
 | `FLUENCE_ENV_AQUA_IPFS_LOCAL_API_MULTIADDR`    | `/dns4/ipfs.fluence.dev/tcp/5001` | used by aqua-ipfs builtin to connect to IPFS node                                                               |
-| `FLUENCE_DEPLOY_CONNECTOR`                     | `false`                           | switch to deploy connector builtin                                                                              |
 
 ## ipfs
 
@@ -49,7 +48,6 @@ running inside a container.
 | `IPFS_ADDRESSES_ANNOUNCE`                      | `/ip4/127.0.0.1/tcp/4001,/ip4/127.0.0.1/tcp/4001/ws` | IPFS p2p multiaddr of the IPFS swarm protocol                                                                   |
 | `FLUENCE_ENV_AQUA_IPFS_EXTERNAL_API_MULTIADDR` | `/ip4/127.0.0.1/tcp/5001`                            | advertised to clients (eg frontend apps) to use in uploading files (`ipfs.put`), managing pins (`ipfs.pin`) etc |
 | `FLUENCE_ENV_AQUA_IPFS_LOCAL_API_MULTIADDR`    | `/ip4/127.0.0.1/tcp/5001`                            | used by aqua-ipfs builtin to connect to IPFS node                                                               |
-| `FLUENCE_DEPLOY_CONNECTOR`                     | `false`                                              | switch to deploy connector builtin                                                                              |
 
 ## rich
 
@@ -70,4 +68,3 @@ binaries like bitcoin-cli or
 | `IPFS_ADDRESSES_ANNOUNCE`                      | `/ip4/127.0.0.1/tcp/4001,/ip4/127.0.0.1/tcp/4001/ws` | IPFS announce multiaddr                                                                                         |
 | `FLUENCE_ENV_AQUA_IPFS_EXTERNAL_API_MULTIADDR` | `/ip4/127.0.0.1/tcp/5001`                            | advertised to clients (eg frontend apps) to use in uploading files (`ipfs.put`), managing pins (`ipfs.pin`) etc |
 | `FLUENCE_ENV_AQUA_IPFS_LOCAL_API_MULTIADDR`    | `/ip4/127.0.0.1/tcp/5001`                            | used by aqua-ipfs builtin to connect to IPFS node                                                               |
-| `FLUENCE_DEPLOY_CONNECTOR`                     | `false`                                              | switch to deploy connector builtin                                                                              |

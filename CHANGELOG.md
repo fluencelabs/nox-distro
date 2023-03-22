@@ -1,5 +1,27 @@
 # Changelog
 
+## [0.1.7](https://github.com/fluencelabs/rust-peer-distro/compare/distro-v0.1.6...distro-v0.1.7) (2023-03-21)
+
+
+### Bug Fixes
+
+* **deps:** Update Fluence to 0.9.1 ([a4ba980](https://github.com/fluencelabs/rust-peer-distro/commit/a4ba980d796b1c0da15b310c5f57591d0fb709b6))
+
+## [0.1.6](https://github.com/fluencelabs/rust-peer-distro/compare/distro-v0.1.5...distro-v0.1.6) (2023-03-13)
+
+
+### Bug Fixes
+
+* Do deploy connector always ([#114](https://github.com/fluencelabs/rust-peer-distro/issues/114)) ([fe52de8](https://github.com/fluencelabs/rust-peer-distro/commit/fe52de8b28c6d387fc899c8827c073a1cf69ab34))
+
+## [0.1.5](https://github.com/fluencelabs/rust-peer-distro/compare/distro-v0.1.4...distro-v0.1.5) (2023-03-08)
+
+
+### Bug Fixes
+
+* **deps:** Update registry to 0.8.2 ([556d068](https://github.com/fluencelabs/rust-peer-distro/commit/556d0689063a5609a9e3113106f4ded9f4f41c9c))
+* Do not deploy connector builtin by default ([de58659](https://github.com/fluencelabs/rust-peer-distro/commit/de58659b6e32377d6548559d28dce09cae3f4931))
+
 ## [0.1.4](https://github.com/fluencelabs/rust-peer-distro/compare/distro-v0.1.3...distro-v0.1.4) (2023-02-28)
 
 

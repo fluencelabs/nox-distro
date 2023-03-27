@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.8](https://github.com/fluencelabs/rust-peer-distro/compare/distro-v0.1.7...distro-v0.1.8) (2023-03-27)
+
+
+### Bug Fixes
+
+* **deps:** Update connector to 0.4.4 ([eb208b8](https://github.com/fluencelabs/rust-peer-distro/commit/eb208b8be1a162814ccc4baddba22150e7c80899))
+
 ## [0.1.7](https://github.com/fluencelabs/rust-peer-distro/compare/distro-v0.1.6...distro-v0.1.7) (2023-03-21)
 
 

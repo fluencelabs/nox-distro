@@ -65,7 +65,8 @@ ENV FLUENCE_ENV_AQUA_IPFS_EXTERNAL_API_MULTIADDR=/dns4/ipfs.fluence.dev/tcp/5001
 ENV FLUENCE_ENV_AQUA_IPFS_LOCAL_API_MULTIADDR=/dns4/ipfs.fluence.dev/tcp/5001
 
 # connector[decider] builtin default env variable
-# instruct to join all deals
+# 'true' means to join all deals
+# 'false' means to join no deals and disable connector completely
 ENV FLUENCE_ENV_CONNECTOR_JOIN_ALL_DEALS=true
 
 # download fluence, builtins

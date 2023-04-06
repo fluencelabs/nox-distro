@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.10](https://github.com/fluencelabs/rust-peer-distro/compare/distro-v0.1.9...distro-v0.1.10) (2023-04-06)
+
+
+### Bug Fixes
+
+* **deps:** Update Fluence to 0.10.0 ([97fabbc](https://github.com/fluencelabs/rust-peer-distro/commit/97fabbc4edb862caa743e3643fd4516b3150c3df))
+
 ## [0.1.9](https://github.com/fluencelabs/rust-peer-distro/compare/distro-v0.1.8...distro-v0.1.9) (2023-04-06)
 
 

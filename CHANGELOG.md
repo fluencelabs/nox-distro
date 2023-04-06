@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.9](https://github.com/fluencelabs/rust-peer-distro/compare/distro-v0.1.8...distro-v0.1.9) (2023-04-06)
+
+
+### Bug Fixes
+
+* **deps:** Update registry to 0.8.3 ([22f0dc8](https://github.com/fluencelabs/rust-peer-distro/commit/22f0dc8317fa9458d5cfbb77b818617fa4b68a6f))
+
 ## [0.1.8](https://github.com/fluencelabs/rust-peer-distro/compare/distro-v0.1.7...distro-v0.1.8) (2023-03-27)
 
 

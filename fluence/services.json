@@ -15,8 +15,8 @@
     "sha256": "a5311ac8f6dbf1d68c9478628ca9cf7239edad02ef83dcc2fc9144710bb819bb"
   },
   "connector": {
-    "version": "0.4.4",
-    "url": "https://github.com/fluencelabs/control-plane/releases/download/connector-v0.4.4/connector.tar.gz",
-    "sha256": "436b9edcc54eb0376ee1e44c7ad05d91ba0d3edb934e730927319efa105d39c4"
+    "version": "0.4.6",
+    "url": "https://github.com/fluencelabs/control-plane/releases/download/connector-v0.4.6/connector.tar.gz",
+    "sha256": "2a8df630976298019eb955ffbe70438c03ee783b92e1d6d4586c19181537f250"
   }
 }

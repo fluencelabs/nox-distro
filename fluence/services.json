@@ -7,7 +7,7 @@
   "trust-graph": {
     "version": "v0.4.1",
     "url": "https://github.com/fluencelabs/trust-graph/releases/download/trust-graph-v0.4.1/trust-graph.tar.gz",
-    "sha256": "b39b6970c6aa7d209d0f61dfd9c0977a9612b42650b58d90503f9a4651c6f2b0"
+    "sha256": "659db7701c09cae75ead3ffd61b67f73dd3e4b6e577d88a10fddf92023903e4e"
   },
   "registry": {
     "version": "0.8.3",

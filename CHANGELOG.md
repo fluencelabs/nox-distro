@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.1.13](https://github.com/fluencelabs/rust-peer-distro/compare/distro-v0.1.12...distro-v0.1.13) (2023-04-20)
+
+
+### Bug Fixes
+
+* **deps:** Bump trust-graph to 0.4.1 [#125](https://github.com/fluencelabs/rust-peer-distro/issues/125) ([51fd1b1](https://github.com/fluencelabs/rust-peer-distro/commit/51fd1b1e3340145294d9bf0d598d299483cc1617))
+* **deps:** Update aqua-ipfs to 0.5.10 ([bc95dc8](https://github.com/fluencelabs/rust-peer-distro/commit/bc95dc820ea9dba95a354645636d3b9c63624ebc))
+* **deps:** Update connector to 0.4.7 ([2d4ff11](https://github.com/fluencelabs/rust-peer-distro/commit/2d4ff11b66ed7374b98292a1138ac44dd9e192a7))
+* **deps:** Update Fluence to 0.11.1 ([df3562f](https://github.com/fluencelabs/rust-peer-distro/commit/df3562fee37ed40b84b83597cd7ebdb8456672ed))
+* **deps:** Update registry to 0.8.4 ([031cfae](https://github.com/fluencelabs/rust-peer-distro/commit/031cfaeecb438ae2caf920f31c4a020fbbfa5f43))
+
 ## [0.1.12](https://github.com/fluencelabs/rust-peer-distro/compare/distro-v0.1.11...distro-v0.1.12) (2023-04-12)
 
 

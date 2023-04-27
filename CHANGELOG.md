@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.1.14](https://github.com/fluencelabs/rust-peer-distro/compare/distro-v0.1.13...distro-v0.1.14) (2023-04-27)
+
+
+### Features
+
+* **dockerfile:** set default env variables for decider ([3b9c158](https://github.com/fluencelabs/rust-peer-distro/commit/3b9c15887c6006069ff87b4b19079e084de6fe4a))
+* **dockerfile:** set default env variables for decider [NET-460] ([#128](https://github.com/fluencelabs/rust-peer-distro/issues/128)) ([3b9c158](https://github.com/fluencelabs/rust-peer-distro/commit/3b9c15887c6006069ff87b4b19079e084de6fe4a))
+
+
+### Bug Fixes
+
+* **deps:** Update aqua-ipfs to 0.5.11 ([a789f71](https://github.com/fluencelabs/rust-peer-distro/commit/a789f71753569bdb13524418acb8aacb078132b9))
+
 ## [0.1.13](https://github.com/fluencelabs/rust-peer-distro/compare/distro-v0.1.12...distro-v0.1.13) (2023-04-20)
 
 

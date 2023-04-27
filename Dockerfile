@@ -64,10 +64,15 @@ RUN \
 ENV FLUENCE_ENV_AQUA_IPFS_EXTERNAL_API_MULTIADDR=/dns4/ipfs.fluence.dev/tcp/5001
 ENV FLUENCE_ENV_AQUA_IPFS_LOCAL_API_MULTIADDR=/dns4/ipfs.fluence.dev/tcp/5001
 
-# connector[decider] builtin default env variable
+# connector[decider] builtin default env variables
 # 'true' means to join all deals
 # 'false' means to join no deals and disable connector completely
 ENV FLUENCE_ENV_CONNECTOR_JOIN_ALL_DEALS=true
+# instruct decider to work with specific chain
+# can be set to `aurora-testnet`, `testnet`, `polygon-testnet` and `local`
+ENV FLUENCE_ENV_CONNECTOR_NET=aurora-testnet
+# deal contract address
+ENV FLUENCE_ENV_CONNECTOR_CONTRACT_ADDRESS=0xb497e025D3095A197E30Ca84DEc36a637E649868
 
 # download fluence, builtins
 RUN --mount=type=bind,source=fluence,target=/fluence /fluence/download_builtins.sh /fluence/services.json

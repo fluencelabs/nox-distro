@@ -83,3 +83,10 @@ bootstrap_max_delay = "60s"
 upgrade_timeout = "10s"
 keep_alive_timeout = "10s"
 outbound_substream_timeout = "10s"
+
+allowed_binaries = [
+    "/usr/bin/curl",
+    "/usr/bin/ipfs",
+    "/usr/bin/glaze",
+    "/usr/bin/bitcoin-cli"
+]

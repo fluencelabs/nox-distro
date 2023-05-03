@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.1.16](https://github.com/fluencelabs/rust-peer-distro/compare/distro-v0.1.15...distro-v0.1.16) (2023-05-03)
+
+
+### Bug Fixes
+
+* **config:** allow rich mounted binaries ([#132](https://github.com/fluencelabs/rust-peer-distro/issues/132)) ([fd17942](https://github.com/fluencelabs/rust-peer-distro/commit/fd17942f39fe3bba34466c3e0067eab5f71aa565))
+* **deps:** Update aqua-ipfs to 0.5.12 ([a948add](https://github.com/fluencelabs/rust-peer-distro/commit/a948add57084d1aeb8254239b1cd89779c0303df))
+* **deps:** Update Fluence to 0.11.3 ([583a5da](https://github.com/fluencelabs/rust-peer-distro/commit/583a5da26882fd18ab44de4f4ff7b4e2e478afe0))
+
 ## [0.1.15](https://github.com/fluencelabs/rust-peer-distro/compare/distro-v0.1.14...distro-v0.1.15) (2023-04-27)
 
 

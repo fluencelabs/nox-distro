@@ -3,11 +3,16 @@
 # import ENV from container
 with-contenv
 
-# remove old HOME variable from the environment, so the daemon isn't confused by it
-# see https://github.com/fluencelabs/node-distro/issues/14 for more details
-unexport HOME
+if [[ $IPFS_DAEMON == "false" ]]; then
+  echo "IPFS daemon will not start"
+  exit 0
+else
+  # remove old HOME variable from the environment, so the daemon isn't confused by it
+  # see https://github.com/fluencelabs/node-distro/issues/14 for more details
+  unexport HOME
 
-# seems like IPFS logs most logs to stderr, so
-# map stderr to stdout so s6-log can catch it
-fdmove -c 2 1
-s6-setuidgid abc ipfs daemon
+  # seems like IPFS logs most logs to stderr, so
+  # map stderr to stdout so s6-log can catch it
+  fdmove -c 2 1
+  s6-setuidgid abc ipfs daemon
+fi

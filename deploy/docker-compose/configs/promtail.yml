@@ -13,15 +13,12 @@ scrape_configs:
             values: ["scrape=true"]
     pipeline_stages:
       - multiline:
-          firstline: '^[(?P<time>\S+)\s+\S+\s+\S+]'
+          firstline: '^(?P<time>\S+)\s+(?P<level>\S+)\s+\S+'
       - regex:
-          expression: '^[(?P<time>\S+)\s+\S+\s+\S+].*'
+          expression: '^(?P<time>\S+)\s+(?P<level>\S+)\s+\S+.*'
       - timestamp:
           source: time
           format: "RFC3339Nano"
-      - drop:
-          expression: "tide::log::middleware"
-          drop_counter_reason: "spam"
     relabel_configs:
       - source_labels: ["__meta_docker_container_label_name"]
         target_label: "instance"

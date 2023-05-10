@@ -1,8 +1,8 @@
 {
   "aqua-ipfs": {
-    "version": "0.5.12",
-    "url": "https://github.com/fluencelabs/aqua-ipfs/releases/download/aqua-ipfs-v0.5.12/aqua-ipfs.tar.gz",
-    "sha256": "06b18c98c2cf60ca0931ccd1441cd7717ffb192eca2af5a2d85f0c3ce660fdf8"
+    "version": "0.5.13",
+    "url": "https://github.com/fluencelabs/aqua-ipfs/releases/download/aqua-ipfs-v0.5.13/aqua-ipfs.tar.gz",
+    "sha256": "7b5bf207ec6b2dc5714b6a3848e5430c51380f92208499f07f30ae5ae2cec54a"
   },
   "trust-graph": {
     "version": "0.4.5",

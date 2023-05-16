@@ -1,7 +1,4 @@
-#!/bin/execlineb -P
-
-# import ENV from container
-with-contenv
+#!/usr/bin/with-contenv sh
 
 if [[ $IPFS_DAEMON == "false" ]]; then
   echo "IPFS daemon will not start"

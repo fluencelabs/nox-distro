@@ -1,22 +1,22 @@
 {
   "aqua-ipfs": {
-    "version": "0.5.12",
-    "url": "https://github.com/fluencelabs/aqua-ipfs/releases/download/aqua-ipfs-v0.5.12/aqua-ipfs.tar.gz",
-    "sha256": "06b18c98c2cf60ca0931ccd1441cd7717ffb192eca2af5a2d85f0c3ce660fdf8"
+    "version": "0.5.13",
+    "url": "https://github.com/fluencelabs/aqua-ipfs/releases/download/aqua-ipfs-v0.5.13/aqua-ipfs.tar.gz",
+    "sha256": "7b5bf207ec6b2dc5714b6a3848e5430c51380f92208499f07f30ae5ae2cec54a"
   },
   "trust-graph": {
-    "version": "v0.4.1",
-    "url": "https://github.com/fluencelabs/trust-graph/releases/download/trust-graph-v0.4.1/trust-graph.tar.gz",
-    "sha256": "659db7701c09cae75ead3ffd61b67f73dd3e4b6e577d88a10fddf92023903e4e"
+    "version": "0.4.5",
+    "url": "https://github.com/fluencelabs/trust-graph/releases/download/trust-graph-v0.4.5/trust-graph.tar.gz",
+    "sha256": "ad795b1571bab0a64d2d69953e9c5625eb4a9b4998c6714765d685a966be5e88"
   },
   "registry": {
-    "version": "0.8.4",
-    "url": "https://github.com/fluencelabs/registry/releases/download/registry-v0.8.4/registry.tar.gz",
-    "sha256": "036b16448cd7471b3f92f98f3d1745f5b8ef476475198943a505c7db7d94822d"
+    "version": "0.8.5",
+    "url": "https://github.com/fluencelabs/registry/releases/download/registry-v0.8.5/registry.tar.gz",
+    "sha256": "044fb882dfb026b55817bf02994da9b38dd6b45e454570a2995df6a43b2b1f24"
   },
   "connector": {
-    "version": "0.4.8",
-    "url": "https://github.com/fluencelabs/control-plane/releases/download/connector-v0.4.8/connector.tar.gz",
-    "sha256": "2aa0e4d6cde85df8d6c692e10e4ae141c69af7db2332724265d22445828ece9d"
+    "version": "0.4.9",
+    "url": "https://github.com/fluencelabs/control-plane/releases/download/connector-v0.4.9/connector.tar.gz",
+    "sha256": "7a7f866eb7e994c8869ca3c21cfdff257a01463a6682ab1f0a58dda3330afc89"
   }
 }

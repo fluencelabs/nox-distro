@@ -6,26 +6,36 @@ ARG BITCOIN_CLI_VERSION=23.0
 
 # prepare stage images
 # ----------------------------------------------------------------------------
-FROM ethereum/client-go:release-${GETH_VERSION} as prepare-geth
-FROM ipfs/go-ipfs:v${IPFS_VERSION} as prepare-ipfs
+FROM --platform=$BUILDPLATFORM ethereum/client-go:release-${GETH_VERSION} as prepare-geth
+FROM --platform=$BUILDPLATFORM ipfs/go-ipfs:v${IPFS_VERSION} as prepare-ipfs
 
-FROM alpine as prepare-bitcoin
+FROM --platform=$BUILDPLATFORM alpine as prepare-bitcoin
+ARG TARGETPLATFORM
+ARG BUILDPLATFORM
 ARG BITCOIN_CLI_VERSION
 # Download checksums
 ADD https://bitcoincore.org/bin/bitcoin-core-${BITCOIN_CLI_VERSION}/SHA256SUMS ./
-# Download archive
-ADD https://bitcoincore.org/bin/bitcoin-core-${BITCOIN_CLI_VERSION}/bitcoin-${BITCOIN_CLI_VERSION}-x86_64-linux-gnu.tar.gz ./
-# Verify that downloaded archive matches exactly the hash that's provided
-RUN grep " bitcoin-${BITCOIN_CLI_VERSION}-x86_64-linux-gnu.tar.gz\$" SHA256SUMS | sha256sum -c -
-# Extract
-RUN tar -xzf "bitcoin-${BITCOIN_CLI_VERSION}-x86_64-linux-gnu.tar.gz"
+
+RUN \
+  case "$TARGETPLATFORM" in \
+    'linux/amd64') \
+      ARCHIVE="bitcoin-${BITCOIN_CLI_VERSION}-x86_64-linux-gnu.tar.gz" ;; \
+    'linux/arm64') \
+      ARCHIVE="bitcoin-${BITCOIN_CLI_VERSION}-aarch64-linux-gnu.tar.gz" ;; \
+  esac \
+  && wget "https://bitcoincore.org/bin/bitcoin-core-${BITCOIN_CLI_VERSION}/$ARCHIVE" \
+  && grep " $ARCHIVE\$" SHA256SUMS | sha256sum -c - \
+  && tar -xzf "$ARCHIVE" \
+  && rm "$ARCHIVE"
 
 # minimal
 # ----------------------------------------------------------------------------
-FROM ghcr.io/linuxserver/baseimage-ubuntu:jammy as minimal
+FROM --platform=$TARGETPLATFORM ghcr.io/linuxserver/baseimage-ubuntu:jammy as minimal
+ARG TARGETPLATFORM
+ARG BUILDPLATFORM
 
 # https://github.com/opencontainers/image-spec/blob/main/annotations.md#pre-defined-annotation-keys
-LABEL org.opencontainers.image.base.name="ghcr.io/linuxserver/baseimage-ubuntu:focal"
+LABEL org.opencontainers.image.base.name="ghcr.io/linuxserver/baseimage-ubuntu:jammy"
 LABEL org.opencontainers.image.url="https://github.com/fluencelabs/rust-peer-distro"
 LABEL org.opencontainers.image.vendor="fluencelabs"
 LABEL maintainer="fluencelabs"
@@ -55,9 +65,15 @@ RUN \
 
 # install missing libssl
 RUN \
-  wget http://security.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.1_1.1.1-1ubuntu2.1~18.04.22_amd64.deb \
-  && dpkg -i libssl1.1_1.1.1-1ubuntu2.1~18.04.22_amd64.deb \
-  && rm libssl1.1_1.1.1-1ubuntu2.1~18.04.22_amd64.deb
+  case "$TARGETPLATFORM" in \
+    'linux/amd64') \
+      URL="http://security.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.1_1.1.1f-1ubuntu2_amd64.deb" ;; \
+    'linux/arm64') \
+      URL="https://launchpad.net/ubuntu/bionic/arm64/libssl1.1/1.1.1-1ubuntu2.1~18.04.23" ;; \
+  esac \
+  && wget $URL -O libssl.deb \
+  && dpkg -i libssl.deb \
+  && rm libssl.deb
 
 # aqua-ipfs builtin default env variables
 # instruct aqua-ipfs (client) to work with an IPFS node hosted on ipfs.fluence.dev
@@ -91,6 +107,8 @@ COPY s6/minimal/ /
 # ipfs
 # ----------------------------------------------------------------------------
 FROM minimal as ipfs
+ARG TARGETPLATFORM
+ARG BUILDPLATFORM
 
 LABEL org.opencontainers.image.description="rust-peer bundled with IPFS daemon"
 LABEL dev.fluence.bundles.ipfs="${IPFS_VERSION}"
@@ -110,7 +128,14 @@ ENV FLUENCE_ENV_AQUA_IPFS_EXTERNAL_API_MULTIADDR=/ip4/127.0.0.1/tcp/5001
 ENV FLUENCE_ENV_AQUA_IPFS_LOCAL_API_MULTIADDR=/ip4/127.0.0.1/tcp/5001
 
 # download fs-repo-migrations
-RUN wget -qO - "https://dist.ipfs.io/fs-repo-migrations/v2.0.2/fs-repo-migrations_v2.0.2_linux-amd64.tar.gz" | tar -C /usr/local/bin --strip-components=1 -zxvf -
+RUN \
+  case "$TARGETPLATFORM" in \
+    'linux/amd64') \
+      ARCHIVE="fs-repo-migrations_v2.0.2_linux-amd64.tar.gz" ;; \
+    'linux/arm64') \
+      ARCHIVE="fs-repo-migrations_v2.0.2_linux-arm64.tar.gz" ;; \
+  esac \
+  && wget -qO - "https://dist.ipfs.io/fs-repo-migrations/v2.0.2/$ARCHIVE" | tar -C /usr/local/bin --strip-components=1 -zxvf -
 
 # copy s6 configs
 COPY s6/ipfs/ /
@@ -125,6 +150,8 @@ ARG CERAMIC_VERSION
 ARG GLAZED_VERSION
 ARG GETH_VERSION
 ARG BITCOIN_CLI_VERSION
+ARG TARGETPLATFORM
+ARG BUILDPLATFORM
 
 LABEL org.opencontainers.image.description="rust-peer bundled with IPFS, Ceramic CLI and other tools"
 LABEL dev.fluence.image.bundles.ceramic="${CERAMIC_VERSION}"

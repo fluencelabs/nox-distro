@@ -65,6 +65,7 @@ RUN \
 
 # install missing libssl
 RUN \
+<<<<<<< HEAD
   case "$TARGETPLATFORM" in \
     'linux/amd64') \
       URL="http://security.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.1_1.1.1f-1ubuntu2_amd64.deb" ;; \
@@ -74,6 +75,11 @@ RUN \
   && wget $URL -O libssl.deb \
   && dpkg -i libssl.deb \
   && rm libssl.deb
+=======
+  wget http://security.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.1_1.1.1f-1ubuntu2_amd64.deb \
+  && dpkg -i libssl1.1_1.1.1f-1ubuntu2_amd64.deb \
+  && rm libssl1.1_1.1.1f-1ubuntu2_amd64.deb
+>>>>>>> main
 
 # aqua-ipfs builtin default env variables
 # instruct aqua-ipfs (client) to work with an IPFS node hosted on ipfs.fluence.dev
@@ -84,11 +90,12 @@ ENV FLUENCE_ENV_AQUA_IPFS_LOCAL_API_MULTIADDR=/dns4/ipfs.fluence.dev/tcp/5001
 # 'true' means to join all deals
 # 'false' means to join no deals and disable connector completely
 ENV FLUENCE_ENV_CONNECTOR_JOIN_ALL_DEALS=true
-# instruct decider to work with specific chain
-# can be set to `aurora-testnet`, `testnet`, `polygon-testnet` and `local`
-ENV FLUENCE_ENV_CONNECTOR_NET=aurora-testnet
+# instruct decider which api endpoint to poll
+ENV FLUENCE_ENV_CONNECTOR_API_ENDPOINT=https://testnet.aurora.dev
 # deal contract address
 ENV FLUENCE_ENV_CONNECTOR_CONTRACT_ADDRESS=0xb497e025D3095A197E30Ca84DEc36a637E649868
+# find deals from this block
+ENV FLUENCE_ENV_CONNECTOR_FROM_BLOCK=0x75f3fbc
 
 # download fluence, builtins
 RUN --mount=type=bind,source=fluence,target=/fluence /fluence/download_builtins.sh /fluence/services.json

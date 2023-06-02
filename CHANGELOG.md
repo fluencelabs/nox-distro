@@ -1,5 +1,39 @@
 # Changelog
 
+## [0.1.21](https://github.com/fluencelabs/rust-peer-distro/compare/distro-v0.1.20...distro-v0.1.21) (2023-05-26)
+
+
+### Bug Fixes
+
+* **deps:** Update connector to 0.4.10 ([b9572ce](https://github.com/fluencelabs/rust-peer-distro/commit/b9572ce56e0803df95e62eea344c7d74c249ef0b))
+
+## [0.1.20](https://github.com/fluencelabs/rust-peer-distro/compare/distro-v0.1.19...distro-v0.1.20) (2023-05-22)
+
+
+### Bug Fixes
+
+* **deps:** Update Fluence to 0.12.1 ([0d7c399](https://github.com/fluencelabs/rust-peer-distro/commit/0d7c3992ff73498c192c606fb04a5b059f081f3d))
+
+## [0.1.19](https://github.com/fluencelabs/rust-peer-distro/compare/distro-v0.1.18...distro-v0.1.19) (2023-05-19)
+
+
+### Bug Fixes
+
+* **deps:** Update Fluence to 0.12.0 ([b66aae0](https://github.com/fluencelabs/rust-peer-distro/commit/b66aae02073b317c36706093bd5851bd6dcc1549))
+
+## [0.1.18](https://github.com/fluencelabs/rust-peer-distro/compare/distro-v0.1.17...distro-v0.1.18) (2023-05-19)
+
+
+### Bug Fixes
+
+* **deps:** Update aqua-ipfs to 0.5.13 ([4b4b1db](https://github.com/fluencelabs/rust-peer-distro/commit/4b4b1db73dcd0ed9c9ffcddd92dbb7f6cbeac7d9))
+* **deps:** Update connector to 0.4.9 ([15f0854](https://github.com/fluencelabs/rust-peer-distro/commit/15f0854394959b89a0192559dedf84ec68100e1e))
+* **deps:** Update registry to 0.8.5 ([dbbd6a6](https://github.com/fluencelabs/rust-peer-distro/commit/dbbd6a63beff869d15ae64f3aaa0803381b368f9))
+* **deps:** Update trust-graph to 0.4.3 ([6554394](https://github.com/fluencelabs/rust-peer-distro/commit/6554394929e95238fd7f99a3d96ed445a575cc99))
+* **deps:** Update trust-graph to 0.4.5 ([002af43](https://github.com/fluencelabs/rust-peer-distro/commit/002af433faec95ffa1428e47c9b15e5ae8d19a4f))
+* Do not start IPFS daemon when IPFS_DAEMON is false ([#136](https://github.com/fluencelabs/rust-peer-distro/issues/136)) ([698d4e5](https://github.com/fluencelabs/rust-peer-distro/commit/698d4e50b8c4460b25e3e9a41adfab5b6c4ca4ed))
+* Fix IPFS s6 run script ([#138](https://github.com/fluencelabs/rust-peer-distro/issues/138)) ([843a747](https://github.com/fluencelabs/rust-peer-distro/commit/843a74794160eec2a7f6f9b0907898aa254a6ebe))
+
 ## [0.1.17](https://github.com/fluencelabs/rust-peer-distro/compare/distro-v0.1.16...distro-v0.1.17) (2023-05-06)
 
 

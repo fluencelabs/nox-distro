@@ -72,3 +72,10 @@ jobs:
       image: "docker.fluence.dev/rust-peer-distro"
       flavour: minimal
       version: ${{ needs.version.outputs.id }}
+
+  fluence-cli:
+    needs:
+      - snapshot
+    uses: fluencelabs/fluence-cli/.github/workflows/tests.yml@main
+    with:
+      rust-peer-image: "${{ needs.snapshot.outputs.rust-peer-image }}"

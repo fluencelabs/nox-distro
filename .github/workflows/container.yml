@@ -38,7 +38,7 @@ jobs:
       RELEASE_VERSION: ${{ inputs.version }}
 
     outputs:
-      image: "${{ inputs.image-name }}@${{ steps.docker.outputs.digest }}"
+      image: "${{ inputs.image }}@${{ steps.docker.outputs.digest }}"
 
     steps:
       - name: Set build date

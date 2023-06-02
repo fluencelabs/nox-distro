@@ -38,12 +38,21 @@ jobs:
   publish:
     if: needs.release-please.outputs.release-created
     needs: release-please
+    strategy:
+      matrix:
+        flavour:
+          - minimal
+          - ipfs
+          - rich
+
     permissions:
       contents: read
       id-token: write
+
     uses: ./.github/workflows/container.yml
     with:
       version: ${{ needs.release-please.outputs.version }}
+      flavour: ${{ matrix.flavour }}
       release: true
 
   update-release:

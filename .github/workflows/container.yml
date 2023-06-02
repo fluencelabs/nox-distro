@@ -37,6 +37,9 @@ jobs:
     env:
       RELEASE_VERSION: ${{ inputs.version }}
 
+    outputs:
+      image: "${{ inputs.image-name }}@${{ steps.docker.outputs.digest }}"
+
     steps:
       - name: Set build date
         run: echo "BUILD_DATE=$(date '+%Y-%m-%dT%H:%M:%S%:z')" >> $GITHUB_ENV

@@ -6,10 +6,10 @@ ARG BITCOIN_CLI_VERSION=23.0
 
 # prepare stage images
 # ----------------------------------------------------------------------------
-FROM --platform=$BUILDPLATFORM ethereum/client-go:release-${GETH_VERSION} as prepare-geth
-FROM --platform=$BUILDPLATFORM ipfs/go-ipfs:v${IPFS_VERSION} as prepare-ipfs
+FROM --platform=$TARGETPLATFORM ethereum/client-go:release-${GETH_VERSION} as prepare-geth
+FROM --platform=$TARGETPLATFORM ipfs/go-ipfs:v${IPFS_VERSION} as prepare-ipfs
 
-FROM --platform=$BUILDPLATFORM alpine as prepare-bitcoin
+FROM --platform=$TARGETPLATFORM alpine as prepare-bitcoin
 ARG TARGETPLATFORM
 ARG BUILDPLATFORM
 ARG BITCOIN_CLI_VERSION

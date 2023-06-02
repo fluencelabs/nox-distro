@@ -43,6 +43,7 @@ jobs:
         uses: fluencelabs/github-actions/generate-snapshot-id@main
 
   flavours:
+    name: "snapshot"
     needs: version
     strategy:
       matrix:

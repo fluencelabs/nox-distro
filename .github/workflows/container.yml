@@ -21,7 +21,7 @@ on:
     outputs:
       rust-peer-image:
         description: "rust-peer snapshot image"
-        value: ${{ jobs.publish.outputs.image }}
+        value: ${{ jobs.build.outputs.image }}
 
 jobs:
   build:

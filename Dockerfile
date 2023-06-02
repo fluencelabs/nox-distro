@@ -65,7 +65,6 @@ RUN \
 
 # install missing libssl
 RUN \
-<<<<<<< HEAD
   case "$TARGETPLATFORM" in \
     'linux/amd64') \
       URL="http://security.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.1_1.1.1f-1ubuntu2_amd64.deb" ;; \
@@ -75,11 +74,6 @@ RUN \
   && wget $URL -O libssl.deb \
   && dpkg -i libssl.deb \
   && rm libssl.deb
-=======
-  wget http://security.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.1_1.1.1f-1ubuntu2_amd64.deb \
-  && dpkg -i libssl1.1_1.1.1f-1ubuntu2_amd64.deb \
-  && rm libssl1.1_1.1.1f-1ubuntu2_amd64.deb
->>>>>>> main
 
 # aqua-ipfs builtin default env variables
 # instruct aqua-ipfs (client) to work with an IPFS node hosted on ipfs.fluence.dev

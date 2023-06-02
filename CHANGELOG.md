@@ -1,5 +1,21 @@
 # Changelog
 
+## [0.1.22](https://github.com/fluencelabs/rust-peer-distro/compare/distro-v0.1.21...distro-v0.1.22) (2023-06-02)
+
+
+### Features
+
+* **decider:** set default connector api endpoint [NET-479] ([#144](https://github.com/fluencelabs/rust-peer-distro/issues/144)) ([4caac9f](https://github.com/fluencelabs/rust-peer-distro/commit/4caac9f45f9f753d6f1e9fb7a4c9471a90336488))
+* **Dockerfile:** set default FLUENCE_ENV_CONNECTOR_FROM_BLOCK env ([#145](https://github.com/fluencelabs/rust-peer-distro/issues/145)) ([3cdbba8](https://github.com/fluencelabs/rust-peer-distro/commit/3cdbba83957a48b84b398eb6b6fb6b8b6148420f))
+
+
+### Bug Fixes
+
+* **deps:** Update connector to 0.4.11 ([75f5dc8](https://github.com/fluencelabs/rust-peer-distro/commit/75f5dc885b8f7b4c19aebfe4c69dc1cb4ad0bd5e))
+* **deps:** Update connector to 0.4.12 ([1fcbc32](https://github.com/fluencelabs/rust-peer-distro/commit/1fcbc32a0b2f0d6932f274705c0b28300337a407))
+* **deps:** Update connector to 0.4.13 ([ba4772f](https://github.com/fluencelabs/rust-peer-distro/commit/ba4772fef2301a2123e298d282999764c842eafd))
+* **deps:** Update registry to 0.8.6 ([81b9001](https://github.com/fluencelabs/rust-peer-distro/commit/81b900140b8cbdca3bd7f3f76c9c86af0f2c69bc))
+
 ## [0.1.21](https://github.com/fluencelabs/rust-peer-distro/compare/distro-v0.1.20...distro-v0.1.21) (2023-05-26)
 
 

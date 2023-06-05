@@ -1,4 +1,4 @@
-#! /usr/bin/env bash
+#! /usr/bin/env sh
 
 case "$TARGETPLATFORM" in
 'linux/amd64')

@@ -142,7 +142,7 @@ RUN \
   --mount=type=cache,target=/var/cache/apt \
   apt-get install -y --no-install-recommends \
     musl \
-    nodejs
+    nodejs npm
 
 # install ceramic and glaze
 RUN \

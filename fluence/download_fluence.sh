@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 set -o pipefail -o errexit -o nounset
-set +x
 
 # Validate necessary commands and given config file
 for cmd in jq curl sha256sum; do

@@ -13,20 +13,12 @@ FROM --platform=$TARGETPLATFORM alpine as prepare-bitcoin
 ARG TARGETPLATFORM
 ARG BUILDPLATFORM
 ARG BITCOIN_CLI_VERSION
+
 # Download checksums
 ADD https://bitcoincore.org/bin/bitcoin-core-${BITCOIN_CLI_VERSION}/SHA256SUMS ./
 
-RUN \
-  case "$TARGETPLATFORM" in \
-    'linux/amd64') \
-      ARCHIVE="bitcoin-${BITCOIN_CLI_VERSION}-x86_64-linux-gnu.tar.gz" ;; \
-    'linux/arm64') \
-      ARCHIVE="bitcoin-${BITCOIN_CLI_VERSION}-aarch64-linux-gnu.tar.gz" ;; \
-  esac \
-  && wget "https://bitcoincore.org/bin/bitcoin-core-${BITCOIN_CLI_VERSION}/$ARCHIVE" \
-  && grep " $ARCHIVE\$" SHA256SUMS | sha256sum -c - \
-  && tar -xzf "$ARCHIVE" \
-  && rm "$ARCHIVE"
+# Download bitcoin archive
+RUN --mount=type=bind,source=docker,target=/docker /docker/download_bitncoin_cli.sh
 
 # minimal
 # ----------------------------------------------------------------------------
@@ -64,16 +56,7 @@ RUN \
   	/var/tmp/*
 
 # install missing libssl
-RUN \
-  case "$TARGETPLATFORM" in \
-    'linux/amd64') \
-      URL="http://security.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.1_1.1.1f-1ubuntu2_amd64.deb" ;; \
-    'linux/arm64') \
-      URL="http://launchpadlibrarian.net/668086110/libssl1.1_1.1.1-1ubuntu2.1~18.04.23_arm64.deb" ;; \
-  esac \
-  && wget $URL -O libssl.deb \
-  && dpkg -i libssl.deb \
-  && rm libssl.deb
+RUN --mount=type=bind,source=docker,target=/docker /docker/install_libssl.sh
 
 # aqua-ipfs builtin default env variables
 # instruct aqua-ipfs (client) to work with an IPFS node hosted on ipfs.fluence.dev
@@ -91,7 +74,7 @@ ENV FLUENCE_ENV_CONNECTOR_CONTRACT_ADDRESS=0xb497e025D3095A197E30Ca84DEc36a637E6
 # find deals from this block
 ENV FLUENCE_ENV_CONNECTOR_FROM_BLOCK=0x75f3fbc
 
-# download fluence, builtins
+# download rust-peer binary, builtins
 RUN --mount=type=bind,source=fluence,target=/fluence /fluence/download_builtins.sh /fluence/services.json
 RUN --mount=type=bind,source=fluence,target=/fluence /fluence/download_fluence.sh /fluence/fluence.json
 
@@ -129,15 +112,7 @@ ENV FLUENCE_ENV_AQUA_IPFS_EXTERNAL_API_MULTIADDR=/ip4/127.0.0.1/tcp/5001
 ENV FLUENCE_ENV_AQUA_IPFS_LOCAL_API_MULTIADDR=/ip4/127.0.0.1/tcp/5001
 
 # download fs-repo-migrations
-RUN \
-  case "$TARGETPLATFORM" in \
-    'linux/amd64') \
-      ARCHIVE="fs-repo-migrations_v2.0.2_linux-amd64.tar.gz" ;; \
-    'linux/arm64') \
-      ARCHIVE="fs-repo-migrations_v2.0.2_linux-arm64.tar.gz" ;; \
-  esac \
-  && wget -qO - "https://dist.ipfs.io/fs-repo-migrations/v2.0.2/$ARCHIVE" | tar -C /usr/local/bin --strip-components=1 -zxvf -
-
+RUN --mount=type=bind,source=docker,target=/docker /docker/install_libssl.sh
 # copy s6 configs
 COPY s6/ipfs/ /
 

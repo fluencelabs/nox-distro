@@ -71,9 +71,9 @@ ENV FLUENCE_ENV_CONNECTOR_CONTRACT_ADDRESS=0xb497e025D3095A197E30Ca84DEc36a637E6
 ENV FLUENCE_ENV_CONNECTOR_FROM_BLOCK=0x75f3fbc
 
 # download rust-peer binary, builtins
-COPY fluence/ /docker/
-RUN /docker/download_builtins.sh /docker/services.json
-RUN /docker/download_fluence.sh /docker/fluence.json
+COPY fluence/ /fluence/
+RUN /fluence/download_builtins.sh /fluence/services.json
+RUN /fluence/download_fluence.sh /fluence/fluence.json
 
 # copy default fluence config
 COPY fluence/Config.default.toml /.fluence/v1/Config.toml

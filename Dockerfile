@@ -141,7 +141,7 @@ RUN --mount=type=cache,target=/var/cache/apt \
   apt-get update && \
   apt-get install -y --no-install-recommends \
     musl \
-    nodejs npm
+    nodejs
 
 # install ceramic and glaze
 RUN --mount=type=cache,target=/var/cache/npm \

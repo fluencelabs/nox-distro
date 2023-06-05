@@ -18,7 +18,8 @@ ARG BITCOIN_CLI_VERSION
 ADD https://bitcoincore.org/bin/bitcoin-core-${BITCOIN_CLI_VERSION}/SHA256SUMS ./
 
 # Download bitcoin archive
-RUN --mount=type=bind,source=docker,target=/docker /docker/download_bitcoin_cli.sh
+COPY docker/download_bitcoin_cli.sh /docker/download_bitncoin_cli.sh
+RUN /docker/download_bitcoin_cli.sh
 
 # minimal
 # ----------------------------------------------------------------------------
@@ -41,22 +42,17 @@ ENV RUST_BACKTRACE="1"
 ENV S6_CMD_ARG0="/run_fluence"
 
 RUN \
-  echo "**** install packages ****" && \
+  --mount=type=cache,target=/var/cache/apt \
   apt-get update && \
   apt-get install -y --no-install-recommends \
   	jq \
   	less \
   	logrotate \
-  	curl wget && \
-  echo "**** cleanup ****" && \
-  apt-get clean && \
-  rm -rf \
-  	/tmp/* \
-  	/var/lib/apt/lists/* \
-  	/var/tmp/*
+  	curl wget
 
 # install missing libssl
-RUN --mount=type=bind,source=docker,target=/docker /docker/install_libssl.sh
+COPY docker/install_libssl.sh /docker/install_libssl.sh
+RUN /docker/install_libssl.sh
 
 # aqua-ipfs builtin default env variables
 # instruct aqua-ipfs (client) to work with an IPFS node hosted on ipfs.fluence.dev
@@ -75,8 +71,9 @@ ENV FLUENCE_ENV_CONNECTOR_CONTRACT_ADDRESS=0xb497e025D3095A197E30Ca84DEc36a637E6
 ENV FLUENCE_ENV_CONNECTOR_FROM_BLOCK=0x75f3fbc
 
 # download rust-peer binary, builtins
-RUN --mount=type=bind,source=fluence,target=/fluence /fluence/download_builtins.sh /fluence/services.json
-RUN --mount=type=bind,source=fluence,target=/fluence /fluence/download_fluence.sh /fluence/fluence.json
+COPY fluence/ /docker/
+RUN /docker/download_builtins.sh /docker/services.json
+RUN /docker/download_fluence.sh /docker/fluence.json
 
 # copy default fluence config
 COPY fluence/Config.default.toml /.fluence/v1/Config.toml
@@ -112,7 +109,9 @@ ENV FLUENCE_ENV_AQUA_IPFS_EXTERNAL_API_MULTIADDR=/ip4/127.0.0.1/tcp/5001
 ENV FLUENCE_ENV_AQUA_IPFS_LOCAL_API_MULTIADDR=/ip4/127.0.0.1/tcp/5001
 
 # download fs-repo-migrations
-RUN --mount=type=bind,source=docker,target=/docker /docker/install_libssl.sh
+COPY docker/download_fs_repo_migrations.sh /docker/download_fs_repo_migrations.sh
+RUN /docker/download_fs_repo_migrations.sh
+
 # copy s6 configs
 COPY s6/ipfs/ /
 
@@ -140,23 +139,17 @@ RUN curl -fsSL https://deb.nodesource.com/gpgkey/nodesource.gpg.key | gpg --dear
     && echo "deb [signed-by=/usr/share/keyrings/nodesource.gpg] https://deb.nodesource.com/node_16.x focal main" > /etc/apt/sources.list.d/nodesource.list
 
 RUN \
-  echo "**** install packages ****" && \
-  apt-get update && \
+  --mount=type=cache,target=/var/cache/apt \
   apt-get install -y --no-install-recommends \
     musl \
-    nodejs && \
-  echo "**** cleanup ****" && \
-  apt-get clean && \
-  rm -rf \
-    /tmp/* \
-    /var/lib/apt/lists/* \
-    /var/tmp/*
+    nodejs
 
 # install ceramic and glaze
-RUN npm install --cache /cache --global \
-  @ceramicnetwork/cli@$CERAMIC_VERSION \
-  @glazed/cli@$GLAZED_VERSION \
-  && rm -rf /cache
+RUN \
+  --mount=type=cache,target=/var/cache/npm \
+  npm install --cache /var/cache/npm --global \
+    @ceramicnetwork/cli@$CERAMIC_VERSION \
+    @glazed/cli@$GLAZED_VERSION
 
 # copy geth
 COPY --from=prepare-geth /usr/local/bin/geth /usr/bin/geth

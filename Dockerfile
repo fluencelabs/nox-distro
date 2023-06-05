@@ -107,9 +107,9 @@ ENV IPFS_ADDRESSES_ANNOUNCE=/ip4/127.0.0.1/tcp/4001,/ip4/127.0.0.1/tcp/4001/ws
 ENV FLUENCE_ENV_AQUA_IPFS_EXTERNAL_API_MULTIADDR=/ip4/127.0.0.1/tcp/5001
 ENV FLUENCE_ENV_AQUA_IPFS_LOCAL_API_MULTIADDR=/ip4/127.0.0.1/tcp/5001
 
-# download fs-repo-migrations
-COPY docker/download_fs_repo_migrations.sh /docker/download_fs_repo_migrations.sh
-RUN /docker/download_fs_repo_migrations.sh
+# download ipfs fs-repo-migrations tool
+COPY docker/download_ipfs_fs_repo_migrations.sh /docker/download_ipfs_fs_repo_migrations.sh
+RUN /docker/download_ipfs_fs_repo_migrations.sh
 
 # copy s6 configs
 COPY s6/ipfs/ /

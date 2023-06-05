@@ -1,4 +1,4 @@
-name: "Update rust-peer version"
+name: "Update nox version"
 
 on:
   workflow_call:

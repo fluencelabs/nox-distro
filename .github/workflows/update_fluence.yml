@@ -1,22 +1,16 @@
-name: "update_fluence"
+name: "Update nox version"
 
 on:
-  workflow_dispatch:
+  workflow_call:
     inputs:
       version:
-        description: 'Fluence version'
-        required: true
-      url:
-        description: 'Fluence binary URL'
-        required: true
-      sha256:
-        description: 'Fluence binary SHA256 hash'
+        description: 'Contents of fluence.json file'
         required: true
 
 jobs:
-  update_fluence:
-    name: "Update Fluence"
-    runs-on: "ubuntu-latest"
+  update:
+    name: "Update version"
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v3
@@ -24,14 +18,7 @@ jobs:
           token: ${{ secrets.FLUENCEBOT_RELEASE_PLEASE_PAT }}
 
       - name: Update Fluence in fluence.json to ${{ github.event.inputs.version }}
-        run: |
-          cat <<FLUENCE > fluence/fluence.json
-          {
-            "version": "${{ github.event.inputs.version }}",
-            "url": "${{ github.event.inputs.url }}",
-            "sha256": "${{ github.event.inputs.sha256 }}"
-          }
-          FLUENCE
+        run: echo ${{ inputs.version }} | jq > fluence/fluence.json
 
       - name: Commit updated fluence.json
         uses: stefanzweifel/git-auto-commit-action@v4

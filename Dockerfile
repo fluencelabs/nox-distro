@@ -6,26 +6,29 @@ ARG BITCOIN_CLI_VERSION=23.0
 
 # prepare stage images
 # ----------------------------------------------------------------------------
-FROM ethereum/client-go:release-${GETH_VERSION} as prepare-geth
-FROM ipfs/go-ipfs:v${IPFS_VERSION} as prepare-ipfs
+FROM --platform=$TARGETPLATFORM ethereum/client-go:release-${GETH_VERSION} as prepare-geth
+FROM --platform=$TARGETPLATFORM ipfs/go-ipfs:v${IPFS_VERSION} as prepare-ipfs
 
-FROM alpine as prepare-bitcoin
+FROM --platform=$TARGETPLATFORM alpine as prepare-bitcoin
+ARG TARGETPLATFORM
+ARG BUILDPLATFORM
 ARG BITCOIN_CLI_VERSION
+
 # Download checksums
 ADD https://bitcoincore.org/bin/bitcoin-core-${BITCOIN_CLI_VERSION}/SHA256SUMS ./
-# Download archive
-ADD https://bitcoincore.org/bin/bitcoin-core-${BITCOIN_CLI_VERSION}/bitcoin-${BITCOIN_CLI_VERSION}-x86_64-linux-gnu.tar.gz ./
-# Verify that downloaded archive matches exactly the hash that's provided
-RUN grep " bitcoin-${BITCOIN_CLI_VERSION}-x86_64-linux-gnu.tar.gz\$" SHA256SUMS | sha256sum -c -
-# Extract
-RUN tar -xzf "bitcoin-${BITCOIN_CLI_VERSION}-x86_64-linux-gnu.tar.gz"
+
+# Download bitcoin archive
+COPY docker/download_bitcoin_cli.sh /docker/download_bitcoin_cli.sh
+RUN /docker/download_bitcoin_cli.sh
 
 # minimal
 # ----------------------------------------------------------------------------
-FROM ghcr.io/linuxserver/baseimage-ubuntu:jammy as minimal
+FROM --platform=$TARGETPLATFORM ghcr.io/linuxserver/baseimage-ubuntu:jammy as minimal
+ARG TARGETPLATFORM
+ARG BUILDPLATFORM
 
 # https://github.com/opencontainers/image-spec/blob/main/annotations.md#pre-defined-annotation-keys
-LABEL org.opencontainers.image.base.name="ghcr.io/linuxserver/baseimage-ubuntu:focal"
+LABEL org.opencontainers.image.base.name="ghcr.io/linuxserver/baseimage-ubuntu:jammy"
 LABEL org.opencontainers.image.url="https://github.com/fluencelabs/rust-peer-distro"
 LABEL org.opencontainers.image.vendor="fluencelabs"
 LABEL maintainer="fluencelabs"
@@ -38,26 +41,17 @@ ENV RUST_BACKTRACE="1"
 ## set /run_fluence as the CMD binary
 ENV S6_CMD_ARG0="/run_fluence"
 
-RUN \
-  echo "**** install packages ****" && \
+RUN --mount=type=cache,target=/var/cache/apt \
   apt-get update && \
   apt-get install -y --no-install-recommends \
   	jq \
   	less \
   	logrotate \
-  	curl wget && \
-  echo "**** cleanup ****" && \
-  apt-get clean && \
-  rm -rf \
-  	/tmp/* \
-  	/var/lib/apt/lists/* \
-  	/var/tmp/*
+  	curl wget
 
 # install missing libssl
-RUN \
-  wget http://security.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.1_1.1.1f-1ubuntu2_amd64.deb \
-  && dpkg -i libssl1.1_1.1.1f-1ubuntu2_amd64.deb \
-  && rm libssl1.1_1.1.1f-1ubuntu2_amd64.deb
+COPY docker/install_libssl.sh /docker/install_libssl.sh
+RUN /docker/install_libssl.sh
 
 # aqua-ipfs builtin default env variables
 # instruct aqua-ipfs (client) to work with an IPFS node hosted on ipfs.fluence.dev
@@ -75,9 +69,10 @@ ENV FLUENCE_ENV_CONNECTOR_CONTRACT_ADDRESS=0xb497e025D3095A197E30Ca84DEc36a637E6
 # find deals from this block
 ENV FLUENCE_ENV_CONNECTOR_FROM_BLOCK=0x75f3fbc
 
-# download fluence, builtins
-RUN --mount=type=bind,source=fluence,target=/fluence /fluence/download_builtins.sh /fluence/services.json
-RUN --mount=type=bind,source=fluence,target=/fluence /fluence/download_fluence.sh /fluence/fluence.json
+# download rust-peer binary, builtins
+COPY fluence/ /fluence/
+RUN /fluence/download_builtins.sh /fluence/services.json
+RUN /fluence/download_fluence.sh /fluence/fluence.json
 
 # copy default fluence config
 COPY fluence/Config.default.toml /.fluence/v1/Config.toml
@@ -92,6 +87,8 @@ COPY s6/minimal/ /
 # ipfs
 # ----------------------------------------------------------------------------
 FROM minimal as ipfs
+ARG TARGETPLATFORM
+ARG BUILDPLATFORM
 
 LABEL org.opencontainers.image.description="rust-peer bundled with IPFS daemon"
 LABEL dev.fluence.bundles.ipfs="${IPFS_VERSION}"
@@ -110,8 +107,9 @@ ENV IPFS_ADDRESSES_ANNOUNCE=/ip4/127.0.0.1/tcp/4001,/ip4/127.0.0.1/tcp/4001/ws
 ENV FLUENCE_ENV_AQUA_IPFS_EXTERNAL_API_MULTIADDR=/ip4/127.0.0.1/tcp/5001
 ENV FLUENCE_ENV_AQUA_IPFS_LOCAL_API_MULTIADDR=/ip4/127.0.0.1/tcp/5001
 
-# download fs-repo-migrations
-RUN wget -qO - "https://dist.ipfs.io/fs-repo-migrations/v2.0.2/fs-repo-migrations_v2.0.2_linux-amd64.tar.gz" | tar -C /usr/local/bin --strip-components=1 -zxvf -
+# download ipfs fs-repo-migrations tool
+COPY docker/download_ipfs_fs_repo_migrations.sh /docker/download_ipfs_fs_repo_migrations.sh
+RUN /docker/download_ipfs_fs_repo_migrations.sh
 
 # copy s6 configs
 COPY s6/ipfs/ /
@@ -126,6 +124,8 @@ ARG CERAMIC_VERSION
 ARG GLAZED_VERSION
 ARG GETH_VERSION
 ARG BITCOIN_CLI_VERSION
+ARG TARGETPLATFORM
+ARG BUILDPLATFORM
 
 LABEL org.opencontainers.image.description="rust-peer bundled with IPFS, Ceramic CLI and other tools"
 LABEL dev.fluence.image.bundles.ceramic="${CERAMIC_VERSION}"
@@ -137,24 +137,17 @@ LABEL dev.fluence.image.bundles.geth="${GETH_VERSION}"
 RUN curl -fsSL https://deb.nodesource.com/gpgkey/nodesource.gpg.key | gpg --dearmor > /usr/share/keyrings/nodesource.gpg \
     && echo "deb [signed-by=/usr/share/keyrings/nodesource.gpg] https://deb.nodesource.com/node_16.x focal main" > /etc/apt/sources.list.d/nodesource.list
 
-RUN \
-  echo "**** install packages ****" && \
+RUN --mount=type=cache,target=/var/cache/apt \
   apt-get update && \
   apt-get install -y --no-install-recommends \
     musl \
-    nodejs && \
-  echo "**** cleanup ****" && \
-  apt-get clean && \
-  rm -rf \
-    /tmp/* \
-    /var/lib/apt/lists/* \
-    /var/tmp/*
+    nodejs
 
 # install ceramic and glaze
-RUN npm install --cache /cache --global \
-  @ceramicnetwork/cli@$CERAMIC_VERSION \
-  @glazed/cli@$GLAZED_VERSION \
-  && rm -rf /cache
+RUN --mount=type=cache,target=/var/cache/npm \
+  npm install --cache /var/cache/npm --global \
+    @ceramicnetwork/cli@$CERAMIC_VERSION \
+    @glazed/cli@$GLAZED_VERSION
 
 # copy geth
 COPY --from=prepare-geth /usr/local/bin/geth /usr/bin/geth

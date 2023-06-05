@@ -49,6 +49,7 @@ done
 
 if ! ((ATTEMPTS)); then
     echo "Failed to download $URL after 5 attempts. Exiting..."
+    cat "$CONFIG"
     exit 1
 fi
 

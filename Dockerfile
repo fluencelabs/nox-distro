@@ -18,7 +18,7 @@ ARG BITCOIN_CLI_VERSION
 ADD https://bitcoincore.org/bin/bitcoin-core-${BITCOIN_CLI_VERSION}/SHA256SUMS ./
 
 # Download bitcoin archive
-RUN --mount=type=bind,source=docker,target=/docker /docker/download_bitncoin_cli.sh
+RUN --mount=type=bind,source=docker,target=/docker /docker/download_bitcoin_cli.sh
 
 # minimal
 # ----------------------------------------------------------------------------

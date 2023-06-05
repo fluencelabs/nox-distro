@@ -41,8 +41,7 @@ ENV RUST_BACKTRACE="1"
 ## set /run_fluence as the CMD binary
 ENV S6_CMD_ARG0="/run_fluence"
 
-RUN \
-  --mount=type=cache,target=/var/cache/apt \
+RUN --mount=type=cache,target=/var/cache/apt \
   apt-get update && \
   apt-get install -y --no-install-recommends \
   	jq \
@@ -138,15 +137,14 @@ LABEL dev.fluence.image.bundles.geth="${GETH_VERSION}"
 RUN curl -fsSL https://deb.nodesource.com/gpgkey/nodesource.gpg.key | gpg --dearmor > /usr/share/keyrings/nodesource.gpg \
     && echo "deb [signed-by=/usr/share/keyrings/nodesource.gpg] https://deb.nodesource.com/node_16.x focal main" > /etc/apt/sources.list.d/nodesource.list
 
-RUN \
-  --mount=type=cache,target=/var/cache/apt \
+RUN --mount=type=cache,target=/var/cache/apt \
+  apt-get update && \
   apt-get install -y --no-install-recommends \
     musl \
     nodejs npm
 
 # install ceramic and glaze
-RUN \
-  --mount=type=cache,target=/var/cache/npm \
+RUN --mount=type=cache,target=/var/cache/npm \
   npm install --cache /var/cache/npm --global \
     @ceramicnetwork/cli@$CERAMIC_VERSION \
     @glazed/cli@$GLAZED_VERSION

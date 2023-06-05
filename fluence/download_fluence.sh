@@ -38,11 +38,11 @@ URL=$(jq -r ".${KEY}.url" $CONFIG)
 SHA256=$(jq -r ".${KEY}.sha256" $CONFIG)
 VERSION=$(jq -r ".${KEY}.version" $CONFIG)
 
-echo "*** Downloading rust-peer version $VERSION for $ARCHITECTURE ***"
+echo "*** Downloading nox version $VERSION for $ARCHITECTURE ***"
 
 ATTEMPTS=5
 while ((ATTEMPTS)); do
-    curl -sL --fail $URL -o /usr/bin/rust-peer && break
+    curl -sL --fail $URL -o /usr/bin/nox && break
     ((ATTEMPTS--))
     sleep 5
 done
@@ -52,11 +52,11 @@ if ! ((ATTEMPTS)); then
     exit 1
 fi
 
-if ! echo "$SHA256 /usr/bin/rust-peer" | sha256sum --check --status; then
+if ! echo "$SHA256 /usr/bin/nox" | sha256sum --check --status; then
     echo "Incorrect SHA256 for the downloaded file. Exiting..."
     exit 1
 fi
 
-chmod +x /usr/bin/rust-peer
+chmod +x /usr/bin/nox
 
-echo "*** Successfully installed rust-peer version $VERSION for $ARCHITECTURE ***"
+echo "*** Successfully installed nox version $VERSION for $ARCHITECTURE ***"

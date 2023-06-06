@@ -68,24 +68,24 @@ jobs:
             ## Docker tags
 
             ### ipfs
-            Contains Fluence rust-peer and builtin IPFS deaemon.
+            Contains Fluence nox and builtin IPFS deaemon.
 
-            fluencelabs/rust-peer:latest
-            fluencelabs/rust-peer:${{ env.RELEASE_VERSION }}
-            fluencelabs/rust-peer:ipfs
-            fluencelabs/rust-peer:ipfs_${{ env.RELEASE_VERSION }}
+            fluencelabs/nox:latest
+            fluencelabs/nox:${{ env.RELEASE_VERSION }}
+            fluencelabs/nox:ipfs
+            fluencelabs/nox:ipfs_${{ env.RELEASE_VERSION }}
 
             ## minimal
-            Contains Fluence rust-peer only.
+            Contains Fluence nox only.
 
-            fluencelabs/rust-peer:minimal
-            fluencelabs/rust-peer:minimal_${{ env.RELEASE_VERSION }}
+            fluencelabs/nox:minimal
+            fluencelabs/nox:minimal_${{ env.RELEASE_VERSION }}
 
             ## rich
-            Contains Fluence rust-peer, IPFS, ceramic cli, bitcoin cli and geth cli.
+            Contains Fluence nox, IPFS, ceramic cli, bitcoin cli and geth cli.
 
-            fluencelabs/rust-peer:rich
-            fluencelabs/rust-peer:rich_${{ env.RELEASE_VERSION }}
+            fluencelabs/nox:rich
+            fluencelabs/nox:rich_${{ env.RELEASE_VERSION }}
 
   slack:
     if: always()

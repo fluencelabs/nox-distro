@@ -186,7 +186,7 @@
           "le": 1e-9
         },
         "legend": {
-          "show": false
+          "show": true
         },
         "rowsFrame": {
           "layout": "auto",
@@ -201,7 +201,7 @@
           "reverse": false
         }
       },
-      "pluginVersion": "9.4.3",
+      "pluginVersion": "9.5.2",
       "targets": [
         {
           "datasource": {
@@ -210,7 +210,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "services_services_count{env=~\"$env\",instance=~\"$instance\"}",
+          "expr": "sum by (instance,env) (services_services_count{env=~\"$env\",instance=~\"$instance\"})",
           "format": "time_series",
           "instant": false,
           "interval": "",
@@ -222,12 +222,184 @@
       "type": "heatmap"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PAE45454D0EDB9216"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "scaleDistribution": {
+              "type": "linear"
+            }
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 8
+      },
+      "id": 379,
+      "maxDataPoints": 100,
+      "options": {
+        "calculate": false,
+        "cellGap": 1,
+        "cellValues": {
+          "unit": "short"
+        },
+        "color": {
+          "exponent": 0.5,
+          "fill": "light-purple",
+          "min": 0,
+          "mode": "opacity",
+          "reverse": false,
+          "scale": "exponential",
+          "scheme": "RdBu",
+          "steps": 52
+        },
+        "exemplars": {
+          "color": "rgba(255,0,255,0.7)"
+        },
+        "filterValues": {
+          "le": 1e-9
+        },
+        "legend": {
+          "show": true
+        },
+        "rowsFrame": {
+          "layout": "auto",
+          "value": "Worker-spells"
+        },
+        "tooltip": {
+          "show": true,
+          "yHistogram": false
+        },
+        "yAxis": {
+          "axisPlacement": "left",
+          "reverse": false
+        }
+      },
+      "pluginVersion": "9.5.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PAE45454D0EDB9216"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "sum by (instance,env) (services_services_count{env=~\"$env\",instance=~\"$instance\", service_type=\"worker-spell\"})",
+          "format": "time_series",
+          "instant": false,
+          "interval": "",
+          "legendFormat": "{{ instance }}",
+          "refId": "A"
+        }
+      ],
+      "title": "Number of worker-spells by host",
+      "type": "heatmap"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PAE45454D0EDB9216"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "scaleDistribution": {
+              "type": "linear"
+            }
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 8
+      },
+      "id": 380,
+      "maxDataPoints": 100,
+      "options": {
+        "calculate": false,
+        "cellGap": 1,
+        "cellValues": {
+          "unit": "short"
+        },
+        "color": {
+          "exponent": 0.5,
+          "fill": "super-light-green",
+          "min": 0,
+          "mode": "opacity",
+          "reverse": false,
+          "scale": "exponential",
+          "scheme": "RdBu",
+          "steps": 47
+        },
+        "exemplars": {
+          "color": "rgba(255,0,255,0.7)"
+        },
+        "filterValues": {
+          "le": 1e-9
+        },
+        "legend": {
+          "show": true
+        },
+        "rowsFrame": {
+          "layout": "auto",
+          "value": "Spells"
+        },
+        "tooltip": {
+          "show": true,
+          "yHistogram": false
+        },
+        "yAxis": {
+          "axisPlacement": "left",
+          "reverse": false
+        }
+      },
+      "pluginVersion": "9.5.2",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PAE45454D0EDB9216"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "sum by (instance,env) (services_services_count{env=~\"$env\",instance=~\"$instance\", service_type=\"spell\"})",
+          "format": "time_series",
+          "instant": false,
+          "interval": "",
+          "legendFormat": "{{ instance }}",
+          "refId": "A"
+        }
+      ],
+      "title": "Number of other spells by host",
+      "type": "heatmap"
+    },
+    {
       "collapsed": true,
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 8
+        "y": 16
       },
       "id": 140,
       "panels": [
@@ -255,7 +427,7 @@
             "h": 11,
             "w": 24,
             "x": 0,
-            "y": 9
+            "y": 17
           },
           "id": 23,
           "options": {
@@ -296,7 +468,7 @@
               "reverse": true
             }
           },
-          "pluginVersion": "9.4.3",
+          "pluginVersion": "9.5.2",
           "targets": [
             {
               "datasource": {
@@ -378,7 +550,7 @@
             "h": 11,
             "w": 24,
             "x": 0,
-            "y": 20
+            "y": 28
           },
           "id": 108,
           "options": {
@@ -441,10 +613,10 @@
             "overrides": []
           },
           "gridPos": {
-            "h": 10,
+            "h": 5,
             "w": 12,
             "x": 0,
-            "y": 31
+            "y": 39
           },
           "id": 38,
           "options": {
@@ -459,9 +631,10 @@
               "fields": "",
               "values": false
             },
-            "showUnfilled": true
+            "showUnfilled": true,
+            "valueMode": "color"
           },
-          "pluginVersion": "9.4.3",
+          "pluginVersion": "9.5.2",
           "targets": [
             {
               "datasource": {
@@ -528,10 +701,10 @@
             "overrides": []
           },
           "gridPos": {
-            "h": 10,
+            "h": 5,
             "w": 12,
             "x": 12,
-            "y": 31
+            "y": 39
           },
           "id": 318,
           "options": {
@@ -546,9 +719,10 @@
               "fields": "",
               "values": false
             },
-            "showUnfilled": true
+            "showUnfilled": true,
+            "valueMode": "color"
           },
-          "pluginVersion": "9.4.3",
+          "pluginVersion": "9.5.2",
           "targets": [
             {
               "datasource": {
@@ -564,7 +738,7 @@
               "refId": "A"
             }
           ],
-          "title": "Available memory per modules, total",
+          "title": "Available memory per services, total",
           "transformations": [
             {
               "id": "organize",
@@ -600,7 +774,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 9
+        "y": 17
       },
       "id": 268,
       "panels": [
@@ -681,7 +855,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 42
+            "y": 45
           },
           "id": 64,
           "options": {
@@ -827,7 +1001,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 42
+            "y": 45
           },
           "id": 41,
           "options": {
@@ -922,7 +1096,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 50
+            "y": 53
           },
           "heatmap": {},
           "hideZeroBuckets": true,
@@ -971,7 +1145,7 @@
               "unit": "dtdurations"
             }
           },
-          "pluginVersion": "9.4.3",
+          "pluginVersion": "9.5.2",
           "reverseYBuckets": false,
           "targets": [
             {
@@ -1040,7 +1214,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 50
+            "y": 53
           },
           "heatmap": {},
           "hideZeroBuckets": true,
@@ -1089,7 +1263,7 @@
               "unit": "dtdurations"
             }
           },
-          "pluginVersion": "9.4.3",
+          "pluginVersion": "9.5.2",
           "reverseYBuckets": false,
           "targets": [
             {
@@ -1133,7 +1307,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 10
+        "y": 18
       },
       "id": 124,
       "panels": [
@@ -1180,7 +1354,7 @@
             "h": 9,
             "w": 4,
             "x": 0,
-            "y": 43
+            "y": 62
           },
           "id": 45,
           "options": {
@@ -1314,7 +1488,7 @@
             "h": 9,
             "w": 10,
             "x": 4,
-            "y": 43
+            "y": 62
           },
           "id": 92,
           "options": {
@@ -1412,7 +1586,7 @@
             "h": 9,
             "w": 10,
             "x": 14,
-            "y": 43
+            "y": 62
           },
           "id": 43,
           "options": {
@@ -1427,9 +1601,10 @@
               "fields": "",
               "values": false
             },
-            "showUnfilled": true
+            "showUnfilled": true,
+            "valueMode": "color"
           },
-          "pluginVersion": "9.4.3",
+          "pluginVersion": "9.5.2",
           "targets": [
             {
               "datasource": {
@@ -1482,7 +1657,7 @@
             "h": 10,
             "w": 24,
             "x": 0,
-            "y": 52
+            "y": 71
           },
           "id": 49,
           "options": {
@@ -1523,7 +1698,7 @@
               "unit": "dtdurations"
             }
           },
-          "pluginVersion": "9.4.3",
+          "pluginVersion": "9.5.2",
           "targets": [
             {
               "datasource": {
@@ -1569,7 +1744,7 @@
             "h": 8,
             "w": 11,
             "x": 0,
-            "y": 62
+            "y": 81
           },
           "id": 19,
           "options": {
@@ -1609,7 +1784,7 @@
               "reverse": false
             }
           },
-          "pluginVersion": "9.4.3",
+          "pluginVersion": "9.5.2",
           "targets": [
             {
               "datasource": {
@@ -1662,7 +1837,7 @@
             "h": 8,
             "w": 13,
             "x": 11,
-            "y": 62
+            "y": 81
           },
           "heatmap": {},
           "hideZeroBuckets": true,
@@ -1713,7 +1888,7 @@
               "unit": "bytes"
             }
           },
-          "pluginVersion": "9.4.3",
+          "pluginVersion": "9.5.2",
           "reverseYBuckets": false,
           "targets": [
             {
@@ -1759,7 +1934,7 @@
   "schemaVersion": 38,
   "style": "dark",
   "tags": [
-    "rust-peer"
+    "nox"
   ],
   "templating": {
     "list": [
@@ -1858,6 +2033,6 @@
   "timezone": "",
   "title": "Service metrics",
   "uid": "bKk0Bdl7Z",
-  "version": 33,
+  "version": 38,
   "weekStart": ""
 }

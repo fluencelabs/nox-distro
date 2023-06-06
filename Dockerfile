@@ -29,12 +29,12 @@ ARG BUILDPLATFORM
 
 # https://github.com/opencontainers/image-spec/blob/main/annotations.md#pre-defined-annotation-keys
 LABEL org.opencontainers.image.base.name="ghcr.io/linuxserver/baseimage-ubuntu:jammy"
-LABEL org.opencontainers.image.url="https://github.com/fluencelabs/rust-peer-distro"
+LABEL org.opencontainers.image.url="https://github.com/fluencelabs/nox-distro"
 LABEL org.opencontainers.image.vendor="fluencelabs"
 LABEL maintainer="fluencelabs"
 LABEL org.opencontainers.image.authors="fluencelabs"
-LABEL org.opencontainers.image.title="Fluence rust-peer distro"
-LABEL org.opencontainers.image.description="Minimal image containing only rust-peer itself"
+LABEL org.opencontainers.image.title="Fluence nox distro"
+LABEL org.opencontainers.image.description="Minimal image containing only nox itself"
 
 ENV RUST_LOG="info,aquamarine=warn,tokio_threadpool=info,tokio_reactor=info,mio=info,tokio_io=info,soketto=info,yamux=info,multistream_select=info,libp2p_secio=info,libp2p_websocket::framed=info,libp2p_ping=info,libp2p_core::upgrade::apply=info,libp2p_kad::kbucket=info,cranelift_codegen=info,wasmer_wasi=info,cranelift_codegen=info,wasmer_wasi=info"
 ENV RUST_BACKTRACE="1"
@@ -69,7 +69,7 @@ ENV FLUENCE_ENV_CONNECTOR_CONTRACT_ADDRESS=0xb497e025D3095A197E30Ca84DEc36a637E6
 # find deals from this block
 ENV FLUENCE_ENV_CONNECTOR_FROM_BLOCK=0x75f3fbc
 
-# download rust-peer binary, builtins
+# download nox binary, builtins
 COPY fluence/ /fluence/
 RUN /fluence/download_builtins.sh /fluence/services.json
 RUN /fluence/download_fluence.sh /fluence/fluence.json
@@ -90,7 +90,7 @@ FROM minimal as ipfs
 ARG TARGETPLATFORM
 ARG BUILDPLATFORM
 
-LABEL org.opencontainers.image.description="rust-peer bundled with IPFS daemon"
+LABEL org.opencontainers.image.description="nox bundled with IPFS daemon"
 LABEL dev.fluence.bundles.ipfs="${IPFS_VERSION}"
 
 ENV IPFS_PATH=/config/ipfs
@@ -127,7 +127,7 @@ ARG BITCOIN_CLI_VERSION
 ARG TARGETPLATFORM
 ARG BUILDPLATFORM
 
-LABEL org.opencontainers.image.description="rust-peer bundled with IPFS, Ceramic CLI and other tools"
+LABEL org.opencontainers.image.description="nox bundled with IPFS, Ceramic CLI and other tools"
 LABEL dev.fluence.image.bundles.ceramic="${CERAMIC_VERSION}"
 LABEL dev.fluence.image.bundles.glazed="${GLAZED_VERSION}"
 LABEL dev.fluence.image.bundles.bitcoin_cli="${BITCOIN_CLI_VERSION}"

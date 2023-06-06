@@ -1,6 +1,6 @@
 # Builtin services
 
-Rust peer distro comes with preconfigured builtin services.
+Nox distro comes with preconfigured builtin services.
 
 ## [registry](https://github.com/fluencelabs/registry)
 

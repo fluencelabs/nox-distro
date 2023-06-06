@@ -99,6 +99,21 @@ jobs:
           tags: |
             ${{ inputs.image }}:${{ matrix.package }}
             ${{ inputs.image }}:${{ matrix.package }}_${{ env.RELEASE_VERSION }}
+          labels: |
+            org.opencontainers.image.version=${{ env.RELEASE_VERSION }}
+            org.opencontainers.image.created=${{ env.BUILD_DATE }}
+            org.opencontainers.image.revision=${{ github.sha }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Build and push ${{ matrix.package }} (legacy)
+        if: inputs.release
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          push: true
+          target: ${{ matrix.package }}
+          tags: |
             fluencelabs/rust-peer:${{ matrix.package }}
             fluencelabs/rust-peer:${{ matrix.package }}_${{ env.RELEASE_VERSION }}
           labels: |

@@ -1952,7 +1952,7 @@
           "type": "prometheus",
           "uid": "PAE45454D0EDB9216"
         },
-        "definition": "label_values(up{job=~\"fluence|rust-peer\"}, env)",
+        "definition": "label_values(up{job=~\"fluence|rust-peer|nox\"}, env)",
         "hide": 0,
         "includeAll": false,
         "label": "env",
@@ -1960,7 +1960,7 @@
         "name": "env",
         "options": [],
         "query": {
-          "query": "label_values(up{job=~\"fluence|rust-peer\"}, env)",
+          "query": "label_values(up{job=~\"fluence|rust-peer|nox\"}, env)",
           "refId": "StandardVariableQuery"
         },
         "refresh": 1,
@@ -1979,7 +1979,7 @@
           "type": "prometheus",
           "uid": "PAE45454D0EDB9216"
         },
-        "definition": "label_values(up{job=~\"fluence|rust-peer\",env=~\"$env\"}, instance)",
+        "definition": "label_values(up{job=~\"fluence|rust-peer|nox\",env=~\"$env\"}, instance)",
         "hide": 0,
         "includeAll": true,
         "label": "",
@@ -1987,7 +1987,7 @@
         "name": "instance",
         "options": [],
         "query": {
-          "query": "label_values(up{job=~\"fluence|rust-peer\",env=~\"$env\"}, instance)",
+          "query": "label_values(up{job=~\"fluence|rust-peer|nox\",env=~\"$env\"}, instance)",
           "refId": "StandardVariableQuery"
         },
         "refresh": 1,

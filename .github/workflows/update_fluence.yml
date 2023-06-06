@@ -5,6 +5,7 @@ on:
     inputs:
       version:
         description: 'Contents of fluence.json file'
+        type: string
         required: true
 
 jobs:

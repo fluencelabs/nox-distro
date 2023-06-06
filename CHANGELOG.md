@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.23](https://github.com/fluencelabs/nox-distro/compare/distro-v0.1.22...distro-v0.1.23) (2023-06-06)
+
+
+### Bug Fixes
+
+* **deps:** Update connector to 0.4.14 ([9ef1c73](https://github.com/fluencelabs/nox-distro/commit/9ef1c733523c25c67b082169702c2f7c9fe73ce2))
+* **download_fluence.sh:** cat $CONFIG on fail ([2fd6790](https://github.com/fluencelabs/nox-distro/commit/2fd6790f89074ea42b0e94e4e7367805315fe579))
+
 ## [0.1.22](https://github.com/fluencelabs/rust-peer-distro/compare/distro-v0.1.21...distro-v0.1.22) (2023-06-02)
 
 

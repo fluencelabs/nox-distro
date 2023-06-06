@@ -1,19 +1,19 @@
-# Run rust-peer with docker-compose
+# Run nox with docker-compose
 
 This guide explains how to use docker-compose to start a local network of three
-[rust-peer](https://github.com/fluencelabs/rust-peer) nodes.
+[nox](https://github.com/fluencelabs/nox) nodes.
 
 ## Introduction
 
-The rust-peer network is a set of peer nodes that can communicate with each
+The nox network is a set of peer nodes that can communicate with each
 other to share data and execute code plus local IPFS node used by
 [aqua-ipfs builtin](../../docs/builtins.md##aqua-ipfs). By running a local
-rust-peer network, you can test your applications in a controlled environment
+nox network, you can test your applications in a controlled environment
 without relying on external networks.
 
 ## Prerequisites
 
-Before you can run the rust-peer network, you need to have Docker and
+Before you can run the nox network, you need to have Docker and
 docker-compose installed on your system. You can follow the official
 instructions for installing Docker and installing docker-compose on your
 operating system:
@@ -21,7 +21,7 @@ operating system:
 - [docker](https://docs.docker.com/engine/install/)
 - [docker-compose](https://docs.docker.com/compose/install/linux/#install-using-the-repository)
 
-## Starting local rust-peer network
+## Starting local nox network
 
 1. `git clone` this repository locally and run `cd deploy/docker-compose`.
 
@@ -30,16 +30,16 @@ operating system:
    docker-compose pull
    ```
 
-3. Start the rust-peer network by running the following command:
+3. Start the nox network by running the following command:
    ```bash
    docker-compose up -d
    ```
 
-This will start three rust-peer nodes, each listening on a different port.
+This will start three nox nodes, each listening on a different port.
 
-## Accessing local rust-peer network
+## Accessing local nox network
 
-To interact with the rust-peer network, you can use the
+To interact with the nox network, you can use the
 [fluence-cli](https://github.com/fluencelabs/fluence-cli) tool.
 
 1. Run `fluence init` and chose `minimal` project template.
@@ -65,9 +65,9 @@ To interact with the rust-peer network, you can use the
    fluence run -f 'getInfo()'
    ```
 
-## Using local rust-peer network in your project
+## Using local nox network in your project
 
-You must make changes to `fluence.yaml` to use a local rust-peer network:
+You must make changes to `fluence.yaml` to use a local nox network:
 
 - changing `hosts` key in `fluence.yaml` to:
   ```yml
@@ -114,8 +114,8 @@ docker-compose -f docker-compose.yml -f docker-compose.observability.yml up -d
 
 Grafana will have automatically preprovisioned dashboards:
 
-- rust-peer stats - overview of rust-peer network
+- nox stats - overview of nox network
 - Service metrics - detailed stats on deployed services
 
-You can find Grafana at http://localhost:3000. To access rust-peer logs use
+You can find Grafana at http://localhost:3000. To access nox logs use
 `Explore` tab and chose `Loki` datasource.

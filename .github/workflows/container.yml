@@ -6,12 +6,12 @@ on:
       image:
         description: "image name"
         type: string
-        default: "fluencelabs/rust-peer"
+        default: "fluencelabs/nox"
       version:
         description: "version set as part of container tag"
         type: string
       flavour:
-        description: "rust-peer flavour"
+        description: "nox flavour"
         type: string
         default: "minimal"
       release:
@@ -19,8 +19,8 @@ on:
         type: boolean
         default: false
     outputs:
-      rust-peer-image:
-        description: "rust-peer snapshot image"
+      nox-image:
+        description: "nox snapshot image"
         value: ${{ jobs.build.outputs.image }}
 
 jobs:
@@ -110,8 +110,25 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
+      - name: Build and push ${{ inputs.flavour }} (legacy)
+        if: inputs.release
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          push: true
+          target: ${{ inputs.flavour }}
+          tags: |
+            fluencelabs/rust-peer:${{ inputs.flavour }}
+            fluencelabs/rust-peer:${{ inputs.flavour }}_${{ env.RELEASE_VERSION }}
+          labels: |
+            org.opencontainers.image.version=${{ env.RELEASE_VERSION }}
+            org.opencontainers.image.created=${{ env.BUILD_DATE }}
+            org.opencontainers.image.revision=${{ github.sha }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
       - name: Build and push ${{ inputs.flavour }}
-        if: ${{ inputs.flavour == 'ipfs' && inputs.release }}
+        if: ${{ matrix.package == 'ipfs' && inputs.release }}
         uses: docker/build-push-action@v3
         with:
           context: .
@@ -120,6 +137,8 @@ jobs:
           tags: |
             ${{ inputs.image }}:latest
             ${{ inputs.image }}:${{ env.RELEASE_VERSION }}
+            fluencelabs/rust-peer:latest
+            fluencelabs/rust-peer:${{ env.RELEASE_VERSION }}
           labels: |
             org.opencontainers.image.version=${{ env.RELEASE_VERSION }}
             org.opencontainers.image.created=${{ env.BUILD_DATE }}
@@ -133,13 +152,13 @@ jobs:
         with:
           username: ${{ env.DOCKER_USERNAME }}
           password: ${{ env.DOCKER_PASSWORD }}
-          repository: fluencelabs/rust-peer
+          repository: fluencelabs/nox
 
       - name: Print results to check summary
         if: always()
         run: |
           cat <<'SNAPSHOT' >> $GITHUB_STEP_SUMMARY
-          ## rust-peer ${{ inputs.flavour }}
+          ## nox ${{ inputs.flavour }}
           digest: `${{ steps.docker.outputs.digest }}`
           ```
           ${{ inputs.image }}:${{ inputs.flavour }}

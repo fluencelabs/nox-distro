@@ -57,7 +57,7 @@ jobs:
 
     uses: ./.github/workflows/container.yml
     with:
-      image: "docker.fluence.dev/rust-peer-distro"
+      image: "docker.fluence.dev/nox-distro"
       flavour: ${{ matrix.flavour }}
       version: ${{ needs.version.outputs.id }}
 
@@ -70,7 +70,7 @@ jobs:
 
     uses: ./.github/workflows/container.yml
     with:
-      image: "docker.fluence.dev/rust-peer-distro"
+      image: "docker.fluence.dev/nox-distro"
       flavour: minimal
       version: ${{ needs.version.outputs.id }}
 
@@ -79,4 +79,4 @@ jobs:
       - snapshot
     uses: fluencelabs/fluence-cli/.github/workflows/tests.yml@debug-missing-tests
     with:
-      rust-peer-image: "${{ needs.snapshot.outputs.rust-peer-image }}"
+      rust-peer-image: "${{ needs.snapshot.outputs.nox-image }}"

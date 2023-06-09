@@ -1,8 +1,8 @@
-# Rust Peer Distro Flavours
+# Nox Distro Flavours
 
 Each flavour is represented by a docker image tag. See the
-[docker hub](https://hub.docker.com/r/fluencelabs/rust-peer) and the
-[releases](https://github.com/fluencelabs/rust-peer-distro/releases) page.
+[docker hub](https://hub.docker.com/r/fluencelabs/nox) and the
+[releases](https://github.com/fluencelabs/nox-distro/releases) page.
 
 Each flavour builds upon its previous flavour. In particular, `ipfs` has
 everything that `minimal` has, and `rich` has everything that `minimal` and
@@ -18,9 +18,9 @@ Tag `latest` points to the latest version of `ipfs` flavour.
 
 ## minimal
 
-It contains Rust peer itself and some [builtin services](builtins.md). It serves
-as a base image for all other image flavours and is intended for those who want
-to run an IPFS node separately.
+It contains nox itself and some [builtin services](builtins.md). It serves as a
+base image for all other image flavours and is intended for those who want to
+run an IPFS node separately.
 
 `FLUENCE_ENV_AQUA_IPFS_*` variables must be defined and point to externally
 running IPFS daemon in order for `aqua-ipfs` to work. If not defined,
@@ -33,7 +33,7 @@ running IPFS daemon in order for `aqua-ipfs` to work. If not defined,
 
 ## ipfs
 
-This is a Rust peer packaged with an
+This is a nox packaged with an
 [IPFS node](https://docs.ipfs.io/how-to/command-line-quick-start/#take-your-node-online)
 running inside a container.
 
@@ -51,7 +51,7 @@ running inside a container.
 
 ## rich
 
-This is a Rust peer packaged with an IPFS node,
+This is a nox packaged with an IPFS node,
 [Ceramic](https://developers.ceramic.network/learn/welcome/) CLI and some other
 binaries like bitcoin-cli or
 [geth](https://geth.ethereum.org/docs/interface/command-line-options).

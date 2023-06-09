@@ -1,0 +1,82 @@
+name: "e2e"
+
+on:
+  pull_request:
+    paths-ignore:
+      - "**.md"
+      - ".github/**"
+      - "!.github/workflows/e2e.yml"
+      - "!.github/workflows/container.yml"
+    types:
+      - "labeled"
+      - "synchronize"
+      - "opened"
+      - "reopened"
+  push:
+    branches:
+      - "master"
+    paths-ignore:
+      - "**.md"
+      - ".github/**"
+      - "!.github/workflows/e2e.yml"
+      - "!.github/workflows/container.yml"
+
+env:
+  DOCKER_BUILDKIT: 1
+  FORCE_COLOR: 1
+
+jobs:
+  version:
+    name: "Generate snapshot id"
+    runs-on: ubuntu-latest
+    if: >
+      github.event_name == 'push' ||
+      (
+        contains(github.event.pull_request.labels.*.name, 'e2e') &&
+        !github.event.pull_request.head.repo.fork
+      )
+    outputs:
+      id: ${{ steps.version.outputs.id }}
+    steps:
+      - name: Generate snapshot version
+        id: version
+        uses: fluencelabs/github-actions/generate-snapshot-id@main
+
+  flavours:
+    name: "snapshot"
+    needs: version
+    strategy:
+      matrix:
+        flavour:
+          - ipfs
+          - rich
+
+    permissions:
+      contents: read
+      id-token: write
+
+    uses: ./.github/workflows/container.yml
+    with:
+      image: "docker.fluence.dev/nox-distro"
+      flavour: ${{ matrix.flavour }}
+      version: ${{ needs.version.outputs.id }}
+
+  snapshot:
+    needs: version
+
+    permissions:
+      contents: read
+      id-token: write
+
+    uses: ./.github/workflows/container.yml
+    with:
+      image: "docker.fluence.dev/nox-distro"
+      flavour: minimal
+      version: ${{ needs.version.outputs.id }}
+
+  fluence-cli:
+    needs:
+      - snapshot
+    uses: fluencelabs/fluence-cli/.github/workflows/tests.yml@main
+    with:
+      rust-peer-image: "${{ needs.snapshot.outputs.nox-image }}"

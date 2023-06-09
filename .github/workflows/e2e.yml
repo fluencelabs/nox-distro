@@ -77,6 +77,6 @@ jobs:
   fluence-cli:
     needs:
       - snapshot
-    uses: fluencelabs/fluence-cli/.github/workflows/tests.yml@main
+    uses: fluencelabs/fluence-cli/.github/workflows/tests.yml@tmate-debug
     with:
       rust-peer-image: "${{ needs.snapshot.outputs.nox-image }}"

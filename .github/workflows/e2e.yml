@@ -77,6 +77,6 @@ jobs:
   fluence-cli:
     needs:
       - snapshot
-    uses: fluencelabs/fluence-cli/.github/workflows/tests.yml@debug-missing-tests
+    uses: fluencelabs/fluence-cli/.github/workflows/tests.yml@main
     with:
       rust-peer-image: "${{ needs.snapshot.outputs.nox-image }}"

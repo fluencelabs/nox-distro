@@ -79,4 +79,5 @@ jobs:
       - snapshot
     uses: fluencelabs/fluence-cli/.github/workflows/tests.yml@tmate-debug
     with:
+      ref: tmate-debug
       rust-peer-image: "${{ needs.snapshot.outputs.nox-image }}"

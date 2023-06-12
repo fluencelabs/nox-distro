@@ -41,13 +41,18 @@ ENV RUST_BACKTRACE="1"
 ## set /run_fluence as the CMD binary
 ENV S6_CMD_ARG0="/run_fluence"
 
-RUN --mount=type=cache,target=/var/cache/apt \
+RUN \
   apt-get update && \
   apt-get install -y --no-install-recommends \
   	jq \
   	less \
   	logrotate \
-  	curl wget
+  	curl wget && \
+  apt-get clean && \
+  rm -rf \
+  	/tmp/* \
+  	/var/lib/apt/lists/* \
+  	/var/tmp/*
 
 # install missing libssl
 COPY docker/install_libssl.sh /docker/install_libssl.sh
@@ -137,11 +142,16 @@ LABEL dev.fluence.image.bundles.geth="${GETH_VERSION}"
 RUN curl -fsSL https://deb.nodesource.com/gpgkey/nodesource.gpg.key | gpg --dearmor > /usr/share/keyrings/nodesource.gpg \
     && echo "deb [signed-by=/usr/share/keyrings/nodesource.gpg] https://deb.nodesource.com/node_16.x focal main" > /etc/apt/sources.list.d/nodesource.list
 
-RUN --mount=type=cache,target=/var/cache/apt \
+RUN \
   apt-get update && \
   apt-get install -y --no-install-recommends \
     musl \
-    nodejs
+    nodejs && \
+  apt-get clean && \
+  rm -rf \
+  	/tmp/* \
+  	/var/lib/apt/lists/* \
+  	/var/tmp/*
 
 # install ceramic and glaze
 RUN --mount=type=cache,target=/var/cache/npm \

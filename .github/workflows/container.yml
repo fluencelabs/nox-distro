@@ -95,7 +95,6 @@ jobs:
 
       - name: Build and push ${{ inputs.flavour }}
         id: docker
-        if: inputs.release
         uses: docker/build-push-action@v3
         with:
           context: .

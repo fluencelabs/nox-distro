@@ -7,6 +7,10 @@ on:
         description: 'Contents of fluence.json file'
         type: string
         required: true
+    secrets:
+      token:
+        description: 'A token passed from the caller workflow'
+        required: true
 
 jobs:
   update:
@@ -16,7 +20,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          token: ${{ secrets.FLUENCEBOT_RELEASE_PLEASE_PAT }}
+          token: ${{ secrets.token }}
 
       - name: Update Fluence in fluence.json to ${{ github.event.inputs.version }}
         run: echo ${{ inputs.version }} | jq > fluence/fluence.json

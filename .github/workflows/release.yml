@@ -79,7 +79,7 @@ jobs:
             ### ipfs
             Contains Fluence nox and builtin IPFS deaemon.
 
-            fluencelabs/nox:latest
+            fluencelabs/nox:unstable
             fluencelabs/nox:${{ env.RELEASE_VERSION }}
             fluencelabs/nox:ipfs
             fluencelabs/nox:ipfs_${{ env.RELEASE_VERSION }}

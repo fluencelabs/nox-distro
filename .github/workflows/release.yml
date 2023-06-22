@@ -81,19 +81,19 @@ jobs:
 
             fluencelabs/nox:unstable
             fluencelabs/nox:${{ env.RELEASE_VERSION }}
-            fluencelabs/nox:ipfs
+            fluencelabs/nox:unstable_ipfs
             fluencelabs/nox:ipfs_${{ env.RELEASE_VERSION }}
 
             ## minimal
             Contains Fluence nox only.
 
-            fluencelabs/nox:minimal
+            fluencelabs/nox:unstable_minimal
             fluencelabs/nox:minimal_${{ env.RELEASE_VERSION }}
 
             ## rich
             Contains Fluence nox, IPFS, ceramic cli, bitcoin cli and geth cli.
 
-            fluencelabs/nox:rich
+            fluencelabs/nox:unstable_rich
             fluencelabs/nox:rich_${{ env.RELEASE_VERSION }}
 
   slack:

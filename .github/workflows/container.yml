@@ -118,7 +118,7 @@ jobs:
           push: true
           target: ${{ inputs.flavour }}
           tags: |
-            fluencelabs/rust-peer:${{ inputs.flavour }}
+            fluencelabs/rust-peer:unstable_${{ inputs.flavour }}
             fluencelabs/rust-peer:${{ inputs.flavour }}_${{ env.RELEASE_VERSION }}
           labels: |
             org.opencontainers.image.version=${{ env.RELEASE_VERSION }}

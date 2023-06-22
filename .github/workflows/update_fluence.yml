@@ -3,8 +3,12 @@ name: "Update nox version"
 on:
   workflow_call:
     inputs:
-      version:
+      content:
         description: 'Contents of fluence.json file'
+        type: string
+        required: true
+      version:
+        description: 'Version of nox'
         type: string
         required: true
     secrets:
@@ -22,13 +26,13 @@ jobs:
         with:
           token: ${{ secrets.token }}
 
-      - name: Update Fluence in fluence.json to ${{ github.event.inputs.version }}
-        run: echo ${{ inputs.version }} | jq > fluence/fluence.json
+      - name: Update Fluence in fluence.json to ${{ inputs.version }}
+        run: echo ${{ inputs.content }} | jq > fluence/fluence.json
 
       - name: Commit updated fluence.json
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          commit_message: 'fix(deps): Update Fluence to ${{ github.event.inputs.version }}'
+          commit_message: 'fix(deps): Update Nox to ${{ inputs.version }}'
           commit_user_name: fluencebot
           commit_user_email: devops@fluence.one
           commit_author: fluencebot <devops@fluence.one>

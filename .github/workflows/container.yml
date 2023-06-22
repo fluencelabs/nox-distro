@@ -95,13 +95,14 @@ jobs:
 
       - name: Build and push ${{ inputs.flavour }}
         id: docker
+        if: inputs.release
         uses: docker/build-push-action@v3
         with:
           context: .
           push: true
           target: ${{ inputs.flavour }}
           tags: |
-            ${{ inputs.image }}:${{ inputs.flavour }}
+            ${{ inputs.image }}:unstable_${{ inputs.flavour }}
             ${{ inputs.image }}:${{ inputs.flavour }}_${{ env.RELEASE_VERSION }}
           labels: |
             org.opencontainers.image.version=${{ env.RELEASE_VERSION }}

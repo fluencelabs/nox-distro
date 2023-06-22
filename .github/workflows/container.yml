@@ -101,7 +101,7 @@ jobs:
           push: true
           target: ${{ inputs.flavour }}
           tags: |
-            ${{ inputs.image }}:${{ inputs.flavour }}
+            ${{ inputs.image }}:unstable_${{ inputs.flavour }}
             ${{ inputs.image }}:${{ inputs.flavour }}_${{ env.RELEASE_VERSION }}
           labels: |
             org.opencontainers.image.version=${{ env.RELEASE_VERSION }}

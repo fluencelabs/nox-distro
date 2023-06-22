@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.1.24](https://github.com/fluencelabs/nox-distro/compare/distro-v0.1.23...distro-v0.1.24) (2023-06-22)
+
+
+### Bug Fixes
+
+* Bump nox version to v0.13.0 ([#157](https://github.com/fluencelabs/nox-distro/issues/157)) ([2aa5019](https://github.com/fluencelabs/nox-distro/commit/2aa5019bb01c9ca6238b19717469c04cbf40df89))
+* **deps:** Update aqua-ipfs to 0.5.14 ([eac20b6](https://github.com/fluencelabs/nox-distro/commit/eac20b6acc8f1caaba52a27a8555f590fbc41532))
+* **deps:** Update connector to 0.4.15 ([52c4123](https://github.com/fluencelabs/nox-distro/commit/52c4123c3fabac49e5dd8feebdb8497fa89dc086))
+* **deps:** Update registry to 0.8.7 ([3d29cb4](https://github.com/fluencelabs/nox-distro/commit/3d29cb4884eee4398a1a1a1ca3dea2d3ec984799))
+
 ## [0.1.23](https://github.com/fluencelabs/nox-distro/compare/distro-v0.1.22...distro-v0.1.23) (2023-06-06)
 
 

@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.25](https://github.com/fluencelabs/nox-distro/compare/distro-v0.1.24...distro-v0.1.25) (2023-06-28)
+
+
+### Bug Fixes
+
+* **deps:** Update connector to 0.4.16 ([edc3fe2](https://github.com/fluencelabs/nox-distro/commit/edc3fe28e6e6d13729fdb62b83bf8441c8079427))
+* **deps:** Update nox version to 0.13.1 and fix update workflow ([#160](https://github.com/fluencelabs/nox-distro/issues/160)) ([1a3e149](https://github.com/fluencelabs/nox-distro/commit/1a3e1495cc62d0fd85d2de71d4ec6267681a2f08))
+
 ## [0.1.24](https://github.com/fluencelabs/nox-distro/compare/distro-v0.1.23...distro-v0.1.24) (2023-06-22)
 
 

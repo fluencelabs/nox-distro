@@ -5,9 +5,9 @@
     "sha256": "ba56e70f4a484a145d0455efd44670afd6ec9fca2badd2118d4b0e92ee854bb9"
   },
   "trust-graph": {
-    "version": "0.4.5",
-    "url": "https://github.com/fluencelabs/trust-graph/releases/download/trust-graph-v0.4.5/trust-graph.tar.gz",
-    "sha256": "ad795b1571bab0a64d2d69953e9c5625eb4a9b4998c6714765d685a966be5e88"
+    "version": "0.4.6",
+    "url": "https://github.com/fluencelabs/trust-graph/releases/download/trust-graph-v0.4.6/trust-graph.tar.gz",
+    "sha256": "190abbca148d0d70c8ae68d8b77d7199d3b74e19db079bda1d731ec5d771f249"
   },
   "registry": {
     "version": "0.8.7",

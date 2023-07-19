@@ -76,7 +76,6 @@ ENV FLUENCE_ENV_CONNECTOR_FROM_BLOCK=0x75f3fbc
 
 # download nox binary, builtins
 COPY fluence/ /fluence/
-RUN /fluence/download_builtins.sh /fluence/services.json
 RUN /fluence/download_fluence.sh /fluence/fluence.json
 
 # copy default fluence config

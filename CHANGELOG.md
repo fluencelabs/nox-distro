@@ -1,5 +1,26 @@
 # Changelog
 
+## [0.2.0](https://github.com/fluencelabs/nox-distro/compare/distro-v0.1.25...distro-v0.2.0) (2023-07-20)
+
+
+### ⚠ BREAKING CHANGES
+
+* **dockerfile:** do not download builtins ([#162](https://github.com/fluencelabs/nox-distro/issues/162))
+
+### Features
+
+* **dockerfile:** do not download builtins ([#162](https://github.com/fluencelabs/nox-distro/issues/162)) ([95b7a91](https://github.com/fluencelabs/nox-distro/commit/95b7a910e45cce617081dd46d3ad51db1ddf244a))
+
+
+### Bug Fixes
+
+* **deps:** Update aqua-ipfs to 0.5.17 ([de46fa5](https://github.com/fluencelabs/nox-distro/commit/de46fa5af511dc4d6fc7942b6b943fe2aaff39b7))
+* **deps:** Update connector to 0.4.17 ([c97fcd6](https://github.com/fluencelabs/nox-distro/commit/c97fcd6306960ab13ba949ee0533a1d984e1604d))
+* **deps:** Update Nox to 0.13.2 ([8831ca7](https://github.com/fluencelabs/nox-distro/commit/8831ca7d3bc57f19362b34aee7e9b8f90f1f8b18))
+* **deps:** Update trust-graph to 0.4.6 ([6f042dc](https://github.com/fluencelabs/nox-distro/commit/6f042dcbf38a3c86878db633e5ac3b0d017eaacc))
+* **deps:** Update trust-graph to 0.4.7 ([7884d4f](https://github.com/fluencelabs/nox-distro/commit/7884d4f25e153ce386dcec88953d1cc070154c5e))
+* **release:** checkout fluencelabs/nox-distro in update_fluence ([#163](https://github.com/fluencelabs/nox-distro/issues/163)) ([31d1074](https://github.com/fluencelabs/nox-distro/commit/31d10743bd449443e06f76e29737eb447693fdf6))
+
 ## [0.1.25](https://github.com/fluencelabs/nox-distro/compare/distro-v0.1.24...distro-v0.1.25) (2023-06-28)
 
 

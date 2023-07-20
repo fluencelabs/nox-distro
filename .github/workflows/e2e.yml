@@ -79,4 +79,4 @@ jobs:
       - snapshot
     uses: fluencelabs/fluence-cli/.github/workflows/tests.yml@main
     with:
-      rust-peer-image: "${{ needs.snapshot.outputs.nox-image }}"
+      nox-image: "${{ needs.snapshot.outputs.nox-image }}"

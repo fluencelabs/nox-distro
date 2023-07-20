@@ -42,7 +42,7 @@ echo "*** Downloading nox version $VERSION for $ARCHITECTURE ***"
 
 ATTEMPTS=5
 while ((ATTEMPTS)); do
-    curl -sL --fail $URL -o /usr/bin/nox && break
+    curl -L $URL -o /usr/bin/nox && break
     ((ATTEMPTS--))
     sleep 5
 done

@@ -128,7 +128,7 @@ jobs:
           cache-to: type=gha,mode=max
 
       - name: Build and push ${{ inputs.flavour }}
-        if: ${{ matrix.package == 'ipfs' && inputs.release }}
+        if: ${{ inputs.flavour == 'ipfs' && inputs.release }}
         uses: docker/build-push-action@v3
         with:
           context: .

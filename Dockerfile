@@ -153,10 +153,14 @@ RUN \
   	/var/tmp/*
 
 # install ceramic and glaze
-RUN --mount=type=cache,target=/var/cache/npm \
-  npm install --cache /var/cache/npm --global \
-    @ceramicnetwork/cli@$CERAMIC_VERSION \
-    @glazed/cli@$GLAZED_VERSION
+ENV SHELL=bash
+ENV PNPM_HOME="/pnpm"
+ENV PATH="$PNPM_HOME:$PATH"
+RUN curl -fsSL https://get.pnpm.io/install.sh | sh -
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store \
+  pnpm install --prod -g \
+      @ceramicnetwork/cli@$CERAMIC_VERSION \
+      @glazed/cli@$GLAZED_VERSION
 
 # copy geth
 COPY --from=prepare-geth /usr/local/bin/geth /usr/bin/geth

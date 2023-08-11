@@ -57,7 +57,7 @@ bootstrap_nodes = [
 
 websocket_port = 9999
 #external_address = "85.85.35.35"
-prometheus_port = 18080
+http_port = 18080
 aquavm_pool_size = 16
 
 ## Maximum heap size in bytes available for an interpreter instance.

@@ -75,6 +75,9 @@ jobs:
             kv/docker-registry/basicauth/ci username | DOCKER_USERNAME ;
             kv/docker-registry/basicauth/ci password | DOCKER_PASSWORD
 
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
@@ -100,6 +103,7 @@ jobs:
           context: .
           push: true
           target: ${{ inputs.flavour }}
+          platforms: linux/amd64,linux/arm64
           tags: |
             ${{ inputs.image }}:unstable_${{ inputs.flavour }}
             ${{ inputs.image }}:${{ inputs.flavour }}_${{ env.RELEASE_VERSION }}
@@ -117,6 +121,7 @@ jobs:
           context: .
           push: true
           target: ${{ inputs.flavour }}
+          platforms: linux/amd64,linux/arm64
           tags: |
             fluencelabs/rust-peer:unstable_${{ inputs.flavour }}
             fluencelabs/rust-peer:${{ inputs.flavour }}_${{ env.RELEASE_VERSION }}
@@ -134,6 +139,7 @@ jobs:
           context: .
           push: true
           target: ${{ inputs.flavour }}
+          platforms: linux/amd64,linux/arm64
           tags: |
             ${{ inputs.image }}:unstable
             ${{ inputs.image }}:${{ env.RELEASE_VERSION }}

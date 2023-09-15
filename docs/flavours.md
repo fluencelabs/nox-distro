@@ -68,3 +68,4 @@ binaries like bitcoin-cli or
 | `IPFS_ADDRESSES_ANNOUNCE`                      | `/ip4/127.0.0.1/tcp/4001,/ip4/127.0.0.1/tcp/4001/ws` | IPFS announce multiaddr                                                                                         |
 | `FLUENCE_ENV_AQUA_IPFS_EXTERNAL_API_MULTIADDR` | `/ip4/127.0.0.1/tcp/5001`                            | advertised to clients (eg frontend apps) to use in uploading files (`ipfs.put`), managing pins (`ipfs.pin`) etc |
 | `FLUENCE_ENV_AQUA_IPFS_LOCAL_API_MULTIADDR`    | `/ip4/127.0.0.1/tcp/5001`                            | used by aqua-ipfs builtin to connect to IPFS node                                                               |
+

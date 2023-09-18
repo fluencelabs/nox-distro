@@ -5,6 +5,7 @@ on:
     paths-ignore:
       - "**.md"
       - ".github/**"
+      - "!.github/release-please/manifest.json"
       - "!.github/workflows/e2e.yml"
       - "!.github/workflows/container.yml"
     types:
@@ -18,6 +19,7 @@ on:
     paths-ignore:
       - "**.md"
       - ".github/**"
+      - "!.github/release-please/manifest.json"
       - "!.github/workflows/e2e.yml"
       - "!.github/workflows/container.yml"
 

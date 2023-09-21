@@ -1,12 +1,12 @@
 {
   "x86_64": {
-    "version": "0.14.6",
-    "url": "https://github.com/fluencelabs/nox/releases/download/rust-peer-v0.14.6/nox-x86_64",
-    "sha256": "645eca693def8cfda825f9c29d016dc1cba54becc795c7c622a3cd0714f3f8c8"
+    "version": "0.14.7",
+    "url": "https://github.com/fluencelabs/nox/releases/download/rust-peer-v0.14.7/nox-x86_64",
+    "sha256": "8cc79e23dbffd70d0e375729f983cf67455ce77563f192b53416dcd51f418ffe"
   },
   "aarch64": {
-    "version": "0.14.6",
-    "url": "https://github.com/fluencelabs/nox/releases/download/rust-peer-v0.14.6/nox-aarch64",
-    "sha256": "01ea31e77201a5a88d1fc2df1394d6ffacd397f894647aa83f83cc029da3a2ed"
+    "version": "0.14.7",
+    "url": "https://github.com/fluencelabs/nox/releases/download/rust-peer-v0.14.7/nox-aarch64",
+    "sha256": "7a7284dce241381238d13d2196a82a71ca7e91915c3ea00d4875452c38d9b1f4"
   }
 }

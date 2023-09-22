@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.9](https://github.com/fluencelabs/nox-distro/compare/distro-v0.2.8...distro-v0.2.9) (2023-09-22)
+
+
+### Bug Fixes
+
+* **deps:** Update Nox to 0.14.9 ([58cae32](https://github.com/fluencelabs/nox-distro/commit/58cae323dc65c09d1356a55515ad5189894c8a69))
+
 ## [0.2.8](https://github.com/fluencelabs/nox-distro/compare/distro-v0.2.7...distro-v0.2.8) (2023-09-22)
 
 

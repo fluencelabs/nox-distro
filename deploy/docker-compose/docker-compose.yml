@@ -11,8 +11,8 @@ services:
       - 18080
     environment:
       RUST_LOG: "info"
-      IPFS_DAEMON: false
-      FLUENCE_ENV_AQUA_IPFS_EXTERNAL_API_MULTIADDR: /dns4/ipfs/tcp/5001
+      IPFS_DAEMON: "false"
+      FLUENCE_ENV_AQUA_IPFS_EXTERNAL_API_MULTIADDR: /ip4/127.0.0.1/tcp/5001
       FLUENCE_ENV_AQUA_IPFS_LOCAL_API_MULTIADDR: /dns4/ipfs/tcp/5001
     labels:
       name: peer-1
@@ -40,8 +40,8 @@ services:
       - 18080
     environment:
       RUST_LOG: "info"
-      IPFS_DAEMON: false
-      FLUENCE_ENV_AQUA_IPFS_EXTERNAL_API_MULTIADDR: /dns4/ipfs/tcp/5001
+      IPFS_DAEMON: "false"
+      FLUENCE_ENV_AQUA_IPFS_EXTERNAL_API_MULTIADDR: /ip4/127.0.0.1/tcp/5001
       FLUENCE_ENV_AQUA_IPFS_LOCAL_API_MULTIADDR: /dns4/ipfs/tcp/5001
     labels:
       name: peer-2
@@ -69,8 +69,8 @@ services:
       - 18080
     environment:
       RUST_LOG: "info"
-      IPFS_DAEMON: false
-      FLUENCE_ENV_AQUA_IPFS_EXTERNAL_API_MULTIADDR: /dns4/ipfs/tcp/5001
+      IPFS_DAEMON: "false"
+      FLUENCE_ENV_AQUA_IPFS_EXTERNAL_API_MULTIADDR: /ip4/127.0.0.1/tcp/5001
       FLUENCE_ENV_AQUA_IPFS_LOCAL_API_MULTIADDR: /dns4/ipfs/tcp/5001
     labels:
       name: peer-3

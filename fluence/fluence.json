@@ -1,12 +1,12 @@
 {
   "x86_64": {
-    "version": "0.16.1",
-    "url": "https://github.com/fluencelabs/nox/releases/download/nox-v0.16.1/nox-x86_64",
-    "sha256": "72b458f00d3a0cf21e9e5fa755837916ba35e149ab1c18b7d485d598fffcd386"
+    "version": "0.16.2",
+    "url": "https://github.com/fluencelabs/nox/releases/download/nox-v0.16.2/nox-x86_64",
+    "sha256": "df16ae9074ddc81438391ffc01eb734da973b430ef45cf6e0ad3c8cc35f158fb"
   },
   "aarch64": {
-    "version": "0.16.1",
-    "url": "https://github.com/fluencelabs/nox/releases/download/nox-v0.16.1/nox-aarch64",
-    "sha256": "cb3db43af1fd3f80cd90dcf3ba4107c440fcd3e09b210e14d1048275f49f4c1e"
+    "version": "0.16.2",
+    "url": "https://github.com/fluencelabs/nox/releases/download/nox-v0.16.2/nox-aarch64",
+    "sha256": "89a020bad277a1bbcb845a6f8f804a7e121158f2cbda7149c23e371cbab18fe6"
   }
 }

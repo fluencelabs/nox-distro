@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.2](https://github.com/fluencelabs/nox-distro/compare/distro-v0.4.1...distro-v0.4.2) (2023-11-16)
+
+
+### Features
+
+* bump nox 0.16.2 ([#193](https://github.com/fluencelabs/nox-distro/issues/193)) ([5797017](https://github.com/fluencelabs/nox-distro/commit/579701701c1a742f403fecdcbe563dfc2f306f78))
+
 ## [0.4.1](https://github.com/fluencelabs/nox-distro/compare/distro-v0.4.0...distro-v0.4.1) (2023-11-15)
 
 
